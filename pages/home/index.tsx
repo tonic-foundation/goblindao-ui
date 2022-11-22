@@ -1,5 +1,5 @@
 import React from 'react';
-import DefaultLayout from '@/components/layout';
+import DefaultLayout from '@/layouts';
 
 import Content from './content';
 import usePageTitle from '@/hooks/usePageTitle';

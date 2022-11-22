@@ -7,6 +7,7 @@ import { atom, useRecoilState } from 'recoil';
 import IconButton from '../common/IconButton';
 import { NEAR_ENV } from '@/config';
 import AuthButton from '@/components/AuthButton';
+import Navbar from '@/components/Navbar';
 
 const animateMarquee = css`
   animation: wtf 10s linear infinite;
@@ -65,6 +66,7 @@ const Menu: FC<{ onClose?: () => unknown }> = ({ onClose }) => {
           </div>
         )}
       </div>
+      <Navbar />
       <MenuFooter />
     </Wrapper>
   );

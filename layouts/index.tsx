@@ -1,10 +1,9 @@
-// TODO: move this inside DefaultLayout dir
 import { useIsMobile } from '@/hooks/useIsMobile';
 import React from 'react';
 import DesktopLayout from './desktop';
 import MobileLayout from './mobile';
 
-const DefaultLayout: React.FC<{
+const AppLayout: React.FC<{
   children: React.ReactNode;
   floatingFooter?: boolean;
 }> = ({ children, floatingFooter }) => {
@@ -19,4 +18,4 @@ const DefaultLayout: React.FC<{
   return <DesktopLayout>{children}</DesktopLayout>;
 };
 
-export default DefaultLayout;
+export default AppLayout;
