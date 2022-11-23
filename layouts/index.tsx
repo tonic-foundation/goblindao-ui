@@ -1,10 +1,12 @@
-// TODO: move this inside DefaultLayout dir
 import { useIsMobile } from '@/hooks/useIsMobile';
 import React from 'react';
 import DesktopLayout from './desktop';
 import MobileLayout from './mobile';
+import tw from 'twin.macro';
 
-const DefaultLayout: React.FC<{
+export const BaseHeader = tw.header`container flex items-center my-0 mx-auto py-10 px-4`;
+
+const AppLayout: React.FC<{
   children: React.ReactNode;
   floatingFooter?: boolean;
 }> = ({ children, floatingFooter }) => {
@@ -19,4 +21,4 @@ const DefaultLayout: React.FC<{
   return <DesktopLayout>{children}</DesktopLayout>;
 };
 
-export default DefaultLayout;
+export default AppLayout;

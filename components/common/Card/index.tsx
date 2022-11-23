@@ -4,12 +4,11 @@ export interface CardStyleProps {
   hover?: 'ring' | 'pointer';
 }
 
-export const cardStyles = ({ hover }: CardStyleProps) => [
-  tw`rounded-2xl p-4 border border-slate-100 bg-white`,
+export const cardStyles = ({ hover = 'ring' }: CardStyleProps) => [
+  tw`rounded-2xl p-4 border bg-white`,
   tw`dark:(border-neutral-700 bg-neutral-800)`,
   hover === 'ring'
-    ? // todo: dark styles
-      tw`cursor-pointer transition hover:(ring-2 ring-slate-200)`
+    ? tw`cursor-pointer transition hover:bg-neutral-100 dark:(hover:bg-neutral-700)`
     : hover === 'pointer'
     ? tw`cursor-pointer`
     : undefined,

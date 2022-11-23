@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 
 import { sleep } from '@/lib/util';
 
-export const LogoIcon: React.FC = (props) => {
+export const TonicLogoIcon: React.FC = (props) => {
   return <img alt="" src="/logo_v2.svg" {...props} />;
 };
 
@@ -25,13 +25,7 @@ const TonicLogo: React.FC<{ text?: string }> = ({
       tw="flex items-center gap-x-2 select-none"
       {...props}
     >
-      <LogoIcon
-        tw="h-8 w-8"
-        // css={
-        //   spinning &&
-        //   tw`rotate-[540deg] transition-transform duration-700 ease-out`
-        // }
-      />
+      <TonicLogoIcon tw="h-8 w-8" />
       <span tw="text-2xl cursor-default font-semibold whitespace-nowrap">
         {text}
       </span>

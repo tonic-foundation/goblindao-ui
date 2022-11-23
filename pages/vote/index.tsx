@@ -5,7 +5,7 @@ import usePageTitle from '@/hooks/usePageTitle';
 import AppLayout from '@/layouts';
 
 const Page: React.FC = () => {
-  usePageTitle('Home');
+  usePageTitle('Governance');
 
   return (
     <AppLayout>

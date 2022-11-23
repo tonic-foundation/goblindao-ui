@@ -167,7 +167,7 @@ const AuthButton: React.FC = (props) => {
     return (
       <BaseButton
         variant="confirm"
-        tw="py-2 px-4"
+        tw="py-2 px-4 w-full md:w-auto"
         onClick={(e) => {
           e.preventDefault();
           showWalletPicker(true);
