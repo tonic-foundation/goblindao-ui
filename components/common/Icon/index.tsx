@@ -1,4 +1,7 @@
-import { HiChevronDown as ChevronDown } from 'react-icons/hi';
+import {
+  HiChevronDown as ChevronDown,
+  HiUserGroup as GroupPeople,
+} from 'react-icons/hi';
 import { TbArrowLeft as Back } from 'react-icons/tb';
 import { GiHamburgerMenu as HamburgerMenu } from 'react-icons/gi';
 import { MdClose as Close } from 'react-icons/md';
@@ -9,7 +12,7 @@ import {
   FaTwitter as Twitter,
   FaHome as Home,
 } from 'react-icons/fa';
-import { BsFillSunFill as Sun } from 'react-icons/bs';
+import { BsFillSunFill as Sun, BsClockFill as Clock } from 'react-icons/bs';
 import { IoMdMoon as Moon } from 'react-icons/io';
 
 import { NearIcon as Near } from '../NearLogo';
@@ -19,9 +22,11 @@ const Icon = {
   Back,
   ChevronDown,
   Close,
+  GroupPeople,
 
   Sun,
   Moon,
+  Clock,
 
   HamburgerMenu,
 

@@ -2,13 +2,17 @@ import tw, { styled } from 'twin.macro';
 
 const baseStyles = tw`
   font-medium
-  rounded-lg outline-none
-  disabled:(opacity-80 hover:opacity-80 cursor-not-allowed dark:bg-neutral-500 dark:hover:bg-neutral-500 )
+  rounded-xl outline-none
+  disabled:(opacity-80 cursor-not-allowed
+  bg-neutral-200 border-slate-300 hover:border-slate-300
+  dark:(hover:bg-neutral-600 bg-neutral-600 hover:border-neutral-400 border-neutral-400))
 `;
 
 const variants = {
-  default: tw`bg-white border-[1px] border-slate-200 hover:border-slate-300 dark:(bg-neutral-700 border-neutral-700 hover:border-neutral-600)`,
-  confirm: tw`text-white bg-deep-blue-900 dark:bg-neutral-900 hover:bg-opacity-90 dark:(bg-opacity-90 hover:bg-opacity-100)`,
+  default: tw`bg-white border border-slate-200 hover:border-slate-400 transition dark:(bg-neutral-800 border-neutral-600 hover:border-neutral-400)`,
+  confirm: tw`text-white bg-neutral-900 dark:bg-neutral-800 dark:hover:bg-neutral-900 transition hover:bg-opacity-90 border`,
+
+  // TODO refactor
   success: tw`text-white bg-mint-500 hover:bg-opacity-90 dark:(bg-opacity-90 hover:bg-opacity-100)`,
   error: tw`text-white bg-red-600 hover:bg-opacity-90 dark:(bg-opacity-90 hover:bg-opacity-100)`,
   info: tw`text-white bg-blue-600 hover:bg-opacity-90 dark:(bg-opacity-90 hover:bg-opacity-100)`,
@@ -27,7 +31,6 @@ export interface ButtonStyleOpts {
   size?: keyof typeof sizes;
 }
 
-// occasionally want this for links etc that behave like buttons but aren't
 export function buttonStyles(opts: ButtonStyleOpts) {
   return [
     baseStyles,

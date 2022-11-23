@@ -68,7 +68,7 @@ const Currency: React.FC<{
         colored &&
           (value < 0
             ? tw`text-red-600 dark:text-red-500`
-            : tw`text-mint-500 dark:text-green-400`),
+            : tw`text-success-500 dark:text-green-400`),
       ]}
       {...props}
     >
@@ -110,24 +110,21 @@ const Typography = {
   AccountId,
   Currency,
 
-  Body: tw.p`font-medium`,
-
+  Body: tw.p`font-light`,
   /**
    * Largest heading/title. Mainly for bare section headings.
    */
-  Title: tw.h1`font-bold text-xl font-brand`,
-
+  Title: tw.h1`font-bold text-4xl`,
   /**
    * General purpose heading, used in card and form headings.
    */
-  Heading: tw.h2`font-semibold text-lg font-brand`,
+  Heading: tw.h2`font-bold text-3xl`,
 
-  Subheading: tw.h3`font-semibold text-base`,
-
+  Subheading: tw.h3`font-semibold text-xl`,
   /**
    * Form labels, etc
    */
-  Label: tw.label`font-semibold text-base`,
+  Label: tw.label`font-medium text-base`,
 };
 
 export default Typography;

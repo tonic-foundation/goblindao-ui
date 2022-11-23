@@ -1,54 +1,73 @@
 import React, { FC } from 'react';
 import Link from 'next/link';
+import { NAVBAR_MENU } from '@/config/navbar';
+import ThemeToggle from '@/components/ThemeToggle';
+import AuthButton from '@/components/AuthButton';
+import tw from 'twin.macro';
+import IconButton from '@/components/common/IconButton';
+import NavbarTreasury from '@/components/NavbarTreasury';
+import NavbarBrand from '@/components/NavbarBrand';
 import Icon from '@/components/common/Icon';
-import { NEAR_ENV } from '@/config';
-import { css } from 'twin.macro';
+import { useRouter } from 'next/router';
+import NavbarItemBase from '@/components/NavbarItemBase';
 
-const animateMarquee = css`
-  animation: wtf 10s linear infinite;
+const NavbarWrapper = tw.div`w-full flex md:flex-row flex-col justify-center items-center h-full`;
 
-  @keyframes wtf {
-    0% {
-      transform: translateX(110%);
-    }
-    100% {
-      transform: translateX(-110%);
-    }
-  }
-`;
+const Navbar: FC<{ onClose?: () => unknown }> = ({ onClose }) => {
+  const router = useRouter();
+  const currentRoute = router.pathname;
 
-const Navbar: FC = () => {
   return (
-    <nav tw="px-2 w-full">
-      <div tw="flex flex-row items-center justify-between">
-        <div tw="flex">
-          <Icon.Tonic tw="h-8 w-8" />
-          {NEAR_ENV === 'testnet' && (
-            <div tw="flex-1 text-xs font-semibold px-1 py-0.5 rounded shadow bg-lime-400 overflow-hidden">
-              <span tw="inline-block text-black" css={animateMarquee}>
-                TESTNET
-              </span>
-            </div>
-          )}
+    <NavbarWrapper>
+      <div tw="flex items-center justify-between w-full">
+        <div tw="hidden md:flex gap-10">
+          <NavbarBrand />
+          <NavbarTreasury />
         </div>
-        <div tw="flex">
-          <div tw="hidden w-full md:block md:w-auto">
-            <ul tw="flex flex-col rounded-lg">
-              <li>
-                <Link href="">
-                  <a
-                    tw="block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-white dark:bg-blue-600 md:dark:bg-transparent"
-                    aria-current="page"
-                  >
-                    Home
-                  </a>
-                </Link>
-              </li>
-            </ul>
+        {onClose && (
+          <div tw="absolute top-6 right-6">
+            <IconButton.Close tw="w-10 h-10 text-2xl" onClick={onClose} />
           </div>
-        </div>
+        )}
       </div>
-    </nav>
+      <nav tw="w-full flex md:flex-row flex-col items-center md:justify-end gap-3 px-4">
+        <div tw="hidden md:flex">
+          <ThemeToggle />
+        </div>
+        <div tw="flex w-full md:w-auto gap-3">
+          {NAVBAR_MENU.map((m) => (
+            <div tw="w-full md:w-auto" key={m.name}>
+              {m.href ? (
+                <Link passHref href={m.href}>
+                  <NavbarItemBase
+                    target={m.external ? '_blank' : undefined}
+                    rel="noreferrer"
+                    tw=""
+                    currentRoute={currentRoute}
+                    route={m.href}
+                  >
+                    {m.icon && <span tw="text-lg">{m.icon}</span>}
+                    <span>{m.name}</span>
+                  </NavbarItemBase>
+                </Link>
+              ) : (
+                <NavbarItemBase>
+                  <span>{m.name}</span>
+                  {m.subMenu && (
+                    <span>
+                      <Icon.ChevronDown />
+                    </span>
+                  )}
+                </NavbarItemBase>
+              )}
+              {/* TODO submenu */}
+            </div>
+          ))}
+        </div>
+        {/* TODO refactor AuthButton styles */}
+        <AuthButton />
+      </nav>
+    </NavbarWrapper>
   );
 };
 

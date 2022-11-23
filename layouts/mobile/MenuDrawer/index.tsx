@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import Modal from '@/components/common/Modal';
 import { atom, useRecoilValue, useResetRecoilState } from 'recoil';
+import Navbar from '@/components/Navbar';
 
 export const menuDrawerState = atom<boolean>({
   key: 'menu-drawer-visibility',
@@ -17,7 +18,7 @@ const MenuDrawer: FC = () => {
       onClose={closeModal}
       mobileDisplay="menubar"
       render={({ closeModal }) => {
-        return null;
+        return <Navbar onClose={closeModal} />;
       }}
     />
   );

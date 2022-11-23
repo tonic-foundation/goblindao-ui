@@ -1,5 +1,5 @@
 import tw, { css, styled } from 'twin.macro';
-import { useTheme } from 'next-themes';
+import { FC } from 'react';
 
 const Card = tw.div`bg-white rounded-2xl`;
 
@@ -11,14 +11,13 @@ const spinnerSizes = {
   huge: tw`h-24 w-24 border-4`,
 };
 
-const Spinner: React.FC<{
+const Spinner: FC<{
   size?: keyof typeof spinnerSizes;
   color?: string;
-}> = ({ size, color, ...props }) => {
-  // TODO
-  //  check if possible to move nextTheme to parent components
-  const { theme: nextTheme } = useTheme();
-  const borderColor = nextTheme === 'dark' ? 'white' : color || 'black';
+  nextTheme?: string;
+}> = ({ size, color, nextTheme, ...props }) => {
+  const borderColor =
+    nextTheme && nextTheme === 'dark' ? 'white' : color || 'black';
 
   return (
     <div

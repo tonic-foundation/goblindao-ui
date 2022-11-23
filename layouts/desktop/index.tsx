@@ -1,24 +1,16 @@
 import { FC, ReactNode } from 'react';
 import tw from 'twin.macro';
-import AuthButton from '@/components/AuthButton';
 import Navbar from '@/components/Navbar';
+import { BaseHeader } from '@/layouts';
 
-const Wrapper = tw.div`h-screen w-screen flex dark:bg-neutral-900 overflow-auto grow flex flex-col items-stretch`;
-const Main = tw.div`flex flex-col items-stretch`;
-const Content = tw.main`grow flex flex-col gap-8 items-stretch p-8 overflow-auto container my-0 mx-auto`;
+const Wrapper = tw.div`h-screen w-screen flex flex-col overflow-auto`;
+const Main = tw.div`flex flex-col`;
+const Content = tw.main`flex flex-col overflow-auto max-w-[1028px] my-0 mx-auto p-10`;
 
-const BaseHeader = tw.header`
-  py-4 px-8
-  grow
-  container z-10 flex items-center
-  justify-end gap-6 bg-white
-  my-0 mx-auto
-`;
 const Header = () => {
   return (
     <BaseHeader>
       <Navbar />
-      <AuthButton />
     </BaseHeader>
   );
 };

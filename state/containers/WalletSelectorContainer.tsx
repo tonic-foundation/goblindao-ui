@@ -12,6 +12,7 @@ import { setupMeteorWallet } from '@near-wallet-selector/meteor-wallet';
 import { IS_DEV, NEAR_ENV } from '@/config';
 import { getNear } from '@/lib/services/near';
 import Loading from '@/components/common/Loading';
+import { useTheme } from 'next-themes';
 
 declare global {
   interface Window {
@@ -36,6 +37,8 @@ export const WalletSelectorContextProvider: React.FC<{
   const [selector, setSelector] = useState<WalletSelector | null>(null);
   const [accounts, setAccounts] = useState<Array<AccountState>>([]);
   const [activeAccount, setActiveAccount] = useState<Account | null>(null);
+
+  const { theme: nextTheme } = useTheme();
 
   const init = useCallback(async () => {
     const _selector = await setupWalletSelector({
@@ -96,7 +99,7 @@ export const WalletSelectorContextProvider: React.FC<{
     return (
       <div tw="h-screen w-screen fixed inset-0 flex items-center justify-center">
         <div tw="space-y-3">
-          <Loading.Spinner tw="mx-auto" />
+          <Loading.Spinner nextTheme={nextTheme} tw="mx-auto" />
           {/* actually, we're just waiting for the wallet selector to load */}
           <p tw="font-brand text-lg font-semibold">Connecting...</p>
         </div>
