@@ -118,7 +118,7 @@ const Typography = {
   /**
    * General purpose heading, used in card and form headings.
    */
-  Heading: tw.h2`font-bold text-3xl`,
+  Heading: tw.h2`font-bold text-2xl`,
 
   Subheading: tw.h3`font-semibold text-xl`,
   /**

@@ -1,15 +1,23 @@
-import React, { FC } from 'react';
+import React from 'react';
 import Tag from '@/components/common/Tag';
-import Card from '@/components/common/Card';
-import Typography from '@/components/Typography';
-import Icon from '@/components/common/Icon';
-import {
-  ProposalProps,
-  ProposalState,
-  ProposalStatusProps,
-} from '@/components/Proposal/types';
 
-const ProposalStatus: React.FC<ProposalStatusProps> = (props) => {
+export enum ProposalState {
+  UNDETERMINED = -1,
+  PENDING,
+  ACTIVE,
+  CANCELLED,
+  DEFEATED,
+  SUCCEEDED,
+  QUEUED,
+  EXPIRED,
+  EXECUTED,
+  VETOED,
+}
+
+export type ProposalStatusProps = {
+  status?: ProposalState;
+};
+const ProposalsStatus: React.FC<ProposalStatusProps> = (props) => {
   const statusVariant = (status: ProposalState | undefined) => {
     switch (status) {
       case ProposalState.PENDING:
@@ -59,29 +67,4 @@ const ProposalStatus: React.FC<ProposalStatusProps> = (props) => {
   return <Tag variant={statusVariant(status)}>{statusText(status)}</Tag>;
 };
 
-const Proposal: FC<{ onClick: () => unknown; proposal: ProposalProps }> = ({
-  onClick,
-  proposal,
-}) => {
-  return (
-    <Card onClick={onClick} tw="flex justify-between">
-      <div tw="flex gap-4 items-center">
-        <Typography.Subheading tw="text-neutral-500">
-          {proposal.id}
-        </Typography.Subheading>
-        <Typography.Subheading>{proposal.title}</Typography.Subheading>
-      </div>
-      <div tw="flex items-center gap-3">
-        {proposal.expire && (
-          <Tag>
-            <Icon.Clock />
-            Expires in 14 days
-          </Tag>
-        )}
-        <ProposalStatus status={proposal.status} />
-      </div>
-    </Card>
-  );
-};
-
-export default Proposal;
+export default ProposalsStatus;

@@ -15,6 +15,7 @@ function curried<T = unknown>(icon: React.ReactNode): React.FC<BaseProps & T> {
 
 const BaseButton = tw.button`
   w-6 h-6 rounded-full
+  transition
   flex items-center justify-center text-base
   hover:(transition-colors bg-neutral-200)
   hover:dark:text-neutral-900

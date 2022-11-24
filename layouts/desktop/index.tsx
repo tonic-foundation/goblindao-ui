@@ -5,7 +5,7 @@ import { BaseHeader } from '@/layouts';
 
 const Wrapper = tw.div`h-screen w-screen flex flex-col overflow-auto`;
 const Main = tw.div`flex flex-col`;
-const Content = tw.main`flex flex-col overflow-auto max-w-[1028px] my-0 mx-auto p-10`;
+const Content = tw.main`flex flex-col overflow-auto max-w-[1028px] my-0 mx-auto p-10 w-full`;
 
 const Header = () => {
   return (

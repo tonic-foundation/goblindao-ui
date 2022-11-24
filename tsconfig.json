@@ -21,8 +21,6 @@
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
-  "exclude": ["node_modules", "out",
-    "public"
-  ],
+  "exclude": ["node_modules", "out", "public"],
   "types": ["types"]
 }

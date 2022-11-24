@@ -26,14 +26,8 @@ const customStyles = css({
       width: 100vw;
       overflow-x: hidden;
     }
-
-    body {
-    }
   `,
 });
-/* --color-scroll-thumb: ${theme`colors.neutral.700`}; */
-/* --color-scroll-thumb: ${theme`colors.neutral.400`}; */
-/* ${tw`bg-neutral-50 font-primary text-black dark:(bg-black text-white) transition-colors duration-200`} */
 
 const GlobalStyles = () => (
   <>
