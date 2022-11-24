@@ -14,8 +14,8 @@ const variants = {
 
   // TODO refactor
   success: tw`text-white bg-success-500 hover:bg-opacity-90 dark:(bg-opacity-90 hover:bg-opacity-100)`,
-  error: tw`text-white bg-danger-600 hover:bg-opacity-90 dark:(bg-opacity-90 hover:bg-opacity-100)`,
-  info: tw`text-white bg-info-600 hover:bg-opacity-90 dark:(bg-opacity-90 hover:bg-opacity-100)`,
+  error: tw`text-white bg-danger-500 hover:bg-opacity-90 dark:(bg-opacity-90 hover:bg-opacity-100)`,
+  info: tw`text-white bg-info-500 hover:bg-opacity-90 dark:(bg-opacity-90 hover:bg-opacity-100)`,
 };
 
 const sizes = {
