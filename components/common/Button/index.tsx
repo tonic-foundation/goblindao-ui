@@ -13,9 +13,9 @@ const variants = {
   confirm: tw`text-white bg-neutral-900 dark:bg-neutral-800 dark:hover:bg-neutral-900 transition hover:bg-opacity-90 border`,
 
   // TODO refactor
-  success: tw`text-white bg-mint-500 hover:bg-opacity-90 dark:(bg-opacity-90 hover:bg-opacity-100)`,
-  error: tw`text-white bg-red-600 hover:bg-opacity-90 dark:(bg-opacity-90 hover:bg-opacity-100)`,
-  info: tw`text-white bg-blue-600 hover:bg-opacity-90 dark:(bg-opacity-90 hover:bg-opacity-100)`,
+  success: tw`text-white bg-success-500 hover:bg-opacity-90 dark:(bg-opacity-90 hover:bg-opacity-100)`,
+  error: tw`text-white bg-danger-600 hover:bg-opacity-90 dark:(bg-opacity-90 hover:bg-opacity-100)`,
+  info: tw`text-white bg-info-600 hover:bg-opacity-90 dark:(bg-opacity-90 hover:bg-opacity-100)`,
 };
 
 const sizes = {
