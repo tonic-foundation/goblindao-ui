@@ -52,19 +52,22 @@ const VoteCard: FC<VoteCardProps> = (props) => {
     }
   };
 
+  const { variant: cardVariant, voteCount, title } = voteCardVariant(variant);
+
   return (
     <Card hover="pointer">
-      <div tw="flex justify-between w-full">
-        <VoteCardHeading variant={voteCardVariant(variant).variant}>
-          {voteCardVariant(variant).title}
+      <div tw="flex flex-col justify-center md:text-left text-center md:flex-row md:justify-between w-full">
+        <VoteCardHeading tw="md:mb-0 mb-5" variant={cardVariant}>
+          {title}
         </VoteCardHeading>
         <span tw="font-semibold text-lg">
-          {truncateToLocaleString(voteCardVariant(variant).voteCount, 0)}
+          {truncateToLocaleString(voteCount, 0)}
         </span>
       </div>
       <div tw="w-full my-3">
-        <ProgressBar percentage={percentage} />
+        <ProgressBar variant={cardVariant} percentage={percentage} />
       </div>
+      <div></div>
     </Card>
   );
 };

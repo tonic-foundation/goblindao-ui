@@ -4,6 +4,8 @@ import Loading from '@/components/common/Loading';
 import { ProposalProps } from '@/components/Proposals/Proposal';
 import { ProposalDescription, ProposalHeading } from '@/components/Proposals';
 import VoteCard, { VoteCardVariant } from '@/components/VoteCard';
+import { truncateToLocaleString } from '@/lib/util';
+import VoteCardInfo from '@/components/VoteCard/VoteCardInfo';
 
 const Content: FC<{ proposal?: ProposalProps }> = ({ proposal }) => {
   // const router = useRouter();
@@ -33,7 +35,7 @@ const Content: FC<{ proposal?: ProposalProps }> = ({ proposal }) => {
   return (
     <div>
       <ProposalHeading proposal={currentProposal} />
-      <div tw="grid grid-cols-3 gap-5 mb-3">
+      <div tw="grid grid-cols-3 gap-5 mb-4">
         <VoteCard
           percentage={forPercentage}
           variant={VoteCardVariant.FOR}
@@ -48,6 +50,23 @@ const Content: FC<{ proposal?: ProposalProps }> = ({ proposal }) => {
           percentage={abstainPercentage}
           variant={VoteCardVariant.ABSTAIN}
           proposal={currentProposal}
+        />
+      </div>
+      <div tw="grid grid-cols-3 gap-5 mb-20">
+        <VoteCardInfo
+          info={`${totalVotes} votes`}
+          infoTitle="Threshold"
+          infoSubtitle="Quorum"
+        />
+        <VoteCardInfo
+          info="October 16, 2022"
+          infoTitle="Ended"
+          infoSubtitle="11:14 AM GMT+4"
+        />
+        <VoteCardInfo
+          info={truncateToLocaleString(15724579, 0)}
+          infoTitle="Snapshot"
+          infoSubtitle="Taken at block"
         />
       </div>
       <ProposalDescription proposal={currentProposal} />
