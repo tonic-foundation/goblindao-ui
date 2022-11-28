@@ -96,10 +96,10 @@ const Content: NextPage = () => {
           <div tw="flex gap-4">
             <Input
               type="number"
-              tw="text-2xl w-[65%]"
+              tw="text-2xl w-[75%]"
               placeholder="20.40 or more"
             />
-            <Button variant="confirm" size="lg" tw="w-[35%]">
+            <Button variant="confirm" size="lg" tw="w-[25%]">
               Place bid
             </Button>
           </div>
