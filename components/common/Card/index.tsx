@@ -4,7 +4,7 @@ export interface CardStyleProps {
   hover?: 'ring' | 'pointer';
 }
 
-export const cardStyles = ({ hover = 'ring' }: CardStyleProps) => [
+export const cardStyles = ({ hover = 'pointer' }: CardStyleProps) => [
   tw`rounded-2xl p-4 border bg-white`,
   tw`dark:(border-neutral-700 bg-neutral-800)`,
   hover === 'ring'
