@@ -39,8 +39,10 @@ const Voter: FC<{ voterId: string; tokenId: string }> = ({
     //   tip={voterId + tokenId}
     //   id={tokenId}
     // >
-    <Link href={`#`}>
-      <VoterNFTImage tokenId={tokenId} />
+    <Link passHref href={`#`}>
+      <a>
+        <VoterNFTImage tokenId={tokenId} />
+      </a>
     </Link>
     // </Tooltip>
   );
