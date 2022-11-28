@@ -66,15 +66,13 @@ const Content: NextPage = () => {
         <HomeWrapper.Right>
           <div tw="flex items-center gap-3">
             <div tw="flex gap-1">
-              <IconButton
+              <IconButton.Back
                 onClick={() => router.push(`/nft/${currentToken--}`)}
                 tw="border w-9 h-9 text-neutral-600 dark:text-neutral-300"
-                icon={<Icon.Back tw="w-5 h-5" />}
               />
-              <IconButton
+              <IconButton.Next
                 onClick={() => router.push(`/nft/${currentToken++}`)}
                 tw="border w-9 h-9 text-neutral-600 dark:text-neutral-300"
-                icon={<Icon.Next tw="w-5 h-5" />}
               />
             </div>
             <HomeTypography.P2>November 27, 2022</HomeTypography.P2>
