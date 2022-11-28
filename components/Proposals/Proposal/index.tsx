@@ -6,7 +6,12 @@ import Icon from '@/components/common/Icon';
 import { ProposalState } from '@/components/Proposals/ProposalsStatus';
 import { ProposalsStatus } from '@/components/Proposals';
 
-export type ProposalProps = {
+export interface ProposalVoteProps {
+  supportedTypes: 0 | 1 | 2;
+  voter: { id: string };
+}
+
+export interface ProposalProps {
   id: string;
   title: string;
   status: ProposalState;
@@ -22,7 +27,8 @@ export type ProposalProps = {
   endBlock?: number;
   proposalThreshold?: number;
   quorumVotes?: number;
-};
+  votes?: ProposalVoteProps[];
+}
 
 const Proposal: FC<{ onClick: () => void; proposal: ProposalProps }> = ({
   onClick,

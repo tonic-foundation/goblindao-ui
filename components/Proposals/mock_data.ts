@@ -1,7 +1,10 @@
 import { ProposalState } from '@/components/Proposals/ProposalsStatus';
-import { ProposalProps } from '@/components/Proposals/Proposal';
+import {
+  ProposalProps,
+  ProposalVoteProps,
+} from '@/components/Proposals/Proposal';
 
-export const mock_proposal_description: string = `
+export const mock_proposal_description = `
 ![](https://i.imgur.com/7ldC7Dl.jpg)
 ---
 ---
@@ -31,6 +34,169 @@ Why is it important to document and archive these things?
 [proposal.wtf](https://maty-eth.notion.site/maty-eth/NounsDAO-Proposals-Overview-b8c76e6ac8e44515966ee032ea20f860), [nounish](https://twitter.com/nounish)***) by pooling resources & efforts for maximum efficiency and also to complement each other.
     * 3) **Contents sustainability** ; we will be using Notion for the database and will be publically viewable. Content submission form with formats will be available for community use. An additional idea is to work with Nouns AI team for data scraping by using certain hashtags/keywords *(to be discuss)*.
 `;
+
+export const mock_proposals_votes: ProposalVoteProps[] = [
+  {
+    supportedTypes: 0,
+    voter: { id: '0xcc2688350d29623e2a0844cc8885f9050f0f6e' },
+  },
+  {
+    supportedTypes: 0,
+    voter: { id: '0xcc2688350d29623e2a0844cc8885f9050f0f6e' },
+  },
+  {
+    supportedTypes: 0,
+    voter: { id: '0xcc2688350d29623e2a0844cc8885f9050f0f6e' },
+  },
+  {
+    supportedTypes: 0,
+    voter: { id: '0xcc2688350d29623e2a0844cc8885f9050f0f6e' },
+  },
+  {
+    supportedTypes: 0,
+    voter: { id: '0xcc2688350d29623e2a0844cc8885f9050f0f6e' },
+  },
+  {
+    supportedTypes: 0,
+    voter: { id: '0xcc2688350d29623e2a0844cc8885f9050f0f6e' },
+  },
+  {
+    supportedTypes: 0,
+    voter: { id: '0xcc2688350d29623e2a0844cc8885f9050f0f6e' },
+  },
+  {
+    supportedTypes: 0,
+    voter: { id: '0xcc2688350d29623e2a0844cc8885f9050f0f6e' },
+  },
+  {
+    supportedTypes: 0,
+    voter: { id: '0xcc2688350d29623e2a0844cc8885f9050f0f6e' },
+  },
+  {
+    supportedTypes: 0,
+    voter: { id: '0xcc2688350d29623e2a0844cc8885f9050f0f6e' },
+  },
+  {
+    supportedTypes: 0,
+    voter: { id: '0xcc2688350d29623e2a0844cc8885f9050f0f6e' },
+  },
+  {
+    supportedTypes: 1,
+    voter: { id: '0xcc2688350d29623ewe2a0844cc8885f9050f0f6e' },
+  },
+  {
+    supportedTypes: 1,
+    voter: { id: '0xcc2688350d29623ewe2a0844cc8885f9050f0f6e' },
+  },
+  {
+    supportedTypes: 1,
+    voter: { id: '0xcc2688350d29623ewe2a0844cc8885f9050f0f6e' },
+  },
+  {
+    supportedTypes: 1,
+    voter: { id: '0xcc2688350d29623ewe2a0844cc8885f9050f0f6e' },
+  },
+  {
+    supportedTypes: 1,
+    voter: { id: '0xcc2688350d29623ewe2a0844cc8885f9050f0f6e' },
+  },
+  {
+    supportedTypes: 1,
+    voter: { id: '0xcc2688350d29623ewe2a0844cc8885f9050f0f6e' },
+  },
+  {
+    supportedTypes: 1,
+    voter: { id: '0xcc2688350d29623ewe2a0844cc8885f9050f0f6e' },
+  },
+  {
+    supportedTypes: 1,
+    voter: { id: '0xcc2688350d29623ewe2a0844cc8885f9050f0f6e' },
+  },
+  {
+    supportedTypes: 1,
+    voter: { id: '0xcc2688350d29623ewe2a0844cc8885f9050f0f6e' },
+  },
+  {
+    supportedTypes: 1,
+    voter: { id: '0xcc2688350d29623ewe2a0844cc8885f9050f0f6e' },
+  },
+  {
+    supportedTypes: 1,
+    voter: { id: '0xcc2688350d29623ewe2a0844cc8885f9050f0f6e' },
+  },
+  {
+    supportedTypes: 1,
+    voter: { id: '0xcc2688350d29623ewe2a0844cc8885f9050f0f6e' },
+  },
+  {
+    supportedTypes: 1,
+    voter: { id: '0xcc2688350d29623ewe2a0844cc8885f9050f0f6e' },
+  },
+  {
+    supportedTypes: 1,
+    voter: { id: '0xcc2688350d29623ewe2a0844cc8885f9050f0f6e' },
+  },
+  {
+    supportedTypes: 1,
+    voter: { id: '0xcc2688350d29623ewe2a0844cc8885f9050f0f6e' },
+  },
+  {
+    supportedTypes: 1,
+    voter: { id: '0xcc2688350d29623ewe2a0844cc8885f9050f0f6e' },
+  },
+  {
+    supportedTypes: 1,
+    voter: { id: '0xcc2688350d29623ewe2a0844cc8885f9050f0f6e' },
+  },
+  {
+    supportedTypes: 1,
+    voter: { id: '0xcc2688350d29623ewe2a0844cc8885f9050f0f6e' },
+  },
+  {
+    supportedTypes: 1,
+    voter: { id: '0xcc2688350d29623ewe2a0844cc8885f9050f0f6e' },
+  },
+  {
+    supportedTypes: 1,
+    voter: { id: '0xcc2688350d29623ewe2a0844cc8885f9050f0f6e' },
+  },
+  {
+    supportedTypes: 1,
+    voter: { id: '0xcc2688350d29623ewe2a0844cc8885f9050f0f6e' },
+  },
+  {
+    supportedTypes: 1,
+    voter: { id: '0xcc2688350d29623ewe2a0844cc8885f9050f0f6e' },
+  },
+  {
+    supportedTypes: 2,
+    voter: { id: '0xcc2688350d29623ewe2a0844cc8885f9050f0f6e' },
+  },
+  {
+    supportedTypes: 2,
+    voter: { id: '0xcc2688350d29623ewe2a0844cc8885f9050f0f6e' },
+  },
+  {
+    supportedTypes: 2,
+    voter: { id: '0xcc2688350d29623ewe2a0844cc8885f9050f0f6e' },
+  },
+  {
+    supportedTypes: 2,
+    voter: { id: '0xcc2688350d29623ewe2a0844cc8885f9050f0f6e' },
+  },
+  {
+    supportedTypes: 2,
+    voter: { id: '0xcc2688350d29623ewe2a0844cc8885f9050f0f6e' },
+  },
+  {
+    supportedTypes: 2,
+    voter: { id: '0xcc2688350d29623ewe2a0844cc8885f9050f0f6e' },
+  },
+  {
+    supportedTypes: 2,
+    voter: { id: '0xcc2688350d29623ewe2a0844cc8885f9050f0f6e' },
+  },
+];
 
 export const mock_proposals: ProposalProps[] = [
   {

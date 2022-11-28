@@ -7,6 +7,7 @@ import { mock_proposals } from '@/components/Proposals/mock_data';
 import { Proposal } from '@/components/Proposals';
 import Card from '@/components/common/Card';
 import Icon from '@/components/common/Icon';
+import Empty from '@/components/common/Empty';
 
 const Content: NextPage = () => {
   const router = useRouter();
@@ -64,13 +65,17 @@ const Content: NextPage = () => {
         </div>
       </div>
       <div tw="flex flex-col gap-5">
-        {mock_proposals.map((proposal) => (
-          <Proposal
-            proposal={proposal}
-            key={proposal.id}
-            onClick={() => handleClickProposal(proposal.id)}
-          />
-        ))}
+        {mock_proposals?.length ? (
+          mock_proposals.map((proposal) => (
+            <Proposal
+              proposal={proposal}
+              key={proposal.id}
+              onClick={() => handleClickProposal(proposal.id)}
+            />
+          ))
+        ) : (
+          <Empty>No Proposals</Empty>
+        )}
       </div>
     </React.Fragment>
   );

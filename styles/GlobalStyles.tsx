@@ -12,6 +12,7 @@ const customStyles = css({
       -webkit-appearance: none;
       margin: 0;
     }
+
     input[type='number'] {
       -moz-appearance: textfield;
     }
@@ -25,6 +26,10 @@ const customStyles = css({
     html {
       width: 100vw;
       overflow-x: hidden;
+    }
+
+    .swiper-pagination .swiper-pagination-bullet-active {
+      background: rgba(0, 0, 0, 0.3);
     }
   `,
 });
