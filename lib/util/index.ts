@@ -33,6 +33,20 @@ export function range(n: number) {
   return [...new Array(n).keys()];
 }
 
+export function getPricePrecision(v: number) {
+  if (v < 10) {
+    return 3; // 0.001
+  }
+  return 2;
+}
+
+/**
+ * Number N formatter
+ *
+ * @param raw {Number}
+ * @param digits {Number}
+ * @returns {String}
+ */
 export function nFormatter(raw: number, digits = 2) {
   const num = Math.abs(raw);
 
@@ -59,13 +73,35 @@ export function nFormatter(raw: number, digits = 2) {
     : num.toFixed(digits);
 }
 
-export function getPricePrecision(v: number) {
-  if (v < 10) {
-    return 3; // 0.001
-  }
-  return 2;
-}
-
+/**
+ * Capitalize the string
+ *
+ * @param str {String}
+ * @returns {String}
+ */
 export function toCapitalize(str: string) {
   return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+/**
+ * Randomly shuffle elements on input conditioned on seed
+ *
+ * @param input array of elements to be shuffled
+ * @param seed random seed
+ * @returns  randomly shuffled array
+ */
+export function arrayRandomlyShuffle<T>(input: Array<T> = [], seed: number) {
+  input = [...input];
+  const output = [];
+
+  while (input.length) {
+    if (seed === 0) seed++;
+    let rand = Math.sin(seed++) * 10000;
+    rand -= Math.floor(rand);
+    const index = Math.floor(input.length * rand);
+    output.push(input[index]);
+    input.splice(index, 1);
+  }
+
+  return output;
 }

@@ -1,8 +1,4 @@
-import tw, { css } from 'twin.macro';
-
-export const commonStyles = {
-  bgBlackTransparent: tw`bg-black bg-opacity-5`,
-};
+import { css } from 'twin.macro';
 
 export const hover = {
   textColor: (color: string) => css`

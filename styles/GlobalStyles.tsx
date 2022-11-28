@@ -12,6 +12,7 @@ const customStyles = css({
       -webkit-appearance: none;
       margin: 0;
     }
+
     input[type='number'] {
       -moz-appearance: textfield;
     }
@@ -27,13 +28,11 @@ const customStyles = css({
       overflow-x: hidden;
     }
 
-    body {
+    .swiper-pagination .swiper-pagination-bullet-active {
+      background: rgba(0, 0, 0, 0.3);
     }
   `,
 });
-/* --color-scroll-thumb: ${theme`colors.neutral.700`}; */
-/* --color-scroll-thumb: ${theme`colors.neutral.400`}; */
-/* ${tw`bg-neutral-50 font-primary text-black dark:(bg-black text-white) transition-colors duration-200`} */
 
 const GlobalStyles = () => (
   <>

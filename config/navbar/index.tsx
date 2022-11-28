@@ -11,7 +11,7 @@ export interface INavbarMenuItem {
 
 export const NAVBAR_MENU: INavbarMenuItem[] = [
   {
-    href: '/vote',
+    href: '/governance',
     name: 'DAO',
     icon: <Icon.GroupPeople />,
   },

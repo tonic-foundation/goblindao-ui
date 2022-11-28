@@ -23,6 +23,9 @@ export const STORAGE_EXEMPT_TOKENS = ['usn', 'near'];
 export const TONIC_CONTRACT_ID = process.env
   .NEXT_PUBLIC_TONIC_CONTRACT_ID as string;
 
+export const VOTERS_PER_VOTE_CARD_DESKTOP = 15;
+
+export const GOBLIN_IPFS_URL = process.env.NEXT_PUBLIC_GOBLINS_IPFS_URL;
 export const GOBLIN_HREF = 'https://greedygoblins.enleap.app/';
 export const DISCORD_DEVELOPERS_HREF = 'https://discord.gg/tscr95ufxx';
 export const DISCORD_GENERAL_HREF = 'https://discord.gg/zedYdpyaTd';
