@@ -1,5 +1,5 @@
 import { NextPage } from 'next';
-import React from 'react';
+import React, { FC } from 'react';
 import { GOBLIN_IPFS_URL } from '@/config';
 import { Input } from '@/components/common/Input';
 import Button from '@/components/common/Button';
@@ -7,10 +7,16 @@ import Icon from '@/components/common/Icon';
 import IconButton from '@/components/common/IconButton';
 import tw from 'twin.macro';
 import Link from 'next/link';
-// import { useWalletSelector } from '@/state/containers/WalletSelectorContainer';
+import { useWalletSelector } from '@/state/containers/WalletSelectorContainer';
+import GrayCircle from '@/components/common/GrayCircle';
 
+const HomeWrapper = {
+  Main: tw.div`flex gap-10 justify-between`,
+  Left: tw.div`flex w-[50%]`,
+  Right: tw.div`flex flex-col gap-5 w-[50%]`,
+};
 const HomeTypography = {
-  H1: tw.h1`text-5xl font-bold`,
+  H1: tw.h1`text-4xl font-bold`,
   H2: tw.h2`text-3xl font-medium`,
   H3: tw.h3``,
   P1: tw.p`text-lg font-medium text-neutral-400 mb-2`,
@@ -18,19 +24,36 @@ const HomeTypography = {
   P3: tw.p`text-sm`,
 };
 
-const NFTActivity = () => {
-  return <div></div>;
+const NFTActivity: FC = () => {
+  return (
+    <div tw="flex justify-between items-center border-b border-solid p-2">
+      <div tw="flex items-center gap-1">
+        <GrayCircle tw="w-7 h-7 border border-solid" />
+        <p tw="font-medium">username</p>
+      </div>
+      <div tw="flex items-center gap-1 font-medium">
+        <Icon.Near tw="w-3.5 h-3.5" />
+        <p tw="mr-3">20.00</p>
+        <Link passHref href="/">
+          <a>
+            <Icon.Link tw="text-lg" />
+          </a>
+        </Link>
+      </div>
+    </div>
+  );
 };
 
 const Content: NextPage = () => {
-  // const { accountId } = useWalletSelector();
+  const { accountId } = useWalletSelector();
+
   return (
     <>
-      <div tw="flex gap-10 justify-between">
-        <div tw="flex">
+      <HomeWrapper.Main tw="flex gap-10 justify-between">
+        <HomeWrapper.Left>
           <img src={`${GOBLIN_IPFS_URL}/1.png`} alt="" />
-        </div>
-        <div tw="flex flex-col gap-5">
+        </HomeWrapper.Left>
+        <HomeWrapper.Right>
           <div tw="flex items-center gap-3">
             <div tw="flex gap-1">
               <IconButton
@@ -62,7 +85,7 @@ const Content: NextPage = () => {
               </div>
             </div>
             <div>
-              <Link passHref href="">
+              <Link passHref href="/">
                 <a tw="flex items-center gap-2 text-neutral-600 dark:text-neutral-400">
                   <Icon.Info />
                   <HomeTypography.P3>Help mint the next Noun</HomeTypography.P3>
@@ -72,16 +95,23 @@ const Content: NextPage = () => {
           </div>
           <div tw="flex gap-4">
             <Input
-              tw="text-2xl w-4/5"
+              type="number"
+              tw="text-2xl w-[65%]"
               placeholder="20.40 or more"
-              type="text"
             />
-            <Button variant="confirm" tw="w-1/5">
+            <Button variant="confirm" size="lg" tw="w-[35%]">
               Place bid
             </Button>
           </div>
-        </div>
-      </div>
+          <div>
+            <NFTActivity />
+            <NFTActivity />
+          </div>
+          <p tw="w-full text-center cursor-pointer text-sm font-medium text-neutral-400">
+            View all bids
+          </p>
+        </HomeWrapper.Right>
+      </HomeWrapper.Main>
     </>
   );
 };

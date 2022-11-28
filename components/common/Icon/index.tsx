@@ -13,6 +13,7 @@ import {
   FaHome as Home,
   FaInfoCircle as Info,
 } from 'react-icons/fa';
+import { RiExternalLinkFill as Link } from 'react-icons/ri';
 import { BsFillSunFill as Sun, BsClockFill as Clock } from 'react-icons/bs';
 import { IoMdMoon as Moon } from 'react-icons/io';
 
@@ -25,6 +26,8 @@ const Icon = {
   ChevronDown,
   Close,
   GroupPeople,
+
+  Link,
 
   Sun,
   Moon,
