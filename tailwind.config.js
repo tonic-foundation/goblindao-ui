@@ -44,6 +44,12 @@ module.exports = {
       borderWidth: {
         DEFAULT: '1px',
       },
+      container: {
+        screens: {
+          lg: '992px',
+          xl: '1028px',
+        },
+      },
     },
   },
   plugins: [],

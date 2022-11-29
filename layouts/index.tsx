@@ -9,16 +9,17 @@ export const BaseHeader = tw.header`container flex items-center my-0 mx-auto py-
 const AppLayout: React.FC<{
   children: React.ReactNode;
   floatingFooter?: boolean;
-}> = ({ children, floatingFooter }) => {
+}> = ({ children, floatingFooter, ...props }) => {
   const isMobile = useIsMobile();
-
   if (isMobile) {
     return (
-      <MobileLayout floatingFooter={floatingFooter}>{children}</MobileLayout>
+      <MobileLayout {...props} floatingFooter={floatingFooter}>
+        {children}
+      </MobileLayout>
     );
   }
 
-  return <DesktopLayout>{children}</DesktopLayout>;
+  return <DesktopLayout {...props}>{children}</DesktopLayout>;
 };
 
 export default AppLayout;

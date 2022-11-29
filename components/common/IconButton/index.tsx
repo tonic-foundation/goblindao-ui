@@ -43,7 +43,6 @@ const BaseIconButton: React.FC<
 const IconButton = Object.assign(BaseIconButton, {
   Close: curried(<Icon.Close />),
   Back: curried(<Icon.Back />),
-  Next: curried(<Icon.Next />),
 });
 
 export default IconButton;

@@ -15,4 +15,9 @@ export const NAVBAR_MENU: INavbarMenuItem[] = [
     name: 'DAO',
     icon: <Icon.GroupPeople />,
   },
+  {
+    href: '/explore',
+    name: 'Explore',
+    icon: <Icon.Explore />,
+  },
 ];
