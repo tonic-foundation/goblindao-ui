@@ -6,6 +6,7 @@ import Icon from '../Icon';
 interface BaseProps {
   hideOnMobile?: boolean;
   onClick?: ClickHandler;
+  disabled?: boolean;
 }
 
 function curried<T = unknown>(icon: React.ReactNode): React.FC<BaseProps & T> {
@@ -14,11 +15,13 @@ function curried<T = unknown>(icon: React.ReactNode): React.FC<BaseProps & T> {
 }
 
 const BaseButton = tw.button`
-  w-6 h-6 rounded-full
+  w-9 h-9 rounded-full
   transition
+  border border-solid
   flex items-center justify-center text-base
-  hover:(transition-colors bg-neutral-200)
-  hover:dark:text-neutral-900
+  hover:bg-neutral-200
+  dark:hover:bg-neutral-600
+  disabled:(opacity-60 cursor-not-allowed bg-neutral-200 dark:bg-neutral-600)
 `;
 
 const BaseIconButton: React.FC<
@@ -39,8 +42,8 @@ const BaseIconButton: React.FC<
 
 const IconButton = Object.assign(BaseIconButton, {
   Close: curried(<Icon.Close />),
-  Next: curried(<Icon.Next />),
   Back: curried(<Icon.Back />),
+  Next: curried(<Icon.Next />),
 });
 
 export default IconButton;

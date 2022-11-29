@@ -18,6 +18,9 @@ const customStyles = css({
     }
 
     .dark {
+      .swiper-pagination-bullet {
+        background: rgba(255, 255, 255, 0.5);
+      }
     }
 
     .light {

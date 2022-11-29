@@ -21,7 +21,7 @@ const BidHistoryRow: FC<Bid> = ({ user, bidAmount, bidDate }) => {
       <div tw="flex items-center gap-1">
         <GrayCircle tw="w-10 h-10 border border-solid" />
         <div>
-          <p tw="font-semibold">{user}</p>
+          <p tw="font-semibold">{user} or accountId</p>
           <p tw="text-xs text-neutral-400">{bidDate}</p>
         </div>
       </div>
@@ -66,7 +66,7 @@ const BidsHistory: FC<{ onClose?: () => unknown }> = ({ onClose }) => {
           )}
         </div>
       </div>
-      <div tw="max-h-[400px] overflow-auto">
+      <div tw="max-h-[300px] overflow-auto">
         {bidHistory.map((b, index) => (
           <BidHistoryRow
             key={index}

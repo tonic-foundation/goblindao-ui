@@ -14,6 +14,21 @@ export const mock_bid_history: BidHistory = {
     },
     {
       user: 'username',
+      bidAmount: 20,
+      bidDate: 'Nov 28, 2022, 4:18 AM',
+    },
+    {
+      user: 'username',
+      bidAmount: 20,
+      bidDate: 'Nov 28, 2022, 4:18 AM',
+    },
+    {
+      user: 'username',
+      bidAmount: 20,
+      bidDate: 'Nov 28, 2022, 4:18 AM',
+    },
+    {
+      user: 'username',
       bidAmount: 20.01,
       bidDate: 'Nov 28, 2022, 3:38 AM',
     },

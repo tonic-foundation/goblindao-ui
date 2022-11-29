@@ -12,9 +12,14 @@ import {
   FaTwitter as Twitter,
   FaHome as Home,
   FaInfoCircle as Info,
+  FaBirthdayCake as Cake,
 } from 'react-icons/fa';
 import { RiExternalLinkFill as Link } from 'react-icons/ri';
-import { BsFillSunFill as Sun, BsClockFill as Clock } from 'react-icons/bs';
+import {
+  BsFillSunFill as Sun,
+  BsClockFill as Clock,
+  BsFillSuitHeartFill as Heart,
+} from 'react-icons/bs';
 import { IoMdMoon as Moon } from 'react-icons/io';
 
 import { NearIcon as Near } from '../NearLogo';
@@ -32,6 +37,7 @@ const Icon = {
   Sun,
   Moon,
   Clock,
+  Heart,
 
   HamburgerMenu,
 
@@ -40,6 +46,7 @@ const Icon = {
   Telegram,
   Twitter,
   Info,
+  Cake,
 
   Near,
   Tonic,

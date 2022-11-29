@@ -88,7 +88,7 @@ const AccountId: React.FC<{
   length?: number;
   gutter?: number;
   link?: boolean;
-}> = ({ accountId, link, length = 16, gutter = 3, ...props }) => {
+}> = ({ accountId, link, length = 11, gutter = 4, ...props }) => {
   if (link) {
     return (
       <a
