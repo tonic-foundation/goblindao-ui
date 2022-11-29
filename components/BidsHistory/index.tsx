@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { mock_bid_history } from '@/components/BidsHistory/mock_data';
 import IconButton from '@/components/common/IconButton';
 import Card from '@/components/common/Card';
-import { GOBLIN_IPFS_URL } from '@/config';
+import NFTImage from '@/components/common/NFTImage';
 
 export interface Bid {
   // TODO
@@ -46,11 +46,7 @@ const BidsHistory: FC<{ onClose?: () => unknown }> = ({ onClose }) => {
     <div tw="p-5 min-w-[500px]">
       <div>
         <div tw="flex items-center gap-3 mb-4">
-          <img
-            tw="w-20 h-20 rounded-lg"
-            src={`${GOBLIN_IPFS_URL}/${tokenId}.png`}
-            alt=""
-          />
+          <NFTImage tw="w-20 h-20 rounded-lg" tokenId={tokenId} />
           <div tw="w-3/5">
             <p tw="text-xl font-semibold text-neutral-500">Bids for</p>
             <p tw="text-2xl font-bold">Tonic Greedy Goblins {tokenId}</p>

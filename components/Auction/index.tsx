@@ -1,5 +1,5 @@
 import React, { FC, useState } from 'react';
-import { getExplorerUrl, GOBLIN_IPFS_URL } from '@/config';
+import { getExplorerUrl } from '@/config';
 import { Input } from '@/components/common/Input';
 import Button from '@/components/common/Button';
 import Icon from '@/components/common/Icon';
@@ -15,11 +15,12 @@ import { Bid } from '@/components/BidsHistory';
 import { useBidsHistoryModal } from '@/components/BidsHistory/modal';
 import { useRouter } from 'next/router';
 import Typography from '@/components/Typography';
+import NFTImage from '@/components/common/NFTImage';
 
 const AuctionWrapper = {
   Main: tw.div`flex gap-10 justify-between`,
-  Left: tw.div`flex w-[55%]`,
-  Right: tw.div`flex flex-col gap-5 w-[50%]`,
+  Left: tw.div`flex w-[50%] grow items-stretch`,
+  Right: tw.div`flex flex-col gap-5 w-[50%] grow items-stretch`,
 };
 const AuctionTypography = {
   H1: tw.h1`text-4xl font-bold`,
@@ -76,7 +77,7 @@ const Auction: FC<{ tokenId: string; activeAuction?: boolean }> = ({
     <>
       <AuctionWrapper.Main tw="flex gap-10 justify-between">
         <AuctionWrapper.Left>
-          <img tw="w-full" src={`${GOBLIN_IPFS_URL}/${tokenId}.png`} alt="" />
+          <NFTImage tw="w-full" tokenId={tokenId} />
         </AuctionWrapper.Left>
         <AuctionWrapper.Right>
           <div tw="flex items-center gap-3">
@@ -86,7 +87,8 @@ const Auction: FC<{ tokenId: string; activeAuction?: boolean }> = ({
                 onClick={handleClickBack}
                 tw="text-xl text-neutral-600 dark:text-neutral-300"
               />
-              <IconButton.Next
+              <IconButton
+                icon={<Icon.Next />}
                 disabled={tokenId === '2000'}
                 onClick={handleClickNext}
                 tw="text-xl text-neutral-600 dark:text-neutral-300"
