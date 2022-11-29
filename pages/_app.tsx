@@ -8,6 +8,7 @@ import { RecoilRoot } from 'recoil';
 import { Toaster } from 'react-hot-toast';
 import GlobalStyles from './../styles/GlobalStyles';
 import { TxToastProvider } from '@/hooks/useWalletRedirectHash';
+import BidsHistoryModal from '@/components/BidsHistory/modal';
 
 const App = ({ Component, pageProps }: AppProps) => {
   return (
@@ -19,6 +20,7 @@ const App = ({ Component, pageProps }: AppProps) => {
             <TxToastProvider>
               <WalletSelectorModal />
               <Component {...pageProps} />
+              <BidsHistoryModal />
               <Toaster position={'bottom-center'} />
             </TxToastProvider>
           </WalletSelectorContextProvider>

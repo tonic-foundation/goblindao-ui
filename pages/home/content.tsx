@@ -1,10 +1,15 @@
 import { NextPage } from 'next';
 import React from 'react';
-// import { useWalletSelector } from '@/state/containers/WalletSelectorContainer';
+import Auction from '@/components/Auction';
 
 const Content: NextPage = () => {
-  // const { accountId } = useWalletSelector();
-  return <>Home Page</>;
+  const tokenIdOfActiveAuction = '1';
+
+  return (
+    <React.Fragment>
+      <Auction activeAuction tokenId={tokenIdOfActiveAuction} />
+    </React.Fragment>
+  );
 };
 
 export default Content;

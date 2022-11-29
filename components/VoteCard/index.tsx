@@ -6,13 +6,11 @@ import { arrayRandomlyShuffle, truncateToLocaleString } from '@/lib/util';
 import VoteCardHeading, {
   VoteCardHeadingVariantsTypes,
 } from '@/components/VoteCard/VoteCardHeading';
-import tw from 'twin.macro';
 import { VOTERS_PER_VOTE_CARD_DESKTOP } from '@/config';
 import { chunk } from 'lodash';
 import Voter from '@/components/VoteCard/Voter';
 import { Swiper, SwiperSlide } from '@/components/common/Swiper';
-
-const GrayCircle = tw.div`bg-neutral-100 dark:bg-neutral-700 rounded-full w-10 h-10 inline-block mx-1.5 my-2`;
+import GrayCircle from '@/components/common/GrayCircle';
 
 export enum VoteCardVariant {
   FOR,
