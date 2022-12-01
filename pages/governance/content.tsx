@@ -8,9 +8,11 @@ import { Proposal } from '@/components/Proposals';
 import Card from '@/components/common/Card';
 import Icon from '@/components/common/Icon';
 import Empty from '@/components/common/Empty';
+import { useWalletSelector } from '@/state/containers/WalletSelectorContainer';
 
 const Content: NextPage = () => {
   const router = useRouter();
+  const { accountId } = useWalletSelector();
 
   const handleClickProposal = (id: number | string) => {
     router.push(`/vote/${id}`);
@@ -56,10 +58,17 @@ const Content: NextPage = () => {
       <div tw="flex justify-between items-center py-6 mb-3">
         <Typography.Heading>Proposals</Typography.Heading>
         <div tw="flex items-center gap-4">
-          <Typography.Body tw="text-neutral-500 text-sm">
-            Connect wallet to make a proposal.
-          </Typography.Body>
-          <Button size="lg" disabled>
+          {!accountId && (
+            <Typography.Body tw="text-neutral-500 text-sm">
+              Connect wallet to make a proposal.
+            </Typography.Body>
+          )}
+          <Button
+            variant={accountId ? 'confirm' : 'default'}
+            onClick={() => router.push('/create-proposal')}
+            size="lg"
+            disabled={!accountId}
+          >
             Submit Proposal
           </Button>
         </div>
