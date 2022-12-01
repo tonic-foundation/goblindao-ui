@@ -8,6 +8,7 @@ import { useRouter } from 'next/router';
 
 const ProposalHeading: FC<{ proposal: ProposalProps }> = ({ proposal }) => {
   const router = useRouter();
+
   return (
     <div tw="mb-10 flex gap-3">
       <div>
@@ -19,13 +20,13 @@ const ProposalHeading: FC<{ proposal: ProposalProps }> = ({ proposal }) => {
       </div>
       <div>
         <div tw="flex flex-row gap-3 items-center mb-4">
-          <Typography.Heading tw="text-neutral-400">
+          <Typography.Heading tw="text-neutral-500">
             Proposal {proposal.id}
           </Typography.Heading>
           <ProposalsStatus status={proposal.status} />
         </div>
         <Typography.Title tw="mb-3">{proposal.title}</Typography.Title>
-        <Typography.Subheading tw="mb-2 text-neutral-400 font-semibold">
+        <Typography.Subheading tw="mb-2 text-neutral-500 font-semibold">
           Proposed by{' '}
           <a
             href=""

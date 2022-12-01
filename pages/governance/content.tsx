@@ -28,7 +28,7 @@ const Content: NextPage = () => {
           their vote to a third party. A minimum of 2 Tonic is required to
           submit proposals.
         </Typography.Body>
-        <Card tw="mb-5 mt-2 px-6 flex justify-between" hasBody hover="pointer">
+        <Card tw="mb-5 mt-2 px-6 flex justify-between" hasBody>
           <div tw="flex flex-col gap-2 items-center justify-center w-3/5">
             <Typography.Subheading tw="text-neutral-500 text-left w-full">
               Treasury
