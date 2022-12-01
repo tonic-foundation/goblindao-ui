@@ -7,11 +7,11 @@ import { useWalletSelector } from '@/state/containers/WalletSelectorContainer';
 
 const Page: React.FC = () => {
   const { accountId } = useWalletSelector();
-  const votePermission = false;
+  const votePermission = true;
 
   return (
     <AppLayout>
-      {!accountId && !votePermission ? <Content /> : <NoContent />}
+      {accountId && votePermission ? <Content /> : <NoContent />}
     </AppLayout>
   );
 };
