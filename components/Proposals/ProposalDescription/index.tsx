@@ -7,7 +7,7 @@ const ProposalDescription: FC<{ proposal: ProposalProps }> = ({ proposal }) => {
   return (
     <div>
       <Typography.Heading tw="mb-5">Description</Typography.Heading>
-      <Markdown children={proposal.description} />
+      <Markdown>{proposal.description}</Markdown>
     </div>
   );
 };

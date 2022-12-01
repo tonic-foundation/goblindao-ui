@@ -1,10 +1,10 @@
 import tw, { styled } from 'twin.macro';
 
 export interface CardStyleProps {
-  hover?: 'ring' | 'pointer';
+  hover?: 'ring' | 'pointer' | 'default';
 }
 
-export const cardStyles = ({ hover = 'pointer' }: CardStyleProps) => [
+export const cardStyles = ({ hover = 'default' }: CardStyleProps) => [
   tw`rounded-2xl p-4 border bg-white`,
   tw`dark:(border-neutral-700 bg-neutral-800)`,
   hover === 'ring'

@@ -52,9 +52,10 @@ const Markdown: FC<{ children?: string }> = ({ children }) => {
           }
         }
       `}
-      children={children || ''}
       remarkPlugins={[remarkBreaks]}
-    />
+    >
+      {children || ''}
+    </ReactMarkdown>
   );
 };
 
