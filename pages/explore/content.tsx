@@ -3,18 +3,18 @@ import React, { useState } from 'react';
 import tw, { css } from 'twin.macro';
 import { mock_nfts } from '@/pages/nft/[tokenId]';
 import NFTImage from '@/components/common/NFTImage';
-import { useTheme } from 'next-themes';
 import IconButton from '@/components/common/IconButton';
 import Icon from '@/components/common/Icon';
 import Button from '@/components/common/Button';
 import GrayCircle from '@/components/common/GrayCircle';
 import Link from 'next/link';
+import { useTheme } from 'next-themes';
 
 const ExploreWrapper = {
-  Main: tw.div`flex border border-solid rounded-xl relative`,
+  Main: tw.div`flex border border-solid rounded-xl`,
   Header: tw.div`border-b flex justify-between px-4 py-2.5 items-center`,
   Left: tw.div`flex grow flex-col`,
-  Right: tw.div`flex flex-col w-[33%] grow items-stretch border-l border-solid sticky top-0`,
+  Right: tw.div`flex flex-col w-[33%] grow items-stretch border-l border-solid`,
 };
 
 const Content: NextPage = () => {
@@ -40,7 +40,6 @@ const Content: NextPage = () => {
                 ${rightVisible ? 10 : 20},
                 minmax(0, 1fr)
               );
-            }
           `}
         >
           {mock_nfts.map((g, index) => (
@@ -52,7 +51,7 @@ const Content: NextPage = () => {
               }}
               onMouseEnter={() => setHoveredNFT(g.tokenId)}
               onMouseLeave={() => setHoveredNFT('')}
-              key={g.tokenId + index}
+              key={`tokenId-#${index + 1}`}
             >
               <NFTImage
                 css={css`
@@ -77,14 +76,16 @@ const Content: NextPage = () => {
       </ExploreWrapper.Left>
       {rightVisible && selectedNFT && (
         <ExploreWrapper.Right>
-          <IconButton.Close
-            onClick={() => {
-              setRightVisible(false);
-              setSelectedNFT('');
-              setHoveredNFT('');
-            }}
-            tw="absolute right-2 top-2 border-0 text-2xl font-semibold"
-          />
+          <div tw="w-full relative">
+            <IconButton.Close
+              onClick={() => {
+                setRightVisible(false);
+                setSelectedNFT('');
+                setHoveredNFT('');
+              }}
+              tw="absolute right-2 top-2 border-0 text-2xl font-semibold"
+            />
+          </div>
           <NFTImage tokenId={hoveredNFT || selectedNFT} />
           <div tw="text-2xl font-bold flex justify-between items-center bg-neutral-200 dark:bg-neutral-700 py-4 px-7">
             <IconButton.Back

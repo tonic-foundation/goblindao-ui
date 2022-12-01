@@ -103,7 +103,7 @@ const VoteCard: FC<VoteCardProps> = (props) => {
                         tokenId={`${index + 1}`}
                       />
                     ) : (
-                      <GrayCircle />
+                      <GrayCircle key={`${index + 1}`} />
                     )
                   )}
                 </div>
