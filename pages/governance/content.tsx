@@ -1,14 +1,14 @@
 import { NextPage } from 'next';
 import React from 'react';
-import Typography from '@/components/Typography';
 import Button from '@/components/common/Button';
 import { useRouter } from 'next/router';
 import { mock_proposals } from '@/components/Proposals/mock_data';
 import { Proposal } from '@/components/Proposals';
 import Card from '@/components/common/Card';
-import Icon from '@/components/common/Icon';
 import Empty from '@/components/common/Empty';
 import { useWalletSelector } from '@/state/containers/WalletSelectorContainer';
+import Typography from '@/components/Typography';
+import { useGoblinDaoFunds } from '@/hooks/useGoblinDaoFunds';
 
 const Content: NextPage = () => {
   const router = useRouter();
@@ -18,12 +18,14 @@ const Content: NextPage = () => {
     router.push(`/vote/${id}`);
   };
 
+  const { data: funds } = useGoblinDaoFunds();
+
   return (
     <React.Fragment>
       <div tw="flex flex-col gap-2">
-        <Typography.Subheading tw="text-neutral-500">
+        <Typography.Heading tw="text-neutral-500">
           Governance
-        </Typography.Subheading>
+        </Typography.Heading>
         <Typography.Title tw="mb-5">Tonic GoblinDAO</Typography.Title>
         <Typography.Body>
           Goblin govern Goblin DAO. Goblins can vote on proposals or delegate
@@ -32,19 +34,34 @@ const Content: NextPage = () => {
         </Typography.Body>
         <Card tw="mb-5 mt-2 px-6 flex justify-between" hasBody>
           <div tw="flex flex-col gap-2 items-center justify-center w-3/5">
-            <Typography.Subheading tw="text-neutral-500 text-left w-full">
+            <Typography.Heading tw="text-neutral-500 text-left w-full">
               Treasury
-            </Typography.Subheading>
+            </Typography.Heading>
             <div tw="gap-3 flex w-full justify-start">
+              {/* TODO if needed an UI similar to ASTRO DAO, check below code */}
+              {/*<Card tw="flex flex-col items-stretch">*/}
+              {/*  <div tw="gap-6 flex items-center justify-between w-full">*/}
+              {/*    <Icon.Near tw="w-5 h-5" />*/}
+              {/*    <div>*/}
+              {/*      <Tile.Value>*/}
+              {/*        <Typography.Currency*/}
+              {/*          unit={'NEAR'}*/}
+              {/*          value={29000}*/}
+              {/*          unitAfter*/}
+              {/*        />*/}
+              {/*      </Tile.Value>*/}
+              {/*      <Tile.SubLabel tw="whitespace-nowrap">*/}
+              {/*        <Typography.Currency value={29000} />*/}
+              {/*      </Tile.SubLabel>*/}
+              {/*    </div>*/}
+              {/*  </div>*/}
+              {/*</Card>*/}
               <Typography.Currency
                 tw="flex gap-2 text-2xl font-bold items-center"
-                unit={<Icon.Near tw="w-5 h-5" />}
-                precision={0}
-                value={29000}
-              />
-              <Typography.Currency
-                tw="border-l-2 inline-block px-3 font-bold text-2xl text-neutral-400"
-                value={29000 * 2}
+                value={funds}
+                unitAfter
+                unit="USD"
+                fallback={'--'}
               />
             </div>
           </div>

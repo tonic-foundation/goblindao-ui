@@ -1,14 +1,13 @@
 import { FC } from 'react';
 import Link from 'next/link';
-import Icon from '@/components/common/Icon';
-import { truncateToLocaleString } from '@/lib/util';
 import NavbarItemBase from '@/components/NavbarItemBase';
+import Typography from '../Typography';
 
 type NavbarTreasuryProps = {
-  treasuryBalance?: number;
+  treasuryBalance: number;
 };
 const NavbarTreasury: FC<NavbarTreasuryProps> = ({
-  treasuryBalance = 23900,
+  treasuryBalance,
   ...props
 }) => {
   return (
@@ -18,9 +17,13 @@ const NavbarTreasury: FC<NavbarTreasuryProps> = ({
           <div tw="text-sm mr-1 text-gray-500 font-medium md:block hidden">
             Treasury
           </div>
-          <Icon.Near tw="w-4 h-4 text-black dark:text-white" />
+          {/*<Icon.Near tw="w-4 h-4 text-black dark:text-white" />*/}
           <div tw="font-semibold text-black dark:text-white">
-            {truncateToLocaleString(treasuryBalance, 0)}
+            <Typography.Currency
+              value={treasuryBalance}
+              unit={'USD'}
+              unitAfter
+            />
           </div>
         </NavbarItemBase>
       </Link>

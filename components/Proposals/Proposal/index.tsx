@@ -37,10 +37,10 @@ const Proposal: FC<{ onClick: () => void; proposal: ProposalProps }> = ({
   return (
     <Card hover="ring" onClick={onClick} tw="flex justify-between">
       <div tw="flex gap-4 items-center">
-        <Typography.Subheading tw="text-neutral-500">
+        <Typography.Heading tw="text-neutral-500">
           {proposal.id}
-        </Typography.Subheading>
-        <Typography.Subheading>{proposal.title}</Typography.Subheading>
+        </Typography.Heading>
+        <Typography.Heading>{proposal.title}</Typography.Heading>
       </div>
       <div tw="flex items-center gap-3">
         {proposal.eta && (

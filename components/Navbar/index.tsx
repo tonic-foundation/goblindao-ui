@@ -10,6 +10,7 @@ import NavbarBrand from '@/components/NavbarBrand';
 import Icon from '@/components/common/Icon';
 import { useRouter } from 'next/router';
 import NavbarItemBase from '@/components/NavbarItemBase';
+import { useGoblinDaoFunds } from '@/hooks/useGoblinDaoFunds';
 
 const NavbarWrapper = tw.div`w-full flex md:flex-row flex-col justify-center items-center h-full`;
 
@@ -17,12 +18,14 @@ const Navbar: FC<{ onClose?: () => unknown }> = ({ onClose }) => {
   const router = useRouter();
   const currentRoute = router.pathname;
 
+  const { data: funds } = useGoblinDaoFunds();
+
   return (
     <NavbarWrapper>
       <div tw="flex items-center justify-between w-full">
         <div tw="hidden md:flex gap-10">
           <NavbarBrand />
-          <NavbarTreasury />
+          <NavbarTreasury treasuryBalance={funds || 0} />
         </div>
         {onClose && (
           <div tw="absolute top-6 right-6">

@@ -34,6 +34,11 @@ const Currency: React.FC<{
   tabular?: boolean;
 
   colored?: boolean;
+
+  /**
+   * hack: we're displaying a percentage
+   */
+  percentage?: boolean;
 }> = ({
   value,
   fallback,
@@ -45,6 +50,7 @@ const Currency: React.FC<{
   tabular = false,
   signed = false,
   colored = false,
+  percentage = false,
   ...props
 }) => {
   if (typeof value === 'undefined') {
@@ -68,16 +74,19 @@ const Currency: React.FC<{
         colored &&
           (value < 0
             ? tw`text-red-600 dark:text-red-500`
-            : tw`text-success-500 dark:text-green-400`),
+            : value > 0
+            ? tw`text-green-500 dark:text-lime-400`
+            : undefined),
       ]}
       {...props}
     >
       {sign}
-      {!unitAfter && unit}
+      {!unitAfter && !percentage && unit}
       {abbreviate
         ? nFormatter(abs, pricePrecision)
         : truncateToLocaleString(abs, pricePrecision)}
-      {/* space before the unit if it goes after */}
+      {percentage && `%`}
+      {/* space before the unit if the unit comes after */}
       {unitAfter && ` ${unit}`}
     </span>
   );
@@ -88,7 +97,7 @@ const AccountId: React.FC<{
   length?: number;
   gutter?: number;
   link?: boolean;
-}> = ({ accountId, link, length = 11, gutter = 4, ...props }) => {
+}> = ({ accountId, link, length = 16, gutter = 3, ...props }) => {
   if (link) {
     return (
       <a
@@ -107,24 +116,27 @@ const AccountId: React.FC<{
 };
 
 const Typography = {
+  // TODO: use this more
   AccountId,
+
   Currency,
 
-  Body: tw.p`font-light`,
   /**
    * Largest heading/title. Mainly for bare section headings.
    */
-  Title: tw.h1`font-bold text-4xl`,
+  Title: tw.h1`text-xl`,
+
   /**
    * General purpose heading, used in card and form headings.
    */
-  Heading: tw.h2`font-bold text-2xl`,
+  Heading: tw.h2`text-lg`,
 
-  Subheading: tw.h3`font-semibold text-xl`,
+  // TODO: remove below this line
+  Body: tw.p`font-medium`,
   /**
    * Form labels, etc
    */
-  Label: tw.label`font-medium text-base`,
+  Label: tw.label`font-semibold text-base`,
 };
 
 export default Typography;
