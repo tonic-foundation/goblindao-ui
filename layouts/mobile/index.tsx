@@ -8,7 +8,7 @@ import NavbarTreasury from '@/components/NavbarTreasury';
 import { BaseHeader } from '@/layouts';
 import NavbarBrand from '@/components/NavbarBrand';
 import ThemeToggle from '@/components/ThemeToggle';
-import { useGoblinDaoFunds } from '@/hooks/useGoblinDaoFunds';
+import { useGoblinDaoFunds } from '@/hooks/useGoblinDao';
 
 const Main = tw.div`flex flex-col`;
 const Content = tw.main`w-screen max-w-[768px] flex flex-col items-stretch h-full`;

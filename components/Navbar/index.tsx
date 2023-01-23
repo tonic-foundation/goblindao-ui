@@ -10,7 +10,7 @@ import NavbarBrand from '@/components/NavbarBrand';
 import Icon from '@/components/common/Icon';
 import { useRouter } from 'next/router';
 import NavbarItemBase from '@/components/NavbarItemBase';
-import { useGoblinDaoFunds } from '@/hooks/useGoblinDaoFunds';
+import { useGoblinDaoFunds } from '@/hooks/useGoblinDao';
 
 const NavbarWrapper = tw.div`w-full flex md:flex-row flex-col justify-center items-center h-full`;
 

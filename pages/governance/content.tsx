@@ -8,7 +8,7 @@ import Card from '@/components/common/Card';
 import Empty from '@/components/common/Empty';
 import { useWalletSelector } from '@/state/containers/WalletSelectorContainer';
 import Typography from '@/components/Typography';
-import { useGoblinDaoFunds } from '@/hooks/useGoblinDaoFunds';
+import { useGoblinDaoFunds, useGoblinDaoProposals } from '@/hooks/useGoblinDao';
 
 const Content: NextPage = () => {
   const router = useRouter();
@@ -19,7 +19,8 @@ const Content: NextPage = () => {
   };
 
   const { data: funds } = useGoblinDaoFunds();
-
+  const { data: proposals } = useGoblinDaoProposals();
+  console.log(proposals);
   return (
     <React.Fragment>
       <div tw="flex flex-col gap-2">

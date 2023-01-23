@@ -26,7 +26,7 @@ const ProposalHeading: FC<{ proposal: ProposalProps }> = ({ proposal }) => {
           <ProposalsStatus status={proposal.status} />
         </div>
         <Typography.Title tw="mb-3">{proposal.title}</Typography.Title>
-        <Typography.Subheading tw="mb-2 text-neutral-500 font-semibold">
+        <Typography.Heading tw="mb-2 text-neutral-500 font-semibold">
           Proposed by{' '}
           <a
             href=""
@@ -43,7 +43,7 @@ const ProposalHeading: FC<{ proposal: ProposalProps }> = ({ proposal }) => {
           >
             {proposal.transactionHash}
           </a>
-        </Typography.Subheading>
+        </Typography.Heading>
       </div>
     </div>
   );
