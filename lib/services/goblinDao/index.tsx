@@ -281,3 +281,17 @@ export async function getDaoProposals(url: string) {
     a.createdAt > b.createdAt ? -11 : a.createdAt === b.createdAt ? 0 : 1
   );
 }
+
+/**
+ * DAO Proposal by id
+ * @name getDaoProposal
+ * @desc get goblin dao proposal by id
+ * @method GET
+ * @return Proposal
+ */
+export async function getDaoProposal(proposalId: string) {
+  const url = `/proposals/${proposalId}`;
+  const response = await sputnik.get<Proposal>(url);
+
+  return response.data;
+}
