@@ -30,16 +30,16 @@ export async function getDaoFunds(daoId: string) {
  * @name getDaoProposals
  * @desc get goblin dao proposals list
  * @method GET
- * @return DaoProposalsResponse
+ * @return ProposalsResponse
  */
-enum ProposalStatus {
-  InProgress,
-  Approved,
-  Rejected,
-  Removed,
-  Expired,
-  Moved,
-  Failed,
+export enum ProposalStatus {
+  InProgress = 'In Progress',
+  Approved = 'Approved',
+  Rejected = 'Rejected',
+  Removed = 'Removed',
+  Expired = 'Expired',
+  Moved = 'Moved',
+  Failed = 'Failed',
 }
 enum ProposalVotedStatus {
   Active,
@@ -273,8 +273,11 @@ export interface ProposalsResponse {
   total: number;
   data: Proposal[];
 }
-export async function getDaoProposals() {
-  const url = `/proposals?offset=0&limit=1000&sort=createdAt,DESC`;
+export async function getDaoProposals(url: string) {
   const response = await sputnik.get<ProposalsResponse>(url);
-  return response.data?.data as Proposal[];
+
+  // If needed get offset, limit here
+  return response.data?.data.sort((a, b) =>
+    a.createdAt > b.createdAt ? -11 : a.createdAt === b.createdAt ? 0 : 1
+  );
 }

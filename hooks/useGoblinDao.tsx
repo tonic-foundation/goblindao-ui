@@ -11,5 +11,9 @@ export function useGoblinDaoFunds(swrOpts?: Partial<SWRConfiguration>) {
 }
 
 export function useGoblinDaoProposals(swrOpts?: Partial<SWRConfiguration>) {
-  return useSWR<Proposal[]>(getDaoProposals, swrOpts);
+  return useSWR<Proposal[]>(
+    `/proposals?offset=0&limit=1000&sort=createdAt,DESC`,
+    getDaoProposals,
+    swrOpts
+  );
 }

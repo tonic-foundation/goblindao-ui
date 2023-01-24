@@ -2,7 +2,6 @@ import { NextPage } from 'next';
 import React from 'react';
 import Button from '@/components/common/Button';
 import { useRouter } from 'next/router';
-import { mock_proposals } from '@/components/Proposals/mock_data';
 import { Proposal } from '@/components/Proposals';
 import Card from '@/components/common/Card';
 import Empty from '@/components/common/Empty';
@@ -20,7 +19,7 @@ const Content: NextPage = () => {
 
   const { data: funds } = useGoblinDaoFunds();
   const { data: proposals } = useGoblinDaoProposals();
-  console.log(proposals);
+
   return (
     <React.Fragment>
       <div tw="flex flex-col gap-2">
@@ -92,9 +91,10 @@ const Content: NextPage = () => {
         </div>
       </div>
       <div tw="flex flex-col gap-5">
-        {mock_proposals?.length ? (
-          mock_proposals.map((proposal) => (
+        {proposals?.length ? (
+          proposals.map((proposal, index) => (
             <Proposal
+              index={index + 1}
               proposal={proposal}
               key={proposal.id}
               onClick={() => handleClickProposal(proposal.id)}
