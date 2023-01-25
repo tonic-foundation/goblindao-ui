@@ -5,6 +5,7 @@ import Typography from '@/components/Typography';
 import { ProposalsStatus } from '@/components/Proposals';
 import { useRouter } from 'next/router';
 import { Proposal } from '@/lib/services/goblinDao';
+import { getExplorerUrl } from '@/config';
 
 const ProposalHeading: FC<{ proposal: Proposal }> = ({ proposal }) => {
   const router = useRouter();
@@ -29,19 +30,24 @@ const ProposalHeading: FC<{ proposal: Proposal }> = ({ proposal }) => {
         <Typography.Heading tw="mb-2 text-neutral-500 font-semibold">
           Proposed by{' '}
           <a
+            rel="noreferrer"
             href=""
             target="_blank"
             tw="text-brand-400 underline cursor-pointer"
           >
             {proposal.proposer}
           </a>{' '}
-          at{' '}
+          at {/* TODO not sure if this is correct url*/}
           <a
-            href=""
+            rel="noreferrer"
+            href={getExplorerUrl(
+              'transaction',
+              proposal.transactionHash || proposal.updateTransactionHash
+            )}
             target="_blank"
             tw="text-brand-400 underline cursor-pointer"
           >
-            {proposal.transactionHash}
+            {proposal.transactionHash || proposal.updateTransactionHash}
           </a>
         </Typography.Heading>
       </div>

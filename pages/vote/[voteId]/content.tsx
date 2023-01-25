@@ -25,6 +25,7 @@ const Content: FC<{ proposal?: Proposal }> = () => {
     );
   }
 
+  // TODO create new Votes Component
   // // Get total votes and format percentages for UI
   // const totalVotes = proposal
   //   ? proposal.forCount + proposal.againstCount + proposal.abstainCount

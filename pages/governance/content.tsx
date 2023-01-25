@@ -8,6 +8,7 @@ import Empty from '@/components/common/Empty';
 import { useWalletSelector } from '@/state/containers/WalletSelectorContainer';
 import Typography from '@/components/Typography';
 import { useGoblinDaoFunds, useGoblinDaoProposals } from '@/hooks/useGoblinDao';
+import Loading from '@/components/common/Loading';
 
 const Content: NextPage = () => {
   const router = useRouter();
@@ -91,7 +92,11 @@ const Content: NextPage = () => {
         </div>
       </div>
       <div tw="flex flex-col gap-5">
-        {proposals?.length ? (
+        {!proposals ? (
+          <div tw="w-full flex justify-center items-center">
+            <Loading.Pulse tw="h-20 w-20 rounded-full" />
+          </div>
+        ) : proposals.length ? (
           proposals.map((proposal, index) => (
             <Proposal
               index={index + 1}
