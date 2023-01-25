@@ -3,10 +3,10 @@ import IconButton from '@/components/common/IconButton';
 import Icon from '@/components/common/Icon';
 import Typography from '@/components/Typography';
 import { ProposalsStatus } from '@/components/Proposals';
-import { ProposalProps } from '@/components/Proposals/Proposal';
 import { useRouter } from 'next/router';
+import { Proposal } from '@/lib/services/goblinDao';
 
-const ProposalHeading: FC<{ proposal: ProposalProps }> = ({ proposal }) => {
+const ProposalHeading: FC<{ proposal: Proposal }> = ({ proposal }) => {
   const router = useRouter();
 
   return (
@@ -25,8 +25,8 @@ const ProposalHeading: FC<{ proposal: ProposalProps }> = ({ proposal }) => {
           </Typography.Heading>
           <ProposalsStatus status={proposal.status} />
         </div>
-        <Typography.Title tw="mb-3">{proposal.title}</Typography.Title>
-        <Typography.Subheading tw="mb-2 text-neutral-500 font-semibold">
+        <Typography.Title tw="mb-3">{proposal.type}</Typography.Title>
+        <Typography.Heading tw="mb-2 text-neutral-500 font-semibold">
           Proposed by{' '}
           <a
             href=""
@@ -43,7 +43,7 @@ const ProposalHeading: FC<{ proposal: ProposalProps }> = ({ proposal }) => {
           >
             {proposal.transactionHash}
           </a>
-        </Typography.Subheading>
+        </Typography.Heading>
       </div>
     </div>
   );

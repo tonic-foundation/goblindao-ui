@@ -1,9 +1,9 @@
 import React, { FC } from 'react';
 import Typography from '@/components/Typography';
 import Markdown from '@/components/common/Markdown';
-import { ProposalProps } from '@/components/Proposals/Proposal';
+import { Proposal } from '@/lib/services/goblinDao';
 
-const ProposalDescription: FC<{ proposal: ProposalProps }> = ({ proposal }) => {
+const ProposalDescription: FC<{ proposal: Proposal }> = ({ proposal }) => {
   return (
     <div>
       <Typography.Heading tw="mb-5">Description</Typography.Heading>
