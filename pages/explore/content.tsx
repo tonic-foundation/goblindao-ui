@@ -21,7 +21,7 @@ const ExploreWrapper = {
 const Content: NextPage = () => {
   const [hoveredNFT, setHoveredNFT] = useState<string>('');
   const [selectedNFT, setSelectedNFT] = useState('1');
-  const [rightVisible, setRightVisible] = useState(true);
+  const [rightVisible, setRightVisible] = useState(false);
   const { theme } = useTheme();
   const isMobile = useIsMobile();
 
