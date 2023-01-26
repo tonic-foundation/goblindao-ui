@@ -9,12 +9,13 @@ import Button from '@/components/common/Button';
 import GrayCircle from '@/components/common/GrayCircle';
 import Link from 'next/link';
 import { useTheme } from 'next-themes';
+import { useIsMobile } from '@/hooks/useIsMobile';
 
 const ExploreWrapper = {
-  Main: tw.div`flex border border-solid rounded-xl`,
-  Header: tw.div`border-b flex justify-between px-4 py-2.5 items-center`,
-  Left: tw.div`flex grow flex-col`,
-  Right: tw.div`flex flex-col w-[33%] grow items-stretch border-l border-solid`,
+  Main: tw.div`flex border border-solid`,
+  Header: tw.div`border-b justify-between px-4 py-2.5 items-center sm:flex hidden`,
+  Left: tw.div`flex grow flex-col h-screen`,
+  Right: tw.div`flex flex-col w-[33%] grow items-stretch border-l border-solid overflow-auto`,
 };
 
 const Content: NextPage = () => {
@@ -22,6 +23,7 @@ const Content: NextPage = () => {
   const [selectedNFT, setSelectedNFT] = useState('1');
   const [rightVisible, setRightVisible] = useState(true);
   const { theme } = useTheme();
+  const isMobile = useIsMobile();
 
   return (
     <ExploreWrapper.Main>
@@ -33,11 +35,11 @@ const Content: NextPage = () => {
           <Button size="lg">Latest Goblins</Button>
         </ExploreWrapper.Header>
         <div
-          tw="grid grid-cols-10 gap-2 p-4"
+          tw="grid gap-2 p-4 max-h-fit overflow-auto"
           css={css`
             & {
               grid-template-columns: repeat(
-                ${rightVisible ? 10 : 20},
+                ${isMobile ? 1 : rightVisible ? 4 : 8},
                 minmax(0, 1fr)
               );
           `}
@@ -67,7 +69,7 @@ const Content: NextPage = () => {
                     border-style: solid;
                   }
                 `}
-                tw="w-24 h-full rounded-xl cursor-pointer"
+                tw="w-full h-full rounded-xl cursor-pointer"
                 tokenId={g.tokenId}
               />
             </div>

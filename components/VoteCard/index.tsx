@@ -1,6 +1,5 @@
 import { FC, useMemo } from 'react';
 import Card from '@/components/common/Card';
-import { ProposalProps } from '@/components/Proposals/Proposal';
 import ProgressBar from '@/components/common/ProgressBar';
 import { arrayRandomlyShuffle, truncateToLocaleString } from '@/lib/util';
 import VoteCardHeading, {
@@ -11,6 +10,7 @@ import { chunk } from 'lodash';
 import Voter from '@/components/VoteCard/Voter';
 import { Swiper, SwiperSlide } from '@/components/common/Swiper';
 import GrayCircle from '@/components/common/GrayCircle';
+import { Proposal } from '@/lib/services/goblinDao';
 
 export enum VoteCardVariant {
   FOR,
@@ -19,7 +19,8 @@ export enum VoteCardVariant {
 }
 
 type VoteCardProps = {
-  proposal: ProposalProps;
+  // TODO
+  proposal: any;
   percentage: number;
   variant: VoteCardVariant;
   voterIds?: Array<string>;

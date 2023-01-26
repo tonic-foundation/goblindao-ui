@@ -1,15 +1,22 @@
 import Icon from '@/components/common/Icon';
 import React from 'react';
+import { NearEnv } from '@tonic-foundation/config';
 
-export interface INavbarMenuItem {
+export interface NavbarMenuLink {
   name: string;
-  href?: string;
+  href: string;
   icon: React.ReactNode;
   external?: boolean;
-  subMenu?: INavbarMenuItem[];
+  subMenu?: NavbarMenuLink[];
+  alsoMatch?: string[];
+  hidden?: boolean;
+  /**
+   * if set, will only show this link for this near env
+   */
+  nearEnv?: NearEnv;
 }
 
-export const NAVBAR_MENU: INavbarMenuItem[] = [
+export const NAVBAR_LINKS: NavbarMenuLink[] = [
   {
     href: '/governance',
     name: 'DAO',

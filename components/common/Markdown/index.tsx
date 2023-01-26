@@ -10,6 +10,7 @@ const Markdown: FC<{ children?: string }> = ({ children }) => {
         & {
           font-size: 0.925rem;
           font-weight: 100;
+          overflow-wrap: break-word;
 
           h1 {
             font-size: 1.7rem;

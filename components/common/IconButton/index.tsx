@@ -15,13 +15,10 @@ function curried<T = unknown>(icon: React.ReactNode): React.FC<BaseProps & T> {
 }
 
 const BaseButton = tw.button`
-  w-9 h-9 rounded-full
-  transition
-  border border-solid
+  w-6 h-6 rounded-full
   flex items-center justify-center text-base
-  hover:bg-neutral-200
-  dark:hover:bg-neutral-600
-  disabled:(opacity-60 cursor-not-allowed bg-neutral-200 dark:bg-neutral-600)
+  hover:(transition-colors bg-neutral-200)
+  hover:dark:text-deep-blue-900
 `;
 
 const BaseIconButton: React.FC<

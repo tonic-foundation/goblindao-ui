@@ -21,7 +21,7 @@ const BidsHistoryModal = () => {
     <Modal
       visible={modalState}
       onClose={closeModal}
-      mobileDisplay="modal"
+      mobileDisplay="drawer"
       render={({ closeModal }) => {
         return <BidsHistory onClose={closeModal} />;
       }}

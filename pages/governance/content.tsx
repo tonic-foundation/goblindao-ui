@@ -33,8 +33,11 @@ const Content: NextPage = () => {
           their vote to a third party. A minimum of 2 Tonic is required to
           submit proposals.
         </Typography.Body>
-        <Card tw="mb-5 mt-2 px-6 flex justify-between" hasBody>
-          <div tw="flex flex-col gap-2 items-center justify-center w-3/5">
+        <Card
+          tw="mb-5 mt-2 md:px-6 px-0 flex md:flex-row flex-col justify-between"
+          hasBody
+        >
+          <div tw="flex flex-col gap-2 items-center justify-center md:w-3/5 w-full md:px-0 px-6 md:py-0 py-3">
             <Typography.Heading tw="text-neutral-500 text-left w-full">
               Treasury
             </Typography.Heading>
@@ -66,7 +69,7 @@ const Content: NextPage = () => {
               />
             </div>
           </div>
-          <div tw="flex items-center gap-3 border-l px-6 py-5 w-2/5">
+          <div tw="flex items-center gap-3 md:border-l px-6 py-5 md:w-2/5 w-full">
             This treasury exists for Goblin DAO participants to allocate
             resources for the long-term growth and prosperity of the Tonic
             project.

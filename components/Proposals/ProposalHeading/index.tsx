@@ -6,9 +6,12 @@ import { ProposalsStatus } from '@/components/Proposals';
 import { useRouter } from 'next/router';
 import { Proposal } from '@/lib/services/goblinDao';
 import { getExplorerUrl } from '@/config';
+import { useIsMobile } from '@/hooks/useIsMobile';
+import { abbreviateCryptoString } from '@/lib/util';
 
 const ProposalHeading: FC<{ proposal: Proposal }> = ({ proposal }) => {
   const router = useRouter();
+  const isMobile = useIsMobile();
 
   return (
     <div tw="mb-10 flex gap-3">
@@ -47,7 +50,11 @@ const ProposalHeading: FC<{ proposal: Proposal }> = ({ proposal }) => {
             target="_blank"
             tw="text-brand-400 underline cursor-pointer"
           >
-            {proposal.transactionHash || proposal.updateTransactionHash}
+            {proposal.transactionHash
+              ? abbreviateCryptoString(proposal.transactionHash, 16, 3)
+              : proposal.updateTransactionHash
+              ? abbreviateCryptoString(proposal.updateTransactionHash, 16, 3)
+              : null}
           </a>
         </Typography.Heading>
       </div>

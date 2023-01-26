@@ -14,7 +14,7 @@ const NavbarTreasury: FC<NavbarTreasuryProps> = ({
     <div tw="flex flex-row items-center" {...props}>
       <Link href="">
         <NavbarItemBase target="_blank">
-          <div tw="text-sm mr-1 text-gray-500 font-medium md:block hidden">
+          <div tw="text-sm mr-1 text-gray-500 font-medium lg:block hidden">
             Treasury
           </div>
           {/*<Icon.Near tw="w-4 h-4 text-black dark:text-white" />*/}

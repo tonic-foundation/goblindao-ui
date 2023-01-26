@@ -1,26 +1,26 @@
+import { border } from '@/styles';
 import tw, { styled } from 'twin.macro';
 
 const baseStyles = tw`
   font-medium
-  rounded-xl outline-none
-  disabled:(opacity-80 cursor-not-allowed
-  bg-neutral-200 border-slate-300 hover:border-slate-300
-  dark:(hover:bg-neutral-600 bg-neutral-600 hover:border-neutral-400 border-neutral-400))
+  rounded-md outline-none
+  disabled:(opacity-80 hover:opacity-80 cursor-not-allowed dark:bg-neutral-500 dark:hover:bg-neutral-500 )
 `;
 
 const variants = {
-  default: tw`bg-white border border-slate-200 hover:border-slate-400 transition dark:(bg-neutral-800 border-neutral-600 hover:border-neutral-400)`,
-  confirm: tw`text-white bg-neutral-900 dark:bg-neutral-800 dark:hover:bg-neutral-900 transition hover:bg-opacity-90 border`,
-
-  // TODO refactor
+  default: () => [
+    tw`bg-white border-[1px] border-slate-100 hover:border-neutral-200 dark:(bg-neutral-700 border-neutral-700 hover:border-neutral-600)`,
+    border.default,
+  ],
+  confirm: tw`text-white bg-deep-blue-900 dark:(bg-lime-400 text-black) hover:bg-opacity-90 dark:(bg-opacity-90 hover:bg-opacity-100)`,
   success: tw`text-white bg-success-500 hover:bg-opacity-90 dark:(bg-opacity-90 hover:bg-opacity-100)`,
-  error: tw`text-white bg-danger-500 hover:bg-opacity-90 dark:(bg-opacity-90 hover:bg-opacity-100)`,
-  info: tw`text-white bg-info-500 hover:bg-opacity-90 dark:(bg-opacity-90 hover:bg-opacity-100)`,
+  error: tw`text-white bg-red-600 hover:bg-opacity-90 dark:(bg-opacity-90 hover:bg-opacity-100)`,
+  info: tw`text-white bg-blue-600 hover:bg-opacity-90 dark:(bg-opacity-90 hover:bg-opacity-100)`,
 };
 
 const sizes = {
   none: tw``,
-  xs: tw`text-xs px-1 py-0.5`,
+  xs: tw`text-xs px-1 py-0.5 rounded-md`,
   sm: tw`text-sm py-1.5 px-2`,
   default: tw`py-1.5 px-3`,
   lg: tw`py-3 px-4`,
@@ -31,6 +31,7 @@ export interface ButtonStyleOpts {
   size?: keyof typeof sizes;
 }
 
+// occasionally want this for links etc that behave like buttons but aren't
 export function buttonStyles(opts: ButtonStyleOpts) {
   return [
     baseStyles,

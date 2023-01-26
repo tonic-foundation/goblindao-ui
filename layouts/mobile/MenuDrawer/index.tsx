@@ -16,7 +16,7 @@ const MenuDrawer: FC = () => {
     <Modal
       visible={visible}
       onClose={closeModal}
-      mobileDisplay="menubar"
+      mobileDisplay="drawer"
       render={({ closeModal }) => {
         return <Navbar onClose={closeModal} />;
       }}

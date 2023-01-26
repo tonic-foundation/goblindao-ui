@@ -7,7 +7,7 @@ import { sleep } from '@/lib/util';
 import Card from '../Card';
 
 // XXX: mobile modal might be broken. it's never (?) used, though
-type MobileDisplay = 'drawer' | 'modal' | 'fullscreen' | 'menubar';
+type MobileDisplay = 'drawer' | 'modal' | 'fullscreen' | 'sidebar';
 
 export interface ModalProps {
   visible?: boolean;
@@ -100,7 +100,7 @@ const ContentWrapper = styled(Card)<{
             padding-bottom: env(safe-area-inset-bottom);
           }
         `
-      : mobileDisplay === 'menubar'
+      : mobileDisplay === 'sidebar'
       ? css`
           @media (max-width: 768px) {
             position: fixed;

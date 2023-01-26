@@ -10,8 +10,8 @@ import NavbarBrand from '@/components/NavbarBrand';
 import ThemeToggle from '@/components/ThemeToggle';
 import { useGoblinDaoFunds } from '@/hooks/useGoblinDao';
 
-const Main = tw.div`flex flex-col`;
-const Content = tw.main`w-screen max-w-[768px] flex flex-col items-stretch h-full`;
+const Main = tw.div`flex flex-col mb-7`;
+const Content = tw.main`w-screen max-w-[768px] flex flex-col items-stretch h-full p-4`;
 
 const MobileLayout: FC<{ children: ReactNode; floatingFooter?: boolean }> = ({
   children,

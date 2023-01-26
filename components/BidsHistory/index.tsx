@@ -43,7 +43,7 @@ const BidsHistory: FC<{ onClose?: () => unknown }> = ({ onClose }) => {
   const [tokenId] = useState(mock_bid_history.tokenId);
 
   return (
-    <div tw="p-5 min-w-[500px]">
+    <div tw="p-3 sm:p-5 sm:min-w-[500px]">
       <div>
         <div tw="flex items-center gap-3 mb-4">
           <NFTImage tw="w-20 h-20 rounded-lg" tokenId={tokenId} />

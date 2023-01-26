@@ -1,10 +1,17 @@
 import React, { FC } from 'react';
-import Auction from '@/components/Auction';
+import { DesktopAuction, MobileAuction } from '@/components/Auction';
+import { useIsMobile } from '@/hooks/useIsMobile';
 
 const Content: FC<{ tokenId: string }> = ({ tokenId }) => {
+  const isMobile = useIsMobile();
+
   return (
     <div>
-      <Auction tokenId={tokenId} />
+      {isMobile ? (
+        <MobileAuction tokenId={tokenId} />
+      ) : (
+        <DesktopAuction tokenId={tokenId} />
+      )}
     </div>
   );
 };

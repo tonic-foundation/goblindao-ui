@@ -3,15 +3,18 @@ import tw, { styled } from 'twin.macro';
 const NavbarItemBase = styled.a<{
   currentRoute?: string;
   route?: string;
+  alsoMatch?: string[];
 }>(
   tw`flex gap-2 items-center rounded-xl font-medium 
   justify-center text-center
-  py-2 px-3 border cursor-pointer hover:bg-gray-100 dark:bg-neutral-800 hover:text-black
-  text-neutral-600 dark:text-neutral-400 transition`,
-  ({ currentRoute, route }) =>
-    currentRoute && route && currentRoute === route
-      ? tw`bg-gray-100 text-black dark:text-white`
-      : tw`bg-white dark:hover:text-white`
+  py-2 px-3 border cursor-pointer hover:bg-fuchsia-600/10 dark:hover:bg-fuchsia-500/30 whitespace-nowrap
+  transition`,
+  ({ currentRoute, route, alsoMatch }) =>
+    currentRoute &&
+    route &&
+    (currentRoute === route || alsoMatch?.find((r) => r === currentRoute))
+      ? tw`bg-fuchsia-600/10 text-fuchsia-600 dark:(text-white bg-fuchsia-700/90 hover:bg-fuchsia-700)`
+      : tw`bg-transparent`
 );
 
 export default NavbarItemBase;
