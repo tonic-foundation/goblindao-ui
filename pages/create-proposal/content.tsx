@@ -67,7 +67,7 @@ const Content: FC = () => {
         size="lg"
         variant="confirm"
       >
-        You must have 2 votes to submit a proposal
+        Submit a proposal
       </Button>
     </div>
   );
