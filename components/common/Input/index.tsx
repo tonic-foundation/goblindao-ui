@@ -1,12 +1,13 @@
 import tw, { styled } from 'twin.macro';
+import { border } from '@/styles';
 
-export const Input = styled.input(
-  tw`w-full`,
+export const Input = styled.input<{ tabular?: boolean }>(
+  ...border.default,
+  ...border.hover,
+  tw`w-full p-2.5`,
   tw`appearance-none outline-none`,
-  tw`border-[1px] border-slate-200 hover:border-slate-300 focus:border-black`,
-  tw`dark:(border-neutral-700 hover:border-neutral-600 focus:border-neutral-400)`,
-  tw`rounded-lg p-2.5`,
-  tw`text-sm font-medium`,
-  tw`placeholder:opacity-75`,
-  tw`transition duration-200`
+  tw`text-sm placeholder:opacity-60`,
+  ({ tabular }) => tabular && tw`tabular-nums`,
+  tw`disabled:(opacity-80 hover:opacity-80 cursor-not-allowed)
+`
 );

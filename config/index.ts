@@ -37,6 +37,7 @@ export const TWITTER_HREF = 'https://twitter.com/tonicdex';
 export const FEEDBACK_HREF = undefined;
 export const NEAR_HREF = 'https://near.org';
 
+export const LP_TOKEN_DECIMALS = 18;
 export const DOLLAR_DECIMALS = 6;
 export const DEFAULT_PRECISION = 2;
 

@@ -11,16 +11,12 @@ import BaseButton, {
   buttonStyles,
 } from '@/components/common/Button';
 import { useWalletPickerModal } from '@/components/WalletSelector/state';
-import {
-  abbreviateCryptoString,
-  sleep,
-  truncateToLocaleString,
-} from '@/lib/util';
-import { bnToApproximateDecimal } from '@tonic-foundation/utils';
-import { NEAR_DECIMALS } from '@tonic-foundation/token';
+import { abbreviateCryptoString, sleep } from '@/lib/util';
 import toast from 'react-hot-toast';
 import Transition, { TransitionProps } from '@/components/Transition';
 import Card from '@/components/common/Card';
+import Typography from '../Typography';
+import { border, hover, color } from '@/styles';
 
 type PopoverProps = {
   panelProps?: {
@@ -37,10 +33,12 @@ type TriggerProps = {
 };
 
 const buttonHover = tw`hover:(bg-brand-400 bg-opacity-5) dark:hover:text-brand-400`;
-const Button = styled(BaseButton)(tw`rounded-none py-3 border-0`);
+const Button = styled(BaseButton)(
+  tw`rounded-none p-4 py-2 border-0 font-normal`
+);
 const ButtonLink = styled.a<ButtonStyleOpts>(
   buttonStyles,
-  tw`rounded-none py-3 bg-transparent border-0`
+  tw`rounded-none py-3 bg-transparent border-0 font-normal`
 );
 
 const DEFAULT_COPY_TEXT = 'Copy address';
@@ -83,9 +81,10 @@ function AccountPopover({ panelProps }: PopoverProps) {
               {...panelProps}
             >
               <Card
-                tw="border-0 shadow-lg rounded-md md:rounded-t-none
-                   md:rounded-b-md rounded-b-none p-0 flex md:flex-col flex-col-reverse
-                   items-stretch min-w-max w-full overflow-hidden"
+                tw="shadow-lg md:rounded-t-none border-t-0 rounded-xl border-[2px]
+                    md:rounded-b-md rounded-b-none p-0 flex md:flex-col flex-col-reverse
+                    items-stretch min-w-max w-full overflow-hidden"
+                css={color.border}
               >
                 <Button
                   tw="text-sm px-3 bg-transparent"
@@ -130,29 +129,30 @@ function AccountPopover({ panelProps }: PopoverProps) {
 
 function AccountPopoverTrigger({ open }: TriggerProps) {
   const { accountId } = useWalletSelector();
-  const [nearBalanceBn] = useWalletBalance(NEAR_TOKEN_INFO.symbol);
+  const { data: nearBalance } = useWalletBalance(NEAR_TOKEN_INFO.symbol);
 
   return (
     <HeadlessPopover.Button
-      tw="w-full flex items-center justify-center gap-2 py-2 px-3 rounded-lg hover:(bg-brand-400 bg-opacity-5) outline-none focus:ring-0"
-      css={
+      tw="w-full flex items-center justify-center gap-2 py-2 px-3 border-[2px] rounded-xl"
+      css={[
+        border.default,
+        hover.default,
         open &&
-        tw`md:rounded-b-none md:rounded-t-md rounded-b-md rounded-t-none bg-brand-400 shadow-lg bg-opacity-5 transition duration-200 text-brand-400`
-      }
+          tw`md:rounded-b-none md:rounded-t-xl rounded-b-xl rounded-t-none bg-brand-400 shadow-lg bg-opacity-5 transition duration-200 text-brand-400`,
+      ]}
     >
-      <Icon.Tonic tw="h-8 w-8" />
-      <span tw="flex flex-col items-start">
-        <span tw="font-bold text-sm">
-          {abbreviateCryptoString(accountId || 'anon', 16, 3)}
+      <span tw="flex items-center">
+        <Icon.Tonic tw="w-4 h-4" />
+        <span tw="ml-2 font-bold text-xs">
+          {abbreviateCryptoString(accountId || 'anon', 12, 3)}
         </span>
-        <span tw="text-xs">
-          {nearBalanceBn
-            ? truncateToLocaleString(
-                bnToApproximateDecimal(nearBalanceBn, NEAR_DECIMALS),
-                2
-              )
-            : '---'}{' '}
-          NEAR
+        <span tw="ml-2 text-xs p-1 bg-neutral-100/10 rounded-sm">
+          <Typography.Currency
+            value={nearBalance}
+            unit="NEAR"
+            fallback="---"
+            unitAfter
+          />
         </span>
       </span>
     </HeadlessPopover.Button>
@@ -167,7 +167,7 @@ const AuthButton: React.FC = (props) => {
     return (
       <BaseButton
         variant="confirm"
-        tw="py-2 px-4 w-full md:w-auto"
+        tw="p-3"
         onClick={(e) => {
           e.preventDefault();
           showWalletPicker(true);
