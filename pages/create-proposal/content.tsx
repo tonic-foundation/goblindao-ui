@@ -12,39 +12,39 @@ import { Input } from '@/components/common/Input';
 import { TokenInput } from '@/components/TokenInput';
 import tokenService, { IToken } from '@/lib/services/near/tokenlist';
 
-const CreateProposalTextArea = tw.textarea`dark:bg-neutral-800 bg-white outline-none placeholder:(text-neutral-500 font-light) py-1.5`;
-const CreateProposalInput = tw.input`dark:bg-neutral-800 bg-white border-b border-solid border-neutral-300 text-lg outline-none placeholder:(text-neutral-500 font-light) mb-2 py-1.5`;
+const TextArea = tw.textarea`dark:bg-neutral-800 bg-white outline-none placeholder:(text-neutral-500 font-light) py-1.5`;
+const TitleInput = tw.input`dark:bg-neutral-800 bg-white border-b border-solid border-neutral-300 text-lg outline-none placeholder:(text-neutral-500 font-light) mb-2 py-1.5`;
 const textAreaPlaceholder = `## Summary\n\nInsert your summary here\n\n## Methodology\n\nInsert your methodology here\n\n## Conclusion\n\nInsert your conclusion here`;
 
 const proposalTypes: ListBoxProps[] = [
   { name: 'Function Calls', value: 'FunctionCalls' },
-  { name: 'Deposit', value: 'deposit' },
+  { name: 'Deposit', value: 'Deposit' },
 ];
 
 export const SUPPORTED_TOKENS = tokenService.getAllTokens();
 
 const Content: FC = () => {
   const router = useRouter();
-  const [proposalDescription, setProposalDescription] = useState('');
-  const [proposalDepositToken, setProposalDepositToken] = useState<IToken>(
-    SUPPORTED_TOKENS[0]
-  );
-  const [proposalDepositAmount, setProposalDepositAmount] = useState<
+  const [description, setDescription] = useState('');
+  const [depositToken, setDepositToken] = useState<IToken>(SUPPORTED_TOKENS[0]);
+  const [depositAmount, setDepositAmount] = useState<
     number | string | undefined
   >('');
-  const [proposalJSON, setProposalJSON] = useState('');
-  const [proposalJSONFocused, setProposalJSONFocused] = useState(false);
-  const [proposalDescriptionFocused, setProposalDescriptionFocused] =
-    useState(false);
-  const [proposalTitleFocused, setProposalTitleFocused] = useState(false);
+  const [tGasAmount, setTGasAmount] = useState<number | string | undefined>(
+    150
+  );
+  const [target, setTarget] = useState('');
+  const [JSON, setJSON] = useState('');
+  const [JSONFocused, setJSONFocused] = useState(false);
+  const [descriptionFocused, setDescriptionFocused] = useState(false);
+  const [titleFocused, setTitleFocused] = useState(false);
   // TODO make a separate hook or component
-  const onProposalJSONFocus = () => setProposalJSONFocused(true);
-  const onProposalJSONBlur = () => setProposalJSONFocused(false);
-  const onProposalDescriptionFocus = () => setProposalDescriptionFocused(true);
-  const onProposalDescriptionBlur = () => setProposalDescriptionFocused(false);
-
-  const onProposalTitleFocus = () => setProposalTitleFocused(true);
-  const onProposalTitleBlur = () => setProposalTitleFocused(false);
+  const onJSONFocus = () => setJSONFocused(true);
+  const onJSONBlur = () => setJSONFocused(false);
+  const onDescriptionFocus = () => setDescriptionFocused(true);
+  const onDescriptionBlur = () => setDescriptionFocused(false);
+  const onTitleFocus = () => setTitleFocused(true);
+  const onTitleBlur = () => setTitleFocused(false);
 
   const [selectedType, setSelectedType] = useState<ListBoxProps>(
     proposalTypes[0]
@@ -76,64 +76,93 @@ const Content: FC = () => {
           setSelected={setSelectedType}
           list={proposalTypes}
         />
-        <div tw="flex gap-3">
-          <Input tw="py-3 px-4" placeholder="Smart Contract Address" />
-          <Input tw="py-3 px-4" placeholder="Method Name" />
-        </div>
-        <Card focused={proposalJSONFocused} tw="opacity-70 text-sm rounded-lg">
-          <div tw="flex flex-col">
-            <label tw="mb-1">JSON</label>
-          </div>
-          <div tw="flex flex-col">
-            <CreateProposalTextArea
-              placeholder="{}"
-              value={proposalJSON}
-              onFocus={onProposalJSONFocus}
-              onBlur={onProposalJSONBlur}
-              onChange={(e) => setProposalJSON(e.target.value)}
-            />
-          </div>
-        </Card>
-        <div tw="flex gap-3">
+        {selectedType?.value === 'FunctionCalls' && (
+          <>
+            <div tw="flex gap-3">
+              <Input tw="py-3 px-4" placeholder="Smart Contract Address" />
+              <Input tw="py-3 px-4" placeholder="Method Name" />
+            </div>
+            <Card focused={JSONFocused} tw="opacity-70 text-sm rounded-lg">
+              <div tw="flex flex-col">
+                <label tw="mb-1">JSON</label>
+              </div>
+              <div tw="flex flex-col">
+                <TextArea
+                  placeholder="{}"
+                  value={JSON}
+                  onFocus={onJSONFocus}
+                  onBlur={onJSONBlur}
+                  onChange={(e) => setJSON(e.target.value)}
+                />
+              </div>
+            </Card>
+          </>
+        )}
+        <div tw="flex gap-3 w-full">
           <TokenInput
-            tw="w-[50%]"
-            label="Deposit"
+            tw="w-1/2"
+            label={
+              selectedType?.value === 'FunctionCalls' ? 'Deposit' : 'Amount'
+            }
             id="deposit-input-amount"
-            value={proposalDepositAmount}
-            onChange={(e) => setProposalDepositAmount(e)}
-            token={proposalDepositToken}
-            onChangeToken={setProposalDepositToken}
+            value={depositAmount}
+            onChange={(e) => setDepositAmount(e)}
+            token={depositToken}
+            onChangeToken={setDepositToken}
             step={Number.MIN_VALUE}
           />
-          <Input tw="py-3 px-4 w-1/2" placeholder="Method Name" />
+          {selectedType?.value === 'FunctionCalls' ? (
+            <div tw="relative w-1/2">
+              <Input
+                id="tGas-input-amount"
+                value={tGasAmount}
+                onChange={(e) => setTGasAmount(e.target.value)}
+                placeholder="0.00"
+                tw="text-right px-4 py-3 w-full"
+              />
+              <label
+                htmlFor="tGas-input-amount"
+                tw="absolute left-0 top-0 bottom-0 flex items-center justify-center pl-3"
+              >
+                <span tw="text-xs">TGas</span>
+              </label>
+            </div>
+          ) : (
+            <Input
+              value={target}
+              onChange={(e) => setTarget(e.target.value)}
+              placeholder="Target"
+              tw="px-4 py-3 w-1/2"
+            />
+          )}
         </div>
         <Card
-          focused={proposalDescriptionFocused || proposalTitleFocused}
+          focused={descriptionFocused || titleFocused}
           tw="opacity-70 text-sm rounded-lg"
         >
           <div tw="flex flex-col">
             <label tw="mb-1">Proposal</label>
-            <CreateProposalInput
-              onBlur={onProposalTitleBlur}
-              onFocus={onProposalTitleFocus}
+            <TitleInput
+              onBlur={onTitleBlur}
+              onFocus={onTitleFocus}
               placeholder="Proposal Title"
             />
           </div>
           <div tw="flex flex-col">
-            <CreateProposalTextArea
+            <TextArea
               tw="min-h-[340px]"
-              onBlur={onProposalDescriptionBlur}
-              onFocus={onProposalDescriptionFocus}
-              value={proposalDescription}
-              onChange={(e) => setProposalDescription(e.target.value)}
+              onBlur={onDescriptionBlur}
+              onFocus={onDescriptionFocus}
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
               placeholder={textAreaPlaceholder}
             />
           </div>
         </Card>
-        {proposalDescription && (
+        {description && (
           <Card>
             <p tw="text-sm opacity-70">Preview</p>
-            <Markdown>{proposalDescription}</Markdown>
+            <Markdown>{description}</Markdown>
           </Card>
         )}
         <Button
