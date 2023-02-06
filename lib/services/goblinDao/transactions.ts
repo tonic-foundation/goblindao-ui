@@ -1,50 +1,37 @@
-import {
-  CreateProposalFunctionCall,
-  CreateProposalTransfer,
-} from '@/lib/services/goblinDao/types';
+import { CreateProposalTransfer } from '@/lib/services/goblinDao/types';
 import { tgasAmount } from '@tonic-foundation/utils';
-import { TONIC_CONTRACT_ID } from '@/config';
+import { StandardNearFunctionCall } from '@tonic-foundation/transaction/lib/shim';
+import BN from 'bn.js';
 
 /**
  * Create Proposal FunctionCall Type
  * @name createProposalFunctionCall
- * @param {
- *   description,
- *   method,
- *   depositAmount,
- *   depositToken,
- *   contractId = TONIC_CONTRACT_ID,
- *   tGas = 150,
+ * @param contractId {string}
+ * @param methodName {string}
+ * @param params {string}
+ * @param amount {BN}
+ * @param tGas {number}
+ *   contractId: string,
+ *   methodName: string,
+ *   amount: BN,
+ *   params: string,
+ *   tGas: number
  * }
  */
-export function createProposalFunctionCall({
-  description,
-  method,
-  depositAmount,
-  contractId = TONIC_CONTRACT_ID,
-  tGas = 150,
-  json,
-}: CreateProposalFunctionCall) {
-  return {
-    Arguments: {
-      proposal: {
-        description,
-        kind: {
-          FunctionCall: {
-            receiver_id: contractId,
-            actions: [
-              {
-                method_name: method,
-                args: json,
-                deposit: depositAmount,
-                gas: tgasAmount(tGas),
-              },
-            ],
-          },
-        },
-      },
-    },
-  };
+export function createProposalFunctionCall(
+  contractId: string,
+  methodName: string,
+  amount: BN,
+  params: string,
+  tGas: number
+) {
+  return new StandardNearFunctionCall({
+    contractId,
+    methodName,
+    args: { params },
+    gas: tgasAmount(tGas),
+    attachedDeposit: amount,
+  });
 }
 
 /**

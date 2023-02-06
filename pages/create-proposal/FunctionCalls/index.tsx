@@ -4,7 +4,6 @@ import { Input } from '@/components/common/Input';
 import { TokenInput } from '@/components/TokenInput';
 import tokenService, { IToken } from '@/lib/services/near/tokenlist';
 import { TONIC_CONTRACT_ID } from '@/config';
-import { encode as base64_encode } from 'base-64';
 import { useSignTransaction } from '@/hooks/useSignTransaction';
 import { SUPPORTED_TOKENS } from '@/components/TokenPickerModal';
 import { useWalletSelector } from '@/state/containers/WalletSelectorContainer';
@@ -15,7 +14,7 @@ import {
   TextArea,
 } from '@/pages/create-proposal/content';
 import { createProposalFunctionCall } from '@/lib/services/goblinDao/transactions';
-import { decimalToBn } from '@tonic-foundation/utils';
+import { decimalToBn, tgasAmount } from '@tonic-foundation/utils';
 
 const CreateProposalFunctionCalls: FC = () => {
   const { activeAccount } = useWalletSelector();
@@ -47,16 +46,16 @@ const CreateProposalFunctionCalls: FC = () => {
       ) {
         try {
           const token = tokenService.getToken(depositToken.address);
+          const amount = decimalToBn(+depositAmount, token.decimals);
           return await wallet.signAndSendTransaction({
             actions: [
-              createProposalFunctionCall({
-                depositAmount: decimalToBn(depositAmount, token.decimals),
-                description,
+              createProposalFunctionCall(
+                smartContract,
                 method,
-                tGas,
-                contractId: smartContract,
-                json: base64_encode(Json),
-              }),
+                amount,
+                json,
+                tGas
+              ),
             ],
           });
         } finally {
