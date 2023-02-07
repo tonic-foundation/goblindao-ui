@@ -28,7 +28,7 @@ const CreateProposalFunctionCalls: FC = () => {
   // TODO fetch from the contract
   const [method, setMethod] = useState('mint_lp_near');
   const [description, setDescription] = useState('');
-  const [depositToken, setDepositToken] = useState<IToken>(SUPPORTED_TOKENS[0]);
+  const [depositToken] = useState<IToken>(SUPPORTED_TOKENS[0]);
   const [depositAmount, setDepositAmount] = useState<
     number | string | undefined
   >('');
@@ -136,7 +136,7 @@ const CreateProposalFunctionCalls: FC = () => {
             value={depositAmount}
             onChange={(e) => setDepositAmount(e)}
             token={depositToken}
-            onChangeToken={setDepositToken}
+            // onChangeToken={setDepositToken}
             step={Number.MIN_VALUE}
           />
           <div tw="relative w-1/2">
