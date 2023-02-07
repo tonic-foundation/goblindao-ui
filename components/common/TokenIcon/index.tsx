@@ -1,6 +1,6 @@
 import 'twin.macro';
-import { getToken } from '@/lib/services/near/tokenlist';
-import { IToken } from '@tonic-foundation/tonic-perps/lib';
+import React from 'react';
+import tokenService, { IToken } from '@/lib/services/near/tokenlist';
 
 const TokenIcon: React.FC<{
   tokenId?: string;
@@ -10,7 +10,7 @@ const TokenIcon: React.FC<{
     throw new Error('must provide either tokenId or token prop');
   }
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  const _token = token || getToken(tokenId!); // guaranteed to exist if we get here
+  const _token = token || tokenService.getToken(tokenId!); // guaranteed to exist if we get here
 
   return (
     <img

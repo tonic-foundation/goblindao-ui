@@ -8,11 +8,14 @@ import { useWalletSelector } from '@/state/containers/WalletSelectorContainer';
 import Form from '@/components/common/Form';
 import { SubmitOrLoginButton } from '@/components/SubmitOrLoginButton';
 import { ProposalDescriptionTextArea } from '@/pages/create-proposal/content';
-import { createProposalTransfer } from '@/lib/services/goblinDao/transactions';
+import { createProposalTransaction } from '@/lib/services/goblinDao/transactions';
+import { GOBLIN_DAO_ID } from '@/config';
+import { createProposalTransferArgs } from '@/lib/services/goblinDao';
 import { decimalToBn } from '@tonic-foundation/utils';
 
 const CreateProposalTransfer: FC = () => {
   const { activeAccount } = useWalletSelector();
+
   const [description, setDescription] = useState('');
   const [transferToken, setTransferToken] = useState<IToken>(
     SUPPORTED_TOKENS[0]
@@ -27,17 +30,22 @@ const CreateProposalTransfer: FC = () => {
       if (activeAccount && description && transferAmount && transferToken) {
         try {
           const token = tokenService.getToken(transferToken.address);
+          const amount = decimalToBn(+transferAmount, token.decimals);
           return await wallet.signAndSendTransaction({
+            receiverId: GOBLIN_DAO_ID,
             actions: [
-              createProposalTransfer({
-                transferAmount: decimalToBn(transferTarget, token.decimals),
-                description,
-                target,
-              }),
+              createProposalTransaction(
+                GOBLIN_DAO_ID,
+                createProposalTransferArgs({
+                  description,
+                  amount,
+                  receiver_id: transferTarget,
+                })
+              ).toWalletSelectorAction(),
             ],
           });
         } finally {
-          // Do something...
+          // ...
         }
       }
     },

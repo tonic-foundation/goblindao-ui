@@ -1,5 +1,13 @@
 import axios from 'axios';
-import { DaoFundsResponse, Proposal, ProposalsResponse } from './types';
+import {
+  CreateProposalFunctionCall,
+  CreateProposalTransfer,
+  DaoFundsResponse,
+  Proposal,
+  ProposalsResponse,
+} from './types';
+import { TONIC_CONTRACT_ID } from '@/config';
+import { tgasAmount } from '@tonic-foundation/utils';
 
 const sputnik = axios.create({
   baseURL: 'https://api.app.astrodao.com/api/v1',
@@ -50,4 +58,74 @@ export async function getDaoProposal(proposalId: string) {
   const response = await sputnik.get<Proposal>(url);
 
   return response.data;
+}
+
+/**
+ * Create Proposal FunctionCalls Args
+ * @name   createProposalFunctionCallArgs
+ * @param  {
+ *   description: sting,
+ *   method_name: string,
+ *   deposit: BN,
+ *   args: string,
+ *   gas: BN,
+ *   receiver_id: string,
+ * }
+ */
+export function createProposalFunctionCallArgs({
+  description,
+  method_name,
+  deposit,
+  args,
+  gas = tgasAmount(150),
+  receiver_id = TONIC_CONTRACT_ID,
+}: CreateProposalFunctionCall) {
+  return {
+    proposal: {
+      description,
+      kind: {
+        FunctionCall: {
+          receiver_id,
+          actions: [
+            {
+              method_name,
+              args,
+              deposit: deposit.toString(),
+              gas: gas.toString(),
+            },
+          ],
+        },
+      },
+    },
+  };
+}
+
+/**
+ * Create Proposal Transfer Args
+ * @name   createProposalTransferArgs
+ * @param  {
+ *   description: string,
+ *   transferAmount: BN,
+ *   target: string,
+ *   tokenId: string = '',
+ * }
+ */
+export function createProposalTransferArgs({
+  description,
+  amount,
+  receiver_id,
+  token_id = '',
+}: CreateProposalTransfer) {
+  return {
+    proposal: {
+      description,
+      kind: {
+        Transfer: {
+          token_id,
+          receiver_id,
+          amount: amount.toString(),
+        },
+      },
+    },
+  };
 }

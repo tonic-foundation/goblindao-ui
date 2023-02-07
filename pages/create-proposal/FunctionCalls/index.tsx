@@ -3,21 +3,26 @@ import Card from '@/components/common/Card';
 import { Input } from '@/components/common/Input';
 import { TokenInput } from '@/components/TokenInput';
 import tokenService, { IToken } from '@/lib/services/near/tokenlist';
-import { TONIC_CONTRACT_ID } from '@/config';
+import { TONIC_CONTRACT_ID, GOBLIN_DAO_ID } from '@/config';
 import { useSignTransaction } from '@/hooks/useSignTransaction';
 import { SUPPORTED_TOKENS } from '@/components/TokenPickerModal';
 import { useWalletSelector } from '@/state/containers/WalletSelectorContainer';
 import Form from '@/components/common/Form';
 import { SubmitOrLoginButton } from '@/components/SubmitOrLoginButton';
-import {
-  ProposalDescriptionTextArea,
-  TextArea,
-} from '@/pages/create-proposal/content';
-import { createProposalFunctionCall } from '@/lib/services/goblinDao/transactions';
+import { ProposalDescriptionTextArea } from '@/pages/create-proposal/content';
+import { createProposalTransaction } from '@/lib/services/goblinDao/transactions';
 import { decimalToBn, tgasAmount } from '@tonic-foundation/utils';
+import { createProposalFunctionCallArgs } from '@/lib/services/goblinDao';
+import { encode as base64_encode } from 'base-64';
+import dynamic from 'next/dynamic';
+import { useTheme } from 'next-themes';
+const DynamicAceEditor = dynamic(() => import('@/components/AceEditor'), {
+  ssr: false,
+});
 
 const CreateProposalFunctionCalls: FC = () => {
   const { activeAccount } = useWalletSelector();
+  const { theme } = useTheme();
 
   const [smartContract, setSmartContract] = useState(TONIC_CONTRACT_ID);
   // TODO fetch from the contract
@@ -47,19 +52,26 @@ const CreateProposalFunctionCalls: FC = () => {
         try {
           const token = tokenService.getToken(depositToken.address);
           const amount = decimalToBn(+depositAmount, token.decimals);
+          // const json = Json.replaceAll(/\n/g, '');
+          const args = base64_encode(Json);
           return await wallet.signAndSendTransaction({
+            receiverId: GOBLIN_DAO_ID,
             actions: [
-              createProposalFunctionCall(
-                smartContract,
-                method,
-                amount,
-                json,
-                tGas
-              ),
+              createProposalTransaction(
+                GOBLIN_DAO_ID,
+                createProposalFunctionCallArgs({
+                  description,
+                  gas: tgasAmount(+tGas),
+                  receiver_id: smartContract,
+                  args,
+                  method_name: method,
+                  deposit: amount,
+                })
+              ).toWalletSelectorAction(),
             ],
           });
         } finally {
-          // Do something...
+          // ...
         }
       }
     },
@@ -101,13 +113,18 @@ const CreateProposalFunctionCalls: FC = () => {
             <label tw="mb-1">JSON</label>
           </div>
           <div tw="flex flex-col">
-            <TextArea
-              tw="min-h-[70px]"
-              placeholder="{}"
+            <DynamicAceEditor
+              style={{
+                marginTop: 10,
+                background: 'transparent',
+                color: theme === 'dark' ? 'white' : 'black',
+              }}
               value={Json}
+              highlightActiveLine={false}
+              onChange={(e) => setJson(e)}
               onFocus={onJSONFocus}
               onBlur={onJSONBlur}
-              onChange={(e) => setJson(e.target.value)}
+              name="proposal_json"
             />
           </div>
         </Card>
@@ -143,6 +160,7 @@ const CreateProposalFunctionCalls: FC = () => {
           value={description}
         />
         <SubmitOrLoginButton
+          disabled={!depositAmount || !tGas || !smartContract || !method}
           label="Submit a proposal"
           loadingLabel="Confirming"
           loading={submitting}

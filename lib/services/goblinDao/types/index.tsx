@@ -249,17 +249,16 @@ export interface ProposalsResponse {
 
 export interface CreateProposalFunctionCall {
   description: string;
-  method: string;
-  depositAmount: BN;
-  json?: string;
-  tGas?: number;
-  contractId?: string;
-  depositToken?: string;
+  method_name: string;
+  deposit: BN;
+  args: string;
+  gas?: BN;
+  receiver_id?: string;
 }
 
 export interface CreateProposalTransfer {
   description: string;
-  transferAmount: BN;
-  target: string;
-  tokenId?: string;
+  amount: BN;
+  receiver_id: string;
+  token_id?: string;
 }

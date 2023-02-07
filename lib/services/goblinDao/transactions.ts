@@ -1,67 +1,27 @@
-import { CreateProposalTransfer } from '@/lib/services/goblinDao/types';
-import { tgasAmount } from '@tonic-foundation/utils';
+import { decimalToBn, MAX_GAS } from '@tonic-foundation/utils';
 import { StandardNearFunctionCall } from '@tonic-foundation/transaction/lib/shim';
 import BN from 'bn.js';
+import { NEAR_DECIMALS } from '@tonic-foundation/token';
 
-/**
- * Create Proposal FunctionCall Type
- * @name createProposalFunctionCall
- * @param contractId {string}
- * @param methodName {string}
- * @param params {string}
- * @param amount {BN}
- * @param tGas {number}
- *   contractId: string,
- *   methodName: string,
- *   amount: BN,
- *   params: string,
- *   tGas: number
- * }
- */
-export function createProposalFunctionCall(
-  contractId: string,
-  methodName: string,
-  amount: BN,
-  params: string,
-  tGas: number
-) {
-  return new StandardNearFunctionCall({
-    contractId,
-    methodName,
-    args: { params },
-    gas: tgasAmount(tGas),
-    attachedDeposit: amount,
-  });
+function nearAmount(n: number) {
+  return decimalToBn(n, NEAR_DECIMALS);
 }
 
 /**
- * Create Proposal Transfer Type
- * @name createProposalFunctionCall
- * @param {
- *   description: string;
- *   transferAmount: BN;
- *   target: string;
- *   tokenId?: string
- * }
+ * Create Proposal FunctionCall Type
+ * @name createProposalTransaction
+ * @param daoContractId {string}
+ * @param params {unknown}
  */
-export function createProposalTransfer({
-  description,
-  transferAmount,
-  target,
-  tokenId = '',
-}: CreateProposalTransfer) {
-  return {
-    Arguments: {
-      proposal: {
-        description,
-        kind: {
-          Transfer: {
-            token_id: tokenId,
-            receiver_id: target,
-            amount: transferAmount,
-          },
-        },
-      },
-    },
-  };
+export function createProposalTransaction(
+  daoContractId: string,
+  params: object
+) {
+  return new StandardNearFunctionCall({
+    contractId: daoContractId,
+    methodName: 'add_proposal',
+    args: params,
+    gas: MAX_GAS.div(new BN(5)),
+    attachedDeposit: nearAmount(0.1),
+  });
 }
