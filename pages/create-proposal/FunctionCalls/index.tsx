@@ -7,7 +7,7 @@ import { TONIC_CONTRACT_ID, GOBLIN_DAO_ID } from '@/config';
 import { useSignTransaction } from '@/hooks/useSignTransaction';
 import { SUPPORTED_TOKENS } from '@/components/TokenPickerModal';
 import { useWalletSelector } from '@/state/containers/WalletSelectorContainer';
-import Form from '@/components/common/Form';
+import Form, { FormAlert } from '@/components/common/Form';
 import { SubmitOrLoginButton } from '@/components/SubmitOrLoginButton';
 import { ProposalDescriptionTextArea } from '@/pages/create-proposal/content';
 import { createProposalTransaction } from '@/lib/services/goblinDao/transactions';
@@ -16,6 +16,7 @@ import { createProposalFunctionCallArgs } from '@/lib/services/goblinDao';
 import { encode as base64_encode } from 'base-64';
 import dynamic from 'next/dynamic';
 import { useTheme } from 'next-themes';
+import { validateJSON } from '@/lib/util';
 const DynamicAceEditor = dynamic(() => import('@/components/AceEditor'), {
   ssr: false,
 });
@@ -34,6 +35,7 @@ const CreateProposalFunctionCalls: FC = () => {
   >('');
   const [tGas, setTGas] = useState<number | string | undefined>(150);
   const [Json, setJson] = useState('{\n\n}');
+  const [validJson, setValidJson] = useState(true);
   const [JSONFocused, setJSONFocused] = useState(false);
   const onJSONFocus = () => setJSONFocused(true);
   const onJSONBlur = () => setJSONFocused(false);
@@ -86,6 +88,12 @@ const CreateProposalFunctionCalls: FC = () => {
     ]
   );
 
+  const handleJson = (e: string) => {
+    setJson(e);
+    const jsonValid = validateJSON(e);
+    setValidJson(jsonValid);
+  };
+
   return (
     <Form
       onSubmit={(e) => {
@@ -109,8 +117,15 @@ const CreateProposalFunctionCalls: FC = () => {
           />
         </div>
         <Card focused={JSONFocused} tw="opacity-70 text-sm rounded-lg">
-          <div tw="flex flex-col">
-            <label tw="mb-1">JSON</label>
+          <div tw="flex items-center gap-2 mb-1">
+            <label>JSON</label>
+            {!validJson && (
+              <FormAlert>
+                <FormAlert.Label tw="items-center flex gap-1">
+                  Provided JSON is not valid
+                </FormAlert.Label>
+              </FormAlert>
+            )}
           </div>
           <div tw="flex flex-col">
             <DynamicAceEditor
@@ -121,7 +136,7 @@ const CreateProposalFunctionCalls: FC = () => {
               }}
               value={Json}
               highlightActiveLine={false}
-              onChange={(e) => setJson(e)}
+              onChange={handleJson}
               onFocus={onJSONFocus}
               onBlur={onJSONBlur}
               name="proposal_json"
@@ -160,7 +175,9 @@ const CreateProposalFunctionCalls: FC = () => {
           value={description}
         />
         <SubmitOrLoginButton
-          disabled={!depositAmount || !tGas || !smartContract || !method}
+          disabled={
+            !depositAmount || !tGas || !smartContract || !method || !validJson
+          }
           label="Submit a proposal"
           loadingLabel="Confirming"
           loading={submitting}

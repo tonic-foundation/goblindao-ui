@@ -123,3 +123,21 @@ export function arrayRandomlyShuffle<T>(input: Array<T> = [], seed: number) {
 
   return output;
 }
+
+/**
+ * Check if JSON valid or not
+ *
+ * @param text {string}
+ * @returns  {boolean}
+ */
+export function validateJSON(text: string): boolean {
+  return /^[\],:{}\s]*$/.test(
+    text
+      .replace(/\\["\\\/bfnrtu]/g, '@')
+      .replace(
+        /"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g,
+        ']'
+      )
+      .replace(/(?:^|:|,)(?:\s*\[)+/g, '')
+  );
+}
