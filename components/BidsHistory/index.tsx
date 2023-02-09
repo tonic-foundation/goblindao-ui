@@ -28,10 +28,8 @@ const BidHistoryRow: FC<Bid> = ({ user, bidAmount, bidDate }) => {
       <div tw="flex items-center gap-1 font-medium">
         <Icon.Near tw="w-3.5 h-3.5" />
         <p tw="mr-3">{truncateToLocaleString(bidAmount, 2)}</p>
-        <Link passHref href="/">
-          <a>
-            <Icon.Link tw="text-xl text-neutral-400" />
-          </a>
+        <Link href="/">
+          <Icon.Link tw="text-xl text-neutral-400" />
         </Link>
       </div>
     </Card>

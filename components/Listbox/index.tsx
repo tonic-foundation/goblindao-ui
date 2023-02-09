@@ -46,25 +46,31 @@ const ListBox: React.FC<{
                 mt-1 max-h-60 w-full overflow-auto rounded-lg
                 dark:bg-dark-gray-700 bg-white py-1 cursor-pointer sm:text-sm"
           >
-            {list.map((item, itemIdx) => (
-              <Listbox.Option
-                key={itemIdx}
-                tw="relative cursor-pointer select-none py-2 pl-10 pr-4"
-                css={css`
-                  & {
-                    opacity: ${selected.value === item.value ? '1' : '0.7'};
-                  }
-                `}
-                value={item}
-              >
-                <span tw="block truncate">{item.name}</span>
-                {selected.value === item.value ? (
-                  <span tw="absolute inset-y-0 left-0 flex items-center pl-3 text-brand-400">
-                    <CheckIcon tw="h-5 w-5" />
-                  </span>
-                ) : null}
-              </Listbox.Option>
-            ))}
+            {list?.length ? (
+              list.map((item, itemIdx) => (
+                <Listbox.Option
+                  key={itemIdx}
+                  tw="relative cursor-pointer select-none py-2 pl-10 pr-4"
+                  css={css`
+                    & {
+                      opacity: ${selected.value === item.value ? '1' : '0.7'};
+                    }
+                  `}
+                  value={item}
+                >
+                  <span tw="block truncate">{item.name}</span>
+                  {selected.value === item.value ? (
+                    <span tw="absolute inset-y-0 left-0 flex items-center pl-3 text-brand-400">
+                      <CheckIcon tw="h-5 w-5" />
+                    </span>
+                  ) : null}
+                </Listbox.Option>
+              ))
+            ) : (
+              <span tw="relative cursor-pointer select-none p-6">
+                No Result
+              </span>
+            )}
           </Listbox.Options>
         </Transition>
       </div>

@@ -18,19 +18,17 @@ const animateMarquee = css`
 `;
 
 const NavbarBrand: FC = ({ ...props }) => (
-  <Link href="/">
-    <a tw="flex gap-2 items-center cursor-pointer" {...props}>
-      <Icon.Tonic tw="h-12 w-12" />
-      <div>
-        {NEAR_ENV === 'testnet' && (
-          <div tw="flex py-3 text-xs font-semibold rounded-xl shadow bg-lime-400 overflow-hidden">
-            <span tw="inline-block text-black" css={animateMarquee}>
-              TESTNET
-            </span>
-          </div>
-        )}
-      </div>
-    </a>
+  <Link href="/" tw="flex gap-2 items-center cursor-pointer" {...props}>
+    <Icon.Tonic tw="h-12 w-12" />
+    <div>
+      {NEAR_ENV === 'testnet' && (
+        <div tw="flex py-3 text-xs font-semibold rounded-xl shadow bg-lime-400 overflow-hidden">
+          <span tw="inline-block text-black" css={animateMarquee}>
+            TESTNET
+          </span>
+        </div>
+      )}
+    </div>
   </Link>
 );
 

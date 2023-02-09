@@ -41,10 +41,8 @@ const AuctionBids: FC<Bid> = ({ user, bidAmount }) => {
       <div tw="flex items-center gap-1 font-medium">
         <Icon.Near tw="w-3.5 h-3.5" />
         <p tw="mr-3">{truncateToLocaleString(bidAmount, 2)}</p>
-        <Link passHref href="/">
-          <a>
-            <Icon.Link tw="text-lg" />
-          </a>
+        <Link href="/">
+          <Icon.Link tw="text-lg" />
         </Link>
       </div>
     </div>
@@ -138,32 +136,29 @@ const DesktopAuction: FC<{ tokenId: string; activeAuction?: boolean }> = ({
               ) : (
                 <div>
                   <AuctionTypography.P1>Held by</AuctionTypography.P1>
-                  <Link passHref href="/">
-                    <a>
-                      <AuctionTypography.H2 tw="flex items-center gap-3">
-                        <GrayCircle tw="m-0" />
+                  <Link href="/">
+                    <AuctionTypography.H2 tw="flex items-center gap-3">
+                      <GrayCircle tw="m-0" />
 
-                        <Typography.AccountId
-                          length={10}
-                          accountId={
-                            '0x5d837276ec1ddcbfe3f85d9414dffe4b641ebaff'
-                          }
-                        />
-                      </AuctionTypography.H2>
-                    </a>
+                      <Typography.AccountId
+                        length={10}
+                        accountId={'0x5d837276ec1ddcbfe3f85d9414dffe4b641ebaff'}
+                      />
+                    </AuctionTypography.H2>
                   </Link>
                 </div>
               )}
             </div>
             {activeAuction && (
               <div>
-                <Link passHref href="/">
-                  <a tw="flex items-center gap-2 text-neutral-600 dark:text-neutral-400">
-                    <Icon.Info />
-                    <AuctionTypography.P3>
-                      Help mint the next Goblin
-                    </AuctionTypography.P3>
-                  </a>
+                <Link
+                  href="/"
+                  tw="flex items-center gap-2 text-neutral-600 dark:text-neutral-400"
+                >
+                  <Icon.Info />
+                  <AuctionTypography.P3>
+                    Help mint the next Goblin
+                  </AuctionTypography.P3>
                 </Link>
               </div>
             )}
@@ -219,13 +214,14 @@ const DesktopAuction: FC<{ tokenId: string; activeAuction?: boolean }> = ({
                 <Icon.Heart tw="text-2xl" />
                 <p tw="flex gap-2 text-black dark:text-white">
                   Winner{' '}
-                  <Link passHref href="/#">
-                    <a tw="flex items-center gap-2 font-semibold text-brand-400">
-                      <Typography.AccountId
-                        accountId={'0x5d837276ec1ddcbfe3f85d9414dffe4b641ebaff'}
-                      />
-                      <Icon.Link tw="text-neutral-600 dark:text-neutral-300" />
-                    </a>
+                  <Link
+                    href="/#"
+                    tw="flex items-center gap-2 font-semibold text-brand-400"
+                  >
+                    <Typography.AccountId
+                      accountId={'0x5d837276ec1ddcbfe3f85d9414dffe4b641ebaff'}
+                    />
+                    <Icon.Link tw="text-neutral-600 dark:text-neutral-300" />
                   </Link>
                 </p>
               </div>
@@ -239,16 +235,15 @@ const DesktopAuction: FC<{ tokenId: string; activeAuction?: boolean }> = ({
                 </Button>
                 <Button size="lg" variant="confirm">
                   <Link
-                    passHref
                     href={getExplorerUrl(
                       'account',
                       '0x5d837276ec1ddcbfe3f85d9414dffe4b641ebaff'
                     )}
+                    target="_blank"
+                    tw="flex items-center gap-2"
                   >
-                    <a target="_blank" tw="flex items-center gap-2">
-                      <Icon.Near tw="w-4 h-4" />
-                      Explore
-                    </a>
+                    <Icon.Near tw="w-4 h-4" />
+                    Explore
                   </Link>
                 </Button>
               </div>

@@ -8,21 +8,25 @@ export default function useNearContractMethods(smartContract: string) {
 
   useEffect(() => {
     (async () => {
-      const { code_base64 }: any =
-        await getNearNobody().connection.provider.query({
-          account_id: smartContract,
-          finality: 'final',
-          request_type: 'view_code',
-        });
+      try {
+        const { code_base64 }: any =
+          await getNearNobody().connection.provider.query({
+            account_id: smartContract,
+            finality: 'final',
+            request_type: 'view_code',
+          });
 
-      const parsed = parseContract(code_base64);
-      const contractMethods = parsed?.methodNames;
-      const mappedMethods = contractMethods?.map((m) => ({
-        value: m,
-        name: m,
-      }));
+        const parsed = parseContract(code_base64);
+        const contractMethods = parsed?.methodNames;
+        const mappedMethods = contractMethods?.map((m) => ({
+          value: m,
+          name: m,
+        }));
 
-      setMethods(mappedMethods);
+        setMethods(mappedMethods);
+      } catch (e) {
+        setMethods([]);
+      }
     })();
   }, [smartContract]);
 

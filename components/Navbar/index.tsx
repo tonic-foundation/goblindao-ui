@@ -1,5 +1,4 @@
 import React, { FC } from 'react';
-import Link from 'next/link';
 import { NAVBAR_LINKS, NavbarMenuLink } from '@/config/navbar';
 import ThemeToggle from '@/components/ThemeToggle';
 import AuthButton from '@/components/AuthButton';
@@ -43,25 +42,24 @@ const Nav: FC<NavProps> = ({ links, menuOnClose }) => {
           shouldHide(link) ? null : (
             <div tw="w-full md:w-auto" key={link.name}>
               {link.href ? (
-                <Link passHref href={link.href}>
-                  <NavbarItemBase
-                    target={link.external ? '_blank' : undefined}
-                    rel="noreferrer"
-                    tw=""
-                    currentRoute={currentRoute}
-                    route={link.href}
-                    onClick={() => {
-                      if (menuOnClose) {
-                        menuOnClose();
-                      }
-                    }}
-                  >
-                    {link.icon && <span tw="text-lg">{link.icon}</span>}
-                    <span>{link.name}</span>
-                  </NavbarItemBase>
-                </Link>
+                <NavbarItemBase
+                  href={link.href}
+                  target={link.external ? '_blank' : undefined}
+                  rel="noreferrer"
+                  tw=""
+                  currentRoute={currentRoute}
+                  route={link.href}
+                  onClick={() => {
+                    if (menuOnClose) {
+                      menuOnClose();
+                    }
+                  }}
+                >
+                  {link.icon && <span tw="text-lg">{link.icon}</span>}
+                  <span>{link.name}</span>
+                </NavbarItemBase>
               ) : (
-                <NavbarItemBase>
+                <NavbarItemBase href="">
                   <span>{link.name}</span>
                   {link.subMenu && (
                     <span>
@@ -70,7 +68,6 @@ const Nav: FC<NavProps> = ({ links, menuOnClose }) => {
                   )}
                 </NavbarItemBase>
               )}
-              {/* TODO submenu */}
             </div>
           )
         )}

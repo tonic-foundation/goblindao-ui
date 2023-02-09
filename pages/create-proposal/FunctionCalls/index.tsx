@@ -15,17 +15,16 @@ import { decimalToBn, tgasAmount } from '@tonic-foundation/utils';
 import { createProposalFunctionCallArgs } from '@/lib/services/goblinDao';
 import { encode as base64_encode } from 'base-64';
 import dynamic from 'next/dynamic';
-import { useTheme } from 'next-themes';
 import { validateJSON } from '@/lib/util';
 import ListBox, { ListBoxItemsProps } from '@/components/Listbox';
 import useNearContractMethods from '@/hooks/useNearContractMethods';
+import useDebounce from '@/hooks/useDebounce';
 const DynamicAceEditor = dynamic(() => import('@/components/AceEditor'), {
   ssr: false,
 });
 
 const CreateProposalFunctionCalls: FC = () => {
   const { activeAccount } = useWalletSelector();
-  const { theme } = useTheme();
 
   const [smartContract, setSmartContract] = useState(TONIC_CONTRACT_ID);
   const [description, setDescription] = useState('');
@@ -40,7 +39,8 @@ const CreateProposalFunctionCalls: FC = () => {
   const onJSONFocus = () => setJSONFocused(true);
   const onJSONBlur = () => setJSONFocused(false);
 
-  const contractMethodList = useNearContractMethods(smartContract);
+  const debouncedSmartContract = useDebounce(smartContract);
+  const contractMethodList = useNearContractMethods(debouncedSmartContract);
   const [selectedMethod, setSelectedMethod] = useState<ListBoxItemsProps>({
     name: 'Select Method',
     value: '',
@@ -135,11 +135,7 @@ const CreateProposalFunctionCalls: FC = () => {
           </div>
           <div tw="flex flex-col">
             <DynamicAceEditor
-              style={{
-                marginTop: 10,
-                background: 'transparent',
-                color: theme === 'dark' ? 'white' : 'black',
-              }}
+              tw="m-2"
               value={Json}
               highlightActiveLine={false}
               onChange={handleJson}

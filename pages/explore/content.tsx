@@ -126,8 +126,8 @@ const Content: NextPage = () => {
               </div>
             </div>
             <div tw="w-full flex justify-center mt-4">
-              <Link href="/" passHref>
-                <a tw="text-brand-400 underline text-sm">Vote history</a>
+              <Link href="/" tw="text-brand-400 underline text-sm">
+                Vote history
               </Link>
             </div>
           </div>
