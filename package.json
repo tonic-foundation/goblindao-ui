@@ -35,6 +35,7 @@
     "date-fns": "^2.29.3",
     "lodash": "^4.17.21",
     "near-api-js": "^1.0.0",
+    "near-contract-parser": "0.1.4",
     "next": "latest",
     "next-themes": "^0.2.1",
     "react": "^18.2.0",

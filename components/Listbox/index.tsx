@@ -4,25 +4,25 @@ import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid';
 import tw, { css } from 'twin.macro';
 import Transition from '@/components/Transition';
 
-export type ListBoxProps = {
+export type ListBoxItemsProps = {
   name: string;
   value: string;
 };
 
 const ListBox: React.FC<{
-  list: ListBoxProps[];
-  selected: ListBoxProps;
-  setSelected: (e: ListBoxProps) => void;
+  list: ListBoxItemsProps[];
+  selected: ListBoxItemsProps;
+  setSelected: (e: ListBoxItemsProps) => void;
 }> = ({ list, setSelected, selected, ...props }) => {
   return (
     <Listbox {...props} value={selected} onChange={setSelected}>
-      <div tw="relative mt-1">
+      <div tw="relative">
         <Listbox.Button
           tw="border-[1px]
               dark:(bg-neutral-900 border-neutral-700)
               hover:border-neutral-300 border-slate-200
               focus:border-black dark:(hover:border-neutral-600 focus:border-lime-400 active:border-lime-400)
-              relative w-full cursor-pointer rounded-lg py-3 px-4 text-left"
+              relative w-full cursor-pointer rounded-lg py-3 px-4 text-left text-sm"
         >
           <span tw="block truncate">{selected.name}</span>
           <span tw="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">

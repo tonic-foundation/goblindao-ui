@@ -5,7 +5,7 @@ import Typography from '@/components/Typography';
 import { useRouter } from 'next/router';
 import Card from '@/components/common/Card';
 import tw from 'twin.macro';
-import ListBox, { ListBoxProps } from '@/components/Listbox';
+import ListBox, { ListBoxItemsProps } from '@/components/Listbox';
 import CreateProposalFunctionCalls from '@/pages/create-proposal/FunctionCalls';
 import CreateProposalTransfer from '@/pages/create-proposal/Transfer';
 import Markdown from '@/components/common/Markdown';
@@ -13,7 +13,7 @@ import Markdown from '@/components/common/Markdown';
 export const TextArea = tw.textarea`dark:bg-neutral-800 bg-white outline-none placeholder:(text-neutral-500 font-light) py-1.5`;
 export const descriptionTextAreaPlaceholder = `## Summary\n\nInsert your summary here\n\n## Methodology\n\nInsert your methodology here\n\n## Conclusion\n\nInsert your conclusion here`;
 
-const proposalTypes: ListBoxProps[] = [
+const proposalTypes: ListBoxItemsProps[] = [
   { name: 'Function Calls', value: 'FunctionCalls' },
   { name: 'Transfer', value: 'Transfer' },
 ];
@@ -57,7 +57,7 @@ export const ProposalDescriptionTextArea: FC<{
 export const Content: FC = () => {
   const router = useRouter();
 
-  const [selectedType, setSelectedType] = useState<ListBoxProps>(
+  const [selectedType, setSelectedType] = useState<ListBoxItemsProps>(
     proposalTypes[0]
   );
 

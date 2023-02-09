@@ -17,6 +17,8 @@ import { encode as base64_encode } from 'base-64';
 import dynamic from 'next/dynamic';
 import { useTheme } from 'next-themes';
 import { validateJSON } from '@/lib/util';
+import ListBox, { ListBoxItemsProps } from '@/components/Listbox';
+import useNearContractMethods from '@/hooks/useNearContractMethods';
 const DynamicAceEditor = dynamic(() => import('@/components/AceEditor'), {
   ssr: false,
 });
@@ -26,8 +28,6 @@ const CreateProposalFunctionCalls: FC = () => {
   const { theme } = useTheme();
 
   const [smartContract, setSmartContract] = useState(TONIC_CONTRACT_ID);
-  // TODO fetch from the contract
-  const [method, setMethod] = useState('mint_lp_near');
   const [description, setDescription] = useState('');
   const [depositToken] = useState<IToken>(SUPPORTED_TOKENS[0]);
   const [depositAmount, setDepositAmount] = useState<
@@ -40,6 +40,12 @@ const CreateProposalFunctionCalls: FC = () => {
   const onJSONFocus = () => setJSONFocused(true);
   const onJSONBlur = () => setJSONFocused(false);
 
+  const contractMethodList = useNearContractMethods(smartContract);
+  const [selectedMethod, setSelectedMethod] = useState<ListBoxItemsProps>({
+    name: 'Select Method',
+    value: '',
+  });
+
   const [submitting, handleSubmit] = useSignTransaction(
     async (wallet) => {
       if (
@@ -48,7 +54,7 @@ const CreateProposalFunctionCalls: FC = () => {
         depositAmount &&
         depositToken &&
         smartContract &&
-        method &&
+        selectedMethod &&
         tGas
       ) {
         try {
@@ -66,7 +72,7 @@ const CreateProposalFunctionCalls: FC = () => {
                   gas: tgasAmount(+tGas),
                   receiver_id: smartContract,
                   args,
-                  method_name: method,
+                  method_name: selectedMethod.value,
                   deposit: amount,
                 })
               ).toWalletSelectorAction(),
@@ -79,7 +85,7 @@ const CreateProposalFunctionCalls: FC = () => {
     },
     [
       smartContract,
-      method,
+      selectedMethod,
       description,
       depositAmount,
       depositToken,
@@ -102,18 +108,18 @@ const CreateProposalFunctionCalls: FC = () => {
       }}
     >
       <Form.Body tw="p-0">
-        <div tw="flex gap-3">
+        <div tw="flex items-center gap-3.5 w-full">
           <Input
-            tw="py-3 px-4"
+            tw="py-3 px-4 w-1/2"
             value={smartContract}
             onChange={(e) => setSmartContract(e.target.value)}
             placeholder="Smart Contract Address"
           />
-          <Input
-            value={method}
-            onChange={(e) => setMethod(e.target.value)}
-            tw="py-3 px-4"
-            placeholder="Method Name"
+          <ListBox
+            tw="w-1/2 h-[46px]"
+            selected={selectedMethod}
+            setSelected={setSelectedMethod}
+            list={contractMethodList || []}
           />
         </div>
         <Card focused={JSONFocused} tw="opacity-70 text-sm rounded-lg">
@@ -143,7 +149,7 @@ const CreateProposalFunctionCalls: FC = () => {
             />
           </div>
         </Card>
-        <div tw="flex gap-3 w-full">
+        <div tw="flex gap-3.5 w-full">
           <TokenInput
             tw="w-1/2"
             label="Deposit"
@@ -176,7 +182,11 @@ const CreateProposalFunctionCalls: FC = () => {
         />
         <SubmitOrLoginButton
           disabled={
-            !depositAmount || !tGas || !smartContract || !method || !validJson
+            !depositAmount ||
+            !tGas ||
+            !smartContract ||
+            !selectedMethod.value ||
+            !validJson
           }
           label="Submit a proposal"
           loadingLabel="Confirming"

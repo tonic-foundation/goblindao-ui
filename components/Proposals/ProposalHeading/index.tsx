@@ -4,14 +4,14 @@ import Icon from '@/components/common/Icon';
 import Typography from '@/components/Typography';
 import { ProposalsStatus } from '@/components/Proposals';
 import { useRouter } from 'next/router';
-import { Proposal } from '@/lib/services/goblinDao';
 import { getExplorerUrl } from '@/config';
-import { useIsMobile } from '@/hooks/useIsMobile';
+// import { useIsMobile } from '@/hooks/useIsMobile';
 import { abbreviateCryptoString } from '@/lib/util';
+import { Proposal } from '@/lib/services/goblinDao/types';
 
 const ProposalHeading: FC<{ proposal: Proposal }> = ({ proposal }) => {
   const router = useRouter();
-  const isMobile = useIsMobile();
+  // const isMobile = useIsMobile();
 
   return (
     <div tw="mb-10 flex gap-3">

@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import Typography from '@/components/Typography';
 import Markdown from '@/components/common/Markdown';
-import { Proposal } from '@/lib/services/goblinDao';
+import { Proposal } from '@/lib/services/goblinDao/types';
 
 const ProposalDescription: FC<{ proposal: Proposal }> = ({ proposal }) => {
   return (
