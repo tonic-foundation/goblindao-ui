@@ -1,14 +1,14 @@
-import { GOBLIN_DAO_ID } from '@/config';
+import { TONIC_DAO_ID } from '@/config';
 import useSWR, { SWRConfiguration } from 'swr';
 import {
   getDaoFunds,
   getDaoProposal,
   getDaoProposals,
-  Proposal,
 } from '@/lib/services/goblinDao';
+import { Proposal } from '@/lib/services/goblinDao/types';
 
 export function useGoblinDaoFunds(swrOpts?: Partial<SWRConfiguration>) {
-  return useSWR<number>([GOBLIN_DAO_ID], getDaoFunds, swrOpts);
+  return useSWR<number>([TONIC_DAO_ID], getDaoFunds, swrOpts);
 }
 
 export function useGoblinDaoProposals(

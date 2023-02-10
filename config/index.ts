@@ -26,7 +26,8 @@ export const TONIC_CONTRACT_ID = process.env
 export const VOTERS_PER_VOTE_CARD_DESKTOP = 15;
 
 export const GOBLIN_IPFS_URL = process.env.NEXT_PUBLIC_GOBLINS_IPFS_URL;
-export const GOBLIN_DAO_ID = process.env.NEXT_PUBLIC_GOBLINS_DAO_ID;
+export const GOBLIN_DAO_ID = process.env.NEXT_PUBLIC_GOBLIN_DAO_ID as string;
+export const TONIC_DAO_ID = process.env.NEXT_PUBLIC_TONIC_DAO_ID as string;
 export const GOBLIN_HREF = 'https://greedygoblins.enleap.app/';
 export const DISCORD_DEVELOPERS_HREF = 'https://discord.gg/tscr95ufxx';
 export const DISCORD_GENERAL_HREF = 'https://discord.gg/zedYdpyaTd';
@@ -37,6 +38,7 @@ export const TWITTER_HREF = 'https://twitter.com/tonicdex';
 export const FEEDBACK_HREF = undefined;
 export const NEAR_HREF = 'https://near.org';
 
+export const LP_TOKEN_DECIMALS = 18;
 export const DOLLAR_DECIMALS = 6;
 export const DEFAULT_PRECISION = 2;
 

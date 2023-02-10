@@ -1,6 +1,7 @@
 import tw, { styled } from 'twin.macro';
+import Link from 'next/link';
 
-const NavbarItemBase = styled.a<{
+const NavbarItemBase = styled(Link)<{
   currentRoute?: string;
   route?: string;
   alsoMatch?: string[];

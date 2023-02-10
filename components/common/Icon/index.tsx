@@ -4,7 +4,11 @@ import {
 } from 'react-icons/hi';
 import { TbArrowLeft as Back, TbArrowRight as Next } from 'react-icons/tb';
 import { GiHamburgerMenu as HamburgerMenu } from 'react-icons/gi';
-import { MdClose as Close, MdExplore as Explore } from 'react-icons/md';
+import {
+  MdClose as Close,
+  MdExplore as Explore,
+  MdError as Warning,
+} from 'react-icons/md';
 import {
   FaDiscord as Discord,
   FaGithub as Github,
@@ -32,6 +36,8 @@ const Icon = {
   Close,
   GroupPeople,
   Explore,
+
+  Warning,
 
   Link,
 

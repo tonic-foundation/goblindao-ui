@@ -4,7 +4,7 @@ import Card from '@/components/common/Card';
 import Typography from '@/components/Typography';
 import Icon from '@/components/common/Icon';
 import { ProposalsStatus } from '@/components/Proposals';
-import { Proposal as ProposalProps } from '@/lib/services/goblinDao';
+import { Proposal as ProposalProps } from '@/lib/services/goblinDao/types';
 import { differenceInDays } from 'date-fns';
 
 export interface ProposalVoteProps {

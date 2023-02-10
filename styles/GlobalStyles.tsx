@@ -21,9 +21,16 @@ const customStyles = css({
       .swiper-pagination-bullet {
         background: rgba(255, 255, 255, 0.5);
       }
+
+      .ace_cursor {
+        color: white !important;
+      }
     }
 
     .light {
+      .ace_cursor {
+        color: black !important;
+      }
     }
 
     html {

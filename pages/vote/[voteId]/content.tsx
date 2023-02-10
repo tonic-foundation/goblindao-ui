@@ -1,13 +1,13 @@
 import React, { FC } from 'react';
 import { useRouter } from 'next/router';
 import Loading from '@/components/common/Loading';
-import { ProposalVoteProps } from '@/components/Proposals/Proposal';
+// import { ProposalVoteProps } from '@/components/Proposals/Proposal';
 import { ProposalDescription, ProposalHeading } from '@/components/Proposals';
-import VoteCard, { VoteCardVariant } from '@/components/VoteCard';
-import { truncateToLocaleString } from '@/lib/util';
-import VoteCardInfo from '@/components/VoteCard/VoteCardInfo';
-import { Proposal } from '@/lib/services/goblinDao';
+// import VoteCard, { VoteCardVariant } from '@/components/VoteCard';
+// import { truncateToLocaleString } from '@/lib/util';
+// import VoteCardInfo from '@/components/VoteCard/VoteCardInfo';
 import { useGoblinDaoProposal } from '@/hooks/useGoblinDao';
+import { Proposal } from '@/lib/services/goblinDao/types';
 
 const Content: FC<{ proposal?: Proposal }> = () => {
   const router = useRouter();
@@ -15,7 +15,7 @@ const Content: FC<{ proposal?: Proposal }> = () => {
 
   const { data: proposal } = useGoblinDaoProposal(voiId);
 
-  console.log(proposal);
+  // console.log(proposal);
 
   if (!proposal) {
     return (

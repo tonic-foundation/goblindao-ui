@@ -1,6 +1,6 @@
 import React from 'react';
 import Tag from '@/components/common/Tag';
-import { ProposalStatus } from '@/lib/services/goblinDao';
+import { ProposalStatus } from '@/lib/services/goblinDao/types';
 
 export const statusVariant = (status: ProposalStatus | undefined) => {
   switch (status) {

@@ -1,16 +1,16 @@
 import { FC, useMemo } from 'react';
 import Card from '@/components/common/Card';
-import ProgressBar from '@/components/common/ProgressBar';
+// import ProgressBar from '@/components/common/ProgressBar';
 import { arrayRandomlyShuffle, truncateToLocaleString } from '@/lib/util';
-import VoteCardHeading, {
-  VoteCardHeadingVariantsTypes,
-} from '@/components/VoteCard/VoteCardHeading';
+// import VoteCardHeading, {
+//   VoteCardHeadingVariantsTypes,
+// } from '@/components/VoteCard/VoteCardHeading';
 import { VOTERS_PER_VOTE_CARD_DESKTOP } from '@/config';
 import { chunk } from 'lodash';
 import Voter from '@/components/VoteCard/Voter';
 import { Swiper, SwiperSlide } from '@/components/common/Swiper';
 import GrayCircle from '@/components/common/GrayCircle';
-import { Proposal } from '@/lib/services/goblinDao';
+import { Proposal } from '@/lib/services/goblinDao/types';
 
 export enum VoteCardVariant {
   FOR,
@@ -19,8 +19,7 @@ export enum VoteCardVariant {
 }
 
 type VoteCardProps = {
-  // TODO
-  proposal: any;
+  proposal: Proposal;
   percentage: number;
   variant: VoteCardVariant;
   voterIds?: Array<string>;
@@ -28,37 +27,37 @@ type VoteCardProps = {
 const VoteCard: FC<VoteCardProps> = (props) => {
   const { variant, proposal, percentage, voterIds } = props;
 
-  const voteCardVariant = (
-    v: VoteCardVariant
-  ): {
-    title: string;
-    voteCount: number;
-    variant?: VoteCardHeadingVariantsTypes;
-  } => {
-    switch (v) {
-      case VoteCardVariant.FOR:
-        return {
-          title: 'For',
-          variant: 'success',
-          voteCount: proposal.forCount,
-        };
+  // const voteCardVariant = (
+  //   v: VoteCardVariant
+  // ): {
+  //   title: string;
+  //   voteCount: number;
+  //   variant?: VoteCardHeadingVariantsTypes;
+  // } => {
+  //   switch (v) {
+  //     case VoteCardVariant.FOR:
+  //       return {
+  //         title: 'For',
+  //         variant: 'success',
+  //         voteCount: proposal.forCount,
+  //       };
+  //
+  //     case VoteCardVariant.AGAINST:
+  //       return {
+  //         title: 'Against',
+  //         variant: 'danger',
+  //         voteCount: proposal.againstCount,
+  //       };
+  //     default: {
+  //       return {
+  //         title: 'Abstain',
+  //         voteCount: proposal.abstainCount,
+  //       };
+  //     }
+  //   }
+  // };
 
-      case VoteCardVariant.AGAINST:
-        return {
-          title: 'Against',
-          variant: 'danger',
-          voteCount: proposal.againstCount,
-        };
-      default: {
-        return {
-          title: 'Abstain',
-          voteCount: proposal.abstainCount,
-        };
-      }
-    }
-  };
-
-  const { variant: cardVariant, voteCount, title } = voteCardVariant(variant);
+  // const { variant: cardVariant, voteCount, title } = voteCardVariant(variant);
 
   const shuffledVoterIdsIntoChunks = useMemo(() => {
     const shuffled = arrayRandomlyShuffle(voterIds, +proposal.id);
@@ -80,15 +79,15 @@ const VoteCard: FC<VoteCardProps> = (props) => {
   return (
     <Card hover="pointer">
       <div tw="flex flex-col justify-center md:text-left text-center md:flex-row md:justify-between w-full">
-        <VoteCardHeading tw="md:mb-0 mb-5" variant={cardVariant}>
-          {title}
-        </VoteCardHeading>
+        {/*<VoteCardHeading tw="md:mb-0 mb-5" variant={cardVariant}>*/}
+        {/*  {title}*/}
+        {/*</VoteCardHeading>*/}
         <span tw="font-semibold text-lg">
-          {truncateToLocaleString(voteCount, 0)}
+          {/*{truncateToLocaleString(voteCount, 0)}*/}
         </span>
       </div>
       <div tw="w-full mt-3 mb-2">
-        <ProgressBar variant={cardVariant} percentage={percentage} />
+        {/*<ProgressBar variant={cardVariant} percentage={percentage} />*/}
       </div>
       <div tw="hidden md:block pt-5">
         <Swiper>
