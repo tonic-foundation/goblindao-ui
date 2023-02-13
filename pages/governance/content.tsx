@@ -15,7 +15,7 @@ const Content: NextPage = () => {
   const { accountId } = useWalletSelector();
 
   const handleClickProposal = (id: number | string) => {
-    router.push(`/vote/${id}`);
+    router.push(`/proposal/${id}`);
   };
 
   const { data: funds } = useGoblinDaoFunds();
@@ -42,7 +42,7 @@ const Content: NextPage = () => {
               Treasury
             </Typography.Heading>
             <div tw="gap-3 flex w-full justify-start">
-              {/* TODO if needed an UI similar to ASTRO DAO, check below code */}
+              {/* TODO if needed an UI similar to the ASTRO DAO, check below code */}
               {/*<Card tw="flex flex-col items-stretch">*/}
               {/*  <div tw="gap-6 flex items-center justify-between w-full">*/}
               {/*    <Icon.Near tw="w-5 h-5" />*/}

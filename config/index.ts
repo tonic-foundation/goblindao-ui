@@ -3,6 +3,8 @@ import { getNearConfig as getBaseNearConfig } from '@tonic-foundation/config';
 import { TokenInfo } from '@tonic-foundation/token-list';
 import { NEAR_METADATA } from '@tonic-foundation/token';
 
+export const DATA_SEPARATOR = '$$$$';
+export const YOKTO_NEAR = 1000000000000000000000000;
 export const IS_DEV = process.env.NODE_ENV === 'development';
 
 type NearEnv = 'testnet' | 'mainnet';
@@ -22,8 +24,6 @@ export const STORAGE_EXEMPT_TOKENS = ['usn', 'near'];
  */
 export const TONIC_CONTRACT_ID = process.env
   .NEXT_PUBLIC_TONIC_CONTRACT_ID as string;
-
-export const VOTERS_PER_VOTE_CARD_DESKTOP = 15;
 
 export const GOBLIN_IPFS_URL = process.env.NEXT_PUBLIC_GOBLINS_IPFS_URL;
 export const GOBLIN_DAO_ID = process.env.NEXT_PUBLIC_GOBLIN_DAO_ID as string;

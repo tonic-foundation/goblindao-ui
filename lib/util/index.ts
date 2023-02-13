@@ -1,4 +1,7 @@
 import BN from 'bn.js';
+import { YOKTO_NEAR } from '@/config';
+import Decimal from 'decimal.js';
+import { format } from 'date-fns';
 
 export type forceProperties<T, O> = {
   [k in keyof T]: O;
@@ -141,3 +144,28 @@ export function validateJSON(text: string): boolean {
       .replace(/(?:^|:|,)(?:\s*\[)+/g, '')
   );
 }
+
+export function fromBase64ToObj<T>(str: string): T {
+  return JSON.parse(Buffer.from(str, 'base64').toString('utf-8'));
+}
+
+export const toMillis = (timePeriod: string): number =>
+  Math.round(Number(timePeriod) / 1000000);
+
+export function formatYoktoValue(value: string, divider?: number): string {
+  if (!value) {
+    return '0';
+  }
+
+  const dividerValue = divider !== undefined ? 10 ** divider : YOKTO_NEAR;
+
+  const amountYokto = new Decimal(value);
+
+  return Number(amountYokto.div(dividerValue).toFixed(4)).toString();
+}
+
+export const formatTimestampAsDate = (time: string): string => {
+  const date = new Date(Number(time) / 1000000);
+
+  return format(date, 'dd LLL yyyy HH:mm:ss');
+};

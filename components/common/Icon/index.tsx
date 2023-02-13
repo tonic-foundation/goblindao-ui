@@ -23,7 +23,13 @@ import {
   BsFillSunFill as Sun,
   BsClockFill as Clock,
   BsFillSuitHeartFill as Heart,
+  BsCheck2Circle as Checked,
 } from 'react-icons/bs';
+import {
+  AiFillLike as Like,
+  AiFillDislike as Dislike,
+  AiFillClockCircle as AiClock,
+} from 'react-icons/ai';
 import { IoMdMoon as Moon } from 'react-icons/io';
 
 import { NearIcon as Near } from '../NearLogo';
@@ -38,6 +44,10 @@ const Icon = {
   Explore,
 
   Warning,
+  Checked,
+  Like,
+  Dislike,
+  AiClock,
 
   Link,
 

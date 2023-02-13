@@ -1,20 +1,20 @@
 import React from 'react';
 import Tag from '@/components/common/Tag';
-import { ProposalStatus } from '@/lib/services/goblinDao/types';
+import { ProposalStatus } from '@/lib/services/goblinDao/types/proposal';
 
 export const statusVariant = (status: ProposalStatus | undefined) => {
   switch (status) {
-    case ProposalStatus.InProgress:
+    case 'InProgress':
       return 'info';
-    case ProposalStatus.Approved:
-    case ProposalStatus.Moved:
+    case 'Approved':
+    case 'Moved':
       return 'success';
-    case ProposalStatus.Removed:
+    case 'Removed':
       return 'warning';
-    case ProposalStatus.Rejected:
-    case ProposalStatus.Failed:
+    case 'Rejected':
+    case 'Failed':
       return 'danger';
-    case ProposalStatus.Expired:
+    case 'Expired':
     default:
       return 'gray';
   }

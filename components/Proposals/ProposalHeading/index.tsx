@@ -7,9 +7,9 @@ import { useRouter } from 'next/router';
 import { getExplorerUrl } from '@/config';
 // import { useIsMobile } from '@/hooks/useIsMobile';
 import { abbreviateCryptoString } from '@/lib/util';
-import { Proposal } from '@/lib/services/goblinDao/types';
+import { ProposalFeedItem } from '@/lib/services/goblinDao/types/proposal';
 
-const ProposalHeading: FC<{ proposal: Proposal }> = ({ proposal }) => {
+const ProposalHeading: FC<{ proposal: ProposalFeedItem }> = ({ proposal }) => {
   const router = useRouter();
   // const isMobile = useIsMobile();
 
@@ -29,7 +29,7 @@ const ProposalHeading: FC<{ proposal: Proposal }> = ({ proposal }) => {
           </Typography.Heading>
           <ProposalsStatus status={proposal.status} />
         </div>
-        <Typography.Title tw="mb-3">{proposal.type}</Typography.Title>
+        <Typography.Title tw="mb-3">{proposal.kind.type}</Typography.Title>
         <Typography.Heading tw="mb-2 text-neutral-500 font-semibold">
           Proposed by{' '}
           <a
@@ -40,20 +40,15 @@ const ProposalHeading: FC<{ proposal: Proposal }> = ({ proposal }) => {
           >
             {proposal.proposer}
           </a>{' '}
-          at {/* TODO not sure if this is correct url*/}
+          at
           <a
             rel="noreferrer"
-            href={getExplorerUrl(
-              'transaction',
-              proposal.transactionHash || proposal.updateTransactionHash
-            )}
+            href={getExplorerUrl('transaction', proposal.txHash)}
             target="_blank"
             tw="text-brand-400 underline cursor-pointer"
           >
-            {proposal.transactionHash
-              ? abbreviateCryptoString(proposal.transactionHash, 16, 3)
-              : proposal.updateTransactionHash
-              ? abbreviateCryptoString(proposal.updateTransactionHash, 16, 3)
+            {proposal.txHash
+              ? abbreviateCryptoString(proposal.txHash, 16, 3)
               : null}
           </a>
         </Typography.Heading>

@@ -1,13 +1,24 @@
 import axios from 'axios';
+import { TONIC_CONTRACT_ID } from '@/config';
+import { tgasAmount } from '@tonic-foundation/utils';
 import {
   CreateProposalFunctionCall,
   CreateProposalTransfer,
-  DaoFundsResponse,
-  Proposal,
+  ProposalFeedItem,
+  ProposalFeedItemResponse,
   ProposalsResponse,
-} from './types';
-import { TONIC_CONTRACT_ID } from '@/config';
-import { tgasAmount } from '@tonic-foundation/utils';
+} from '@/lib/services/goblinDao/types/proposal';
+import {
+  DAO,
+  DaoDelegation,
+  DaoDTO,
+  DaoFundsResponse,
+  MemberStats,
+} from '@/lib/services/goblinDao/types/dao';
+import {
+  mapDaoDTOtoDao,
+  mapProposalFeedItemResponseToProposalFeedItem,
+} from '@/lib/services/goblinDao/helpers';
 
 const sputnik = axios.create({
   baseURL: 'https://api.app.astrodao.com/api/v1',
@@ -16,7 +27,6 @@ const sputnik = axios.create({
 /**
  * DAO Funds
  * @name getDaoFunds
- * @desc Get goblin dao funds
  * @method GET
  * @param daoId
  * @return number
@@ -33,8 +43,8 @@ export async function getDaoFunds(daoId: string) {
 /**
  * DAO Proposals
  * @name getDaoProposals
- * @desc get goblin dao proposals list
  * @method GET
+ * @param url {string}
  * @return ProposalsResponse
  */
 export async function getDaoProposals(url: string) {
@@ -49,13 +59,60 @@ export async function getDaoProposals(url: string) {
 /**
  * DAO Proposal by id
  * @name getDaoProposal
- * @desc get goblin dao proposal by id
  * @method GET
- * @return Proposal
+ * @param proposalId {string}
+ * @return {ProposalFeedItem}
  */
 export async function getDaoProposal(proposalId: string) {
   const url = `/proposals/${proposalId}`;
-  const response = await sputnik.get<Proposal>(url);
+  const response = await sputnik.get<ProposalFeedItemResponse>(url);
+
+  return mapProposalFeedItemResponseToProposalFeedItem(
+    response.data
+  ) as ProposalFeedItem;
+}
+
+/**
+ * DAO Members Stats
+ * @name getDaoMembersStats
+ * @method GET
+ * @param daoId {string}
+ * @return {MemberStats[]}
+ */
+export async function getDaoMembersStats(daoId: string) {
+  const url = `/daos/${daoId}/members`;
+  const response = await sputnik.get<MemberStats[]>(url);
+
+  return response.data;
+}
+
+/**
+ * DAO
+ * @name getDaoById
+ * @method GET
+ * @param daoId {string}
+ * @return {DaoDTO}
+ */
+export async function getDaoById(daoId: string) {
+  const url = `/daos/${daoId}`;
+  const response = await sputnik.get<DaoDTO>(url);
+
+  return mapDaoDTOtoDao(response.data) as DAO;
+}
+
+/**
+ * DAO Delegations
+ * @name getDaoDelegation
+ * @method GET
+ * @param daoId {string}
+ * @return {DaoDelegation[]}
+ */
+export async function getDaoDelegation(
+  daoId: string
+): Promise<DaoDelegation[]> {
+  const response = await sputnik.get<DaoDelegation[]>(
+    `/daos/${daoId}/delegations`
+  );
 
   return response.data;
 }
