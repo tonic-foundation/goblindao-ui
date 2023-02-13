@@ -5,8 +5,8 @@ import {
   VoterDetail,
 } from '@/lib/services/goblinDao/types';
 import { VotesProgressBar } from '@/components/Votes/VoteProgressBar';
-import IconButton from '@/components/common/IconButton';
 import Icon from '@/components/common/Icon';
+import Tooltip from '@/components/common/Tooltip';
 
 interface VoteCollapsableHeaderProps {
   setToggle: (newState?: boolean) => void;
@@ -30,35 +30,42 @@ export const VoteCollapsableHeader: FC<VoteCollapsableHeaderProps> = ({
 
   return (
     <div
+      tw="flex items-start cursor-pointer rounded-[8px] justify-between p-1.5 w-full"
       tabIndex={-1}
       role="button"
       onClick={() => setToggle(!state)}
       onKeyPress={() => undefined}
     >
-      <div>
-        <div>{groupName}</div>
-        <div />
-        <div>
+      <div tw="flex items-center justify-between w-full max-w-[225px]">
+        <div tw="items-center rounded-full inline-flex font-semibold justify-center">
+          {groupName}
+        </div>
+        <div tw="bg-neutral-300 h-[24px] w-[1px] block mx-3" />
+        <div tw="text-xs w-full text-center">
           {voiceCounter}/{votes.length} voices
         </div>
-        <div />
+        <div tw="bg-neutral-300 h-[24px] w-[1px] block mx-3" />
         {threshold && (
           <>
-            <span>
-              <b>Voting policy:</b> {threshold.tooltip}
-            </span>
-            <span>{threshold.value}</span>
-            <span>{threshold.suffix}</span>
+            <div tw="w-full text-sm font-semibold" id="vote_policy">
+              {threshold.value} %
+            </div>
+            <Tooltip anchorId="vote_policy" place="top">
+              <div tw="text-sm">
+                <span>
+                  <b>Voting policy:</b> {threshold.tooltip}
+                </span>
+                <span>{threshold.value}</span>
+                <span>{threshold.suffix}</span>
+              </div>
+            </Tooltip>
           </>
         )}
       </div>
 
-      <div>
+      <div tw="flex items-center w-full mt-[12px] max-w-[500px] gap-3">
         <VotesProgressBar votes={votes} />
-        <IconButton
-          tw="border w-9 h-9 text-neutral-600 dark:text-neutral-300"
-          icon={<Icon.ChevronDown tw="w-5 h-5" />}
-        />
+        <Icon.ChevronDown tw="w-5 h-5" />
       </div>
     </div>
   );

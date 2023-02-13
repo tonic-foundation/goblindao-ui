@@ -27,9 +27,15 @@ export const VotesProgressBar: FC<VotesProgressBarProps> = ({ votes }) => {
   );
 
   return (
-    <div>
-      <div style={{ width: `${noWidth}%` }} />
-      <div style={{ width: `${yesWidth}%` }} />
+    <div tw="flex items-center rounded-[80px] overflow-hidden w-full h-[8px] bg-neutral-300">
+      <div
+        tw="rounded-tr-[80px] h-[8px] rounded-br-[80px] bg-success-500"
+        style={{ width: `${yesWidth}%` }}
+      />
+      <div
+        tw="rounded-tr-[80px] h-[8px] rounded-br-[80px] bg-danger-500"
+        style={{ width: `${noWidth}%` }}
+      />
     </div>
   );
 };

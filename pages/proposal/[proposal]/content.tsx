@@ -36,7 +36,7 @@ const Content = () => {
   return (
     <div>
       <ProposalHeading proposal={proposal} />
-      <div tw="grid grid-cols-3 gap-5 mb-4">
+      <div tw="flex flex-col gap-5 mb-4">
         <Votes
           votesDetails={votesDetails}
           votingPolicyByGroup={votingPolicyByGroup}

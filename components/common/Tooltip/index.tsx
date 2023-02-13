@@ -1,36 +1,9 @@
-import React from 'react';
-import ReactTooltip, { TooltipProps as ReactTooltipProps } from 'react-tooltip';
+import { Tooltip as ReactTooltip } from 'react-tooltip';
+import 'react-tooltip/dist/react-tooltip.css';
+import tw, { styled } from 'twin.macro';
 
-interface TooltipProps extends ReactTooltipProps {
-  hoverContent: (dataTip: string, id: string) => React.ReactNode;
-  tip: string;
-  id: string;
-  children: React.ReactNode;
-}
-
-const Tooltip: React.FC<TooltipProps> = ({
-  hoverContent,
-  tip,
-  id,
-  children,
-  ...props
-}) => {
-  return (
-    <>
-      <ReactTooltip
-        {...props}
-        id={id}
-        arrowColor={'rgba(0,0,0,0)'}
-        effect={'solid'}
-        getContent={(dataTip) => {
-          return hoverContent(dataTip, id);
-        }}
-      />
-      <div data-tip={tip} data-for={id}>
-        {children}
-      </div>
-    </>
-  );
-};
+const Tooltip = styled(ReactTooltip)(
+  tw`opacity-100 z-50 bg-gray-900 dark:bg-fuchsia-600`
+);
 
 export default Tooltip;

@@ -3,6 +3,7 @@ import React, { FC } from 'react';
 import { getExplorerUrl } from '@/config';
 import Link from 'next/link';
 import Icon from '@/components/common/Icon';
+import Tooltip from '@/components/common/Tooltip';
 
 export type VoteActionProps = {
   type: ProposalAction;
@@ -14,7 +15,7 @@ export type VoteActionProps = {
 
 export const VoteAction: FC<VoteActionProps> = ({
   type,
-  position = '0',
+  position,
   date,
   name,
   hash,
@@ -22,15 +23,18 @@ export const VoteAction: FC<VoteActionProps> = ({
   const explorerLink = hash ? getExplorerUrl('transaction', hash) : '';
 
   return (
-    <div style={{ left: position }}>
-      <span>
-        {name}
-        <br />
-        {date}
-        <br />
-        <span>Click to open in Explorer</span>
-      </span>
-      <Link href={explorerLink} rel="noreferrer" target="_blank">
+    <div style={{ left: position }} tw="absolute">
+      <Tooltip anchorId={date} place="top">
+        <div tw="text-center">
+          <span>{name}</span>
+          <br />
+          <span tw="text-sm">{date}</span>
+          <br />
+          <span tw="text-xs">Click to open in Explorer</span>
+        </div>
+      </Tooltip>
+
+      <Link id={date} href={explorerLink} rel="noreferrer" target="_blank">
         {type === 'VoteApprove' ? <Icon.Like /> : <Icon.Dislike />}
       </Link>
     </div>

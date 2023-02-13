@@ -6,10 +6,15 @@ import { VoterDetailsCard } from '@/components/Votes/VoterDetailsCard';
 
 interface VotersListProps {
   data: VoterDetail[];
+  showTokensInfo?: boolean;
   lastVoteId?: string;
 }
 
-export const VotersList: FC<VotersListProps> = ({ data, lastVoteId }) => {
+export const VotersList: FC<VotersListProps> = ({
+  data,
+  showTokensInfo,
+  lastVoteId,
+}) => {
   if (!data?.length) {
     return <NoVotesResults title="No votes here" />;
   }

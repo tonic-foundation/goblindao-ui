@@ -73,21 +73,27 @@ const VoteTimeline: FC<VoteTimelineProps> = ({ proposal }) => {
   );
 
   return (
-    <div ref={timeLineRef}>
-      <div>
-        <div>
+    <div ref={timeLineRef} tw="items-center flex h-[60px] relative">
+      <div tw="flex flex-col relative">
+        <div tw="">
           <Icon.Checked />
         </div>
-        <div>Creating proposal</div>
+        <div tw="text-sm bottom-[-24px] left-0 absolute whitespace-nowrap	">
+          Creating proposal
+        </div>
       </div>
-      <div style={{ width: `${total * POINT}px` }}>
+      <div
+        tw="border h-[1px] relative w-[864px]"
+        style={{ width: `${total * POINT}px` }}
+      >
         <div
+          tw="bg-success-500 h-[4px] left-0 absolute top-[50%] translate-y-2/4"
           style={{
             width:
               proposal.voteStatus === 'Expired' ? '100%' : `${lastVote.left}px`,
           }}
         />
-        <ExtraActions actions={extraActions} />
+        {/*<ExtraActions actions={extraActions} />*/}
         {voteActions
           .filter((voteAction) => voteAction.action)
           .map((voteAction) => (
