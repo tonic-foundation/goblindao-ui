@@ -1,6 +1,7 @@
 import {
   HiChevronDown as ChevronDown,
   HiUserGroup as GroupPeople,
+  HiOutlineTrash as Trash,
 } from 'react-icons/hi';
 import { TbArrowLeft as Back, TbArrowRight as Next } from 'react-icons/tb';
 import { GiHamburgerMenu as HamburgerMenu } from 'react-icons/gi';
@@ -8,6 +9,7 @@ import {
   MdClose as Close,
   MdExplore as Explore,
   MdError as Warning,
+  MdOutlineHowToVote as Vote,
 } from 'react-icons/md';
 import {
   FaDiscord as Discord,
@@ -47,6 +49,8 @@ const Icon = {
   FiClock,
 
   Link,
+  Vote,
+  Trash,
 
   Sun,
   Moon,
