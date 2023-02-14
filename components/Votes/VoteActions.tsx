@@ -1,4 +1,4 @@
-import { ProposalAction, ProposalStatus } from '@/lib/services/goblinDao/types';
+import { ProposalAction } from '@/lib/services/goblinDao/types';
 import React, { FC } from 'react';
 import { getExplorerUrl } from '@/config';
 import Link from 'next/link';
@@ -23,7 +23,7 @@ export const VoteAction: FC<VoteActionProps> = ({
   const explorerLink = hash ? getExplorerUrl('transaction', hash) : '';
 
   return (
-    <div style={{ left: position }} tw="absolute">
+    <div tw="absolute top-[-17px]" style={{ left: position }}>
       <Tooltip anchorId={date} place="top">
         <div tw="text-center">
           <span>{name}</span>
@@ -35,25 +35,16 @@ export const VoteAction: FC<VoteActionProps> = ({
       </Tooltip>
 
       <Link id={date} href={explorerLink} rel="noreferrer" target="_blank">
-        {type === 'VoteApprove' ? <Icon.Like /> : <Icon.Dislike />}
+        {type === 'VoteApprove' ? (
+          <div tw="p-1.5 bg-success-500 rounded-full">
+            <Icon.Like tw="w-5 h-5 text-white" />
+          </div>
+        ) : (
+          <div tw="p-1.5 bg-danger-500 rounded-full">
+            <Icon.Dislike tw="w-5 h-5 text-white" />
+          </div>
+        )}
       </Link>
     </div>
   );
 };
-
-interface FinishProposalProps {
-  status: ProposalStatus;
-}
-
-export const FinishProposal: FC<FinishProposalProps> = ({
-  status = 'Active',
-}) => (
-  <div>
-    {status !== 'Active' ? (
-      <>
-        {status === 'Approved' ? <Icon.Checked /> : <Icon.AiClock />}
-        <div>{status === 'InProgress' ? '' : status} </div>
-      </>
-    ) : null}
-  </div>
-);

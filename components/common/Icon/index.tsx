@@ -18,6 +18,8 @@ import {
   FaInfoCircle as Info,
   FaBirthdayCake as Cake,
 } from 'react-icons/fa';
+import { FiClock } from 'react-icons/fi';
+import { BiLike as Like, BiDislike as Dislike } from 'react-icons/bi';
 import { RiExternalLinkFill as Link } from 'react-icons/ri';
 import {
   BsFillSunFill as Sun,
@@ -25,11 +27,6 @@ import {
   BsFillSuitHeartFill as Heart,
   BsCheck2Circle as Checked,
 } from 'react-icons/bs';
-import {
-  AiFillLike as Like,
-  AiFillDislike as Dislike,
-  AiFillClockCircle as AiClock,
-} from 'react-icons/ai';
 import { IoMdMoon as Moon } from 'react-icons/io';
 
 import { NearIcon as Near } from '../NearLogo';
@@ -47,7 +44,7 @@ const Icon = {
   Checked,
   Like,
   Dislike,
-  AiClock,
+  FiClock,
 
   Link,
 

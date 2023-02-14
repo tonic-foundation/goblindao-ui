@@ -19,13 +19,15 @@ const Votes: FC<{
     <div>
       <Typography.Title>Votes</Typography.Title>
       <VoteTimeline proposal={proposal} />
-      <VoteCollapsableList
-        data={votesDetails}
-        votingPolicyByGroup={votingPolicyByGroup}
-        lastVoteId={
-          proposal.status !== 'InProgress' ? lastVote?.action?.id : undefined
-        }
-      />
+      <div tw="mt-16 mx-auto px-16">
+        <VoteCollapsableList
+          data={votesDetails}
+          votingPolicyByGroup={votingPolicyByGroup}
+          lastVoteId={
+            proposal.status !== 'InProgress' ? lastVote?.action?.id : undefined
+          }
+        />
+      </div>
     </div>
   );
 };

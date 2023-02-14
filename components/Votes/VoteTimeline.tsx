@@ -9,6 +9,7 @@ import {
   ProposalStatus,
 } from '@/lib/services/goblinDao/types';
 import { VoteAction } from '@/components/Votes/VoteActions';
+import { css } from 'twin.macro';
 
 interface FinishProposalProps {
   status: ProposalStatus;
@@ -16,11 +17,28 @@ interface FinishProposalProps {
 export const FinishProposal: FC<FinishProposalProps> = ({
   status = 'Active',
 }) => (
-  <div>
+  <div tw="relative">
     {status !== 'Active' ? (
       <>
-        {status === 'Approved' ? <Icon.Checked /> : <Icon.AiClock />}
-        <div>{status === 'InProgress' ? '' : status} </div>
+        <div
+          css={css`
+            & {
+              background-color: ${status === 'Approved'
+                ? '#15B97E'
+                : '#CA3A31'};
+            }
+          `}
+          tw="rounded-full p-1"
+        >
+          {status === 'Approved' ? (
+            <Icon.Checked tw="w-6 h-6 text-white" />
+          ) : (
+            <Icon.FiClock tw="w-6 h-6 text-white" />
+          )}
+        </div>
+        <div tw="text-sm bottom-[-34px] right-0 absolute whitespace-nowrap">
+          <span tw="opacity-70">{status === 'InProgress' ? '' : status} </span>
+        </div>
       </>
     ) : null}
   </div>
@@ -75,25 +93,33 @@ const VoteTimeline: FC<VoteTimelineProps> = ({ proposal }) => {
   return (
     <div ref={timeLineRef} tw="items-center flex h-[60px] relative">
       <div tw="flex flex-col relative">
-        <div tw="">
-          <Icon.Checked />
+        <div tw="bg-success-500 rounded-full p-1">
+          <Icon.Checked tw="w-6 h-6 text-white" />
         </div>
-        <div tw="text-sm bottom-[-24px] left-0 absolute whitespace-nowrap	">
-          Creating proposal
+        <div tw="text-sm bottom-[-34px] left-0 absolute whitespace-nowrap">
+          <span tw="opacity-70">Creating proposal</span>
         </div>
       </div>
       <div
-        tw="border h-[1px] relative w-[864px]"
+        tw="border-t border-dashed border-neutral-400 h-[1px] relative"
         style={{ width: `${total * POINT}px` }}
       >
         <div
-          tw="bg-success-500 h-[4px] left-0 absolute top-[50%] translate-y-2/4"
+          css={css`
+            & {
+              background-color: ${proposal.status === 'Rejected' ||
+              proposal.voteStatus === 'Expired'
+                ? ''
+                : '#15B97E'};
+            }
+          `}
+          tw="h-[4px] left-0 absolute top-[-4px] translate-y-2/4"
           style={{
             width:
               proposal.voteStatus === 'Expired' ? '100%' : `${lastVote.left}px`,
           }}
         />
-        {/*<ExtraActions actions={extraActions} />*/}
+        <ExtraActions actions={extraActions} />
         {voteActions
           .filter((voteAction) => voteAction.action)
           .map((voteAction) => (

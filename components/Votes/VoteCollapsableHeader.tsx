@@ -30,7 +30,7 @@ export const VoteCollapsableHeader: FC<VoteCollapsableHeaderProps> = ({
 
   return (
     <div
-      tw="flex items-start cursor-pointer rounded-[8px] justify-between p-1.5 w-full"
+      tw="flex items-center cursor-pointer rounded-[8px] justify-between p-1.5 w-full"
       tabIndex={-1}
       role="button"
       onClick={() => setToggle(!state)}
@@ -63,7 +63,7 @@ export const VoteCollapsableHeader: FC<VoteCollapsableHeaderProps> = ({
         )}
       </div>
 
-      <div tw="flex items-center w-full mt-[12px] max-w-[500px] gap-3">
+      <div tw="flex items-center w-full max-w-[500px] gap-3">
         <VotesProgressBar votes={votes} />
         <Icon.ChevronDown tw="w-5 h-5" />
       </div>
