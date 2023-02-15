@@ -1,4 +1,4 @@
-import { TONIC_DAO_ID } from '@/config';
+import { GOBLIN_DAO_ID } from '@/config';
 import useSWR, { SWRConfiguration } from 'swr';
 import {
   getDaoById,
@@ -15,15 +15,15 @@ import { DAO, MemberStats } from '@/lib/services/goblinDao/types/dao';
 import { useEffect, useState } from 'react';
 
 export function useGoblinDaoFunds(swrOpts?: Partial<SWRConfiguration>) {
-  return useSWR<number>([TONIC_DAO_ID], getDaoFunds, swrOpts);
+  return useSWR<number>([GOBLIN_DAO_ID], getDaoFunds, swrOpts);
 }
 
 export function useGoblinDaoProposals(
-  proposalId?: string,
+  daoId: string,
   swrOpts?: Partial<SWRConfiguration>
 ) {
   return useSWR<Proposal[]>(
-    `/proposals?offset=0&limit=1000&sort=createdAt,DESC`,
+    `/proposals?dao=${daoId}&offset=0&limit=1000&sort=createdAt,DESC`,
     getDaoProposals,
     swrOpts
   );
@@ -31,9 +31,14 @@ export function useGoblinDaoProposals(
 
 export function useGoblinDaoProposal(
   proposalId: string,
+  accountId?: string,
   swrOpts?: Partial<SWRConfiguration>
 ) {
-  return useSWR<ProposalFeedItem>([proposalId], getDaoProposal, swrOpts);
+  return useSWR<ProposalFeedItem>(
+    [proposalId, accountId],
+    getDaoProposal,
+    swrOpts
+  );
 }
 
 export function useGoblinDaoData(daoId: string) {

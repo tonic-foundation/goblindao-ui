@@ -42,12 +42,36 @@ export interface ProposalVotingPermissions {
 }
 
 export enum ProposalType {
+  AddMemberToRole = 'AddMemberToRole',
+  RemoveMemberFromRole = 'RemoveMemberFromRole',
   FunctionCall = 'FunctionCall',
   Transfer = 'Transfer',
+  SetStakingContract = 'SetStakingContract',
+  ChangePolicy = 'ChangePolicy',
+  ChangeConfig = 'ChangeConfig',
+  UpgradeSelf = 'UpgradeSelf',
+  UpgradeRemote = 'UpgradeRemote',
+  AddBounty = 'AddBounty',
+  BountyDone = 'BountyDone',
+  Vote = 'Vote',
 }
 
 export enum ProposalActions {
+  /// Action to add proposal. Used internally.
   AddProposal = 'AddProposal',
+  /// Action to remove given proposal. Used for immediate deletion in special cases.
+  RemoveProposal = 'RemoveProposal',
+  /// Vote to approve given proposal or bounty.
+  VoteApprove = 'VoteApprove',
+  /// Vote to reject given proposal or bounty.
+  VoteReject = 'VoteReject',
+  /// Vote to remove given proposal or bounty (because it's spam).
+  VoteRemove = 'VoteRemove',
+  /// Finalize proposal, called when it's expired to return the funds
+  /// (or in the future can be used for early proposal closure).
+  Finalize = 'Finalize',
+  /// Move a proposal to the hub to shift into another DAO.
+  MoveToHub = 'MoveToHub',
 }
 
 export enum ProposalVariant {
@@ -254,3 +278,19 @@ export type ProposalFeedItem = {
     isCouncil: boolean;
   } | null;
 } & ProposalProperties;
+
+export type ProposalPermissions = {
+  [ProposalType.ChangeConfig]: boolean;
+  [ProposalType.ChangePolicy]: boolean;
+  [ProposalType.AddBounty]: boolean;
+  [ProposalType.BountyDone]: boolean;
+  [ProposalType.Transfer]: boolean;
+  [ProposalType.Vote]: boolean;
+  [ProposalType.RemoveMemberFromRole]: boolean;
+  [ProposalType.AddMemberToRole]: boolean;
+  [ProposalType.AddMemberToRole]: boolean;
+  [ProposalType.SetStakingContract]: boolean;
+  [ProposalType.UpgradeSelf]: boolean;
+  [ProposalType.UpgradeRemote]: boolean;
+  [ProposalType.FunctionCall]: boolean;
+};

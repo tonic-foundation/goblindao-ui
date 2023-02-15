@@ -25,18 +25,23 @@ export const FinishProposal: FC<FinishProposalProps> = ({
             & {
               background-color: ${status === 'Approved'
                 ? '#15B97E'
+                : status === 'InProgress'
+                ? ''
                 : '#CA3A31'};
+              border: ${status === 'InProgress' ? '1px solid' : 'none'};
+              width: ${status === 'InProgress' ? '30px' : 'auto'};
+              height: ${status === 'InProgress' ? '30px' : 'auto'};
             }
           `}
           tw="rounded-full p-1"
         >
           {status === 'Approved' ? (
             <Icon.Checked tw="w-6 h-6 text-white" />
-          ) : (
+          ) : status === 'InProgress' ? null : (
             <Icon.FiClock tw="w-6 h-6 text-white" />
           )}
         </div>
-        <div tw="text-sm bottom-[-34px] right-0 absolute whitespace-nowrap">
+        <div tw="text-sm bottom-[-30px] right-0 absolute whitespace-nowrap">
           <span tw="opacity-70">{status === 'InProgress' ? '' : status} </span>
         </div>
       </>
@@ -96,8 +101,8 @@ const VoteTimeline: FC<VoteTimelineProps> = ({ proposal }) => {
         <div tw="bg-success-500 rounded-full p-1">
           <Icon.Checked tw="w-6 h-6 text-white" />
         </div>
-        <div tw="text-sm bottom-[-34px] left-0 absolute whitespace-nowrap">
-          <span tw="opacity-70">Creating proposal</span>
+        <div tw="text-sm bottom-[-30px] left-0 absolute whitespace-nowrap">
+          <span tw="opacity-90">Creating proposal</span>
         </div>
       </div>
       <div

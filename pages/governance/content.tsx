@@ -9,6 +9,7 @@ import { useWalletSelector } from '@/state/containers/WalletSelectorContainer';
 import Typography from '@/components/Typography';
 import { useGoblinDaoFunds, useGoblinDaoProposals } from '@/hooks/useGoblinDao';
 import Loading from '@/components/common/Loading';
+import { GOBLIN_DAO_ID } from '@/config';
 
 const Content: NextPage = () => {
   const router = useRouter();
@@ -19,7 +20,7 @@ const Content: NextPage = () => {
   };
 
   const { data: funds } = useGoblinDaoFunds();
-  const { data: proposals } = useGoblinDaoProposals();
+  const { data: proposals } = useGoblinDaoProposals(GOBLIN_DAO_ID);
 
   return (
     <React.Fragment>

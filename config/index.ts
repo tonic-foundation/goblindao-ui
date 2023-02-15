@@ -2,9 +2,25 @@ import { ConnectConfig, keyStores } from 'near-api-js';
 import { getNearConfig as getBaseNearConfig } from '@tonic-foundation/config';
 import { TokenInfo } from '@tonic-foundation/token-list';
 import { NEAR_METADATA } from '@tonic-foundation/token';
+import { ProposalType } from '@/lib/services/goblinDao/types/proposal';
 
 export const DATA_SEPARATOR = '$$$$';
 export const YOKTO_NEAR = 1000000000000000000000000;
+
+export const APP_TO_CONTRACT_PROPOSAL_TYPE = {
+  [ProposalType.ChangeConfig]: 'config',
+  [ProposalType.ChangePolicy]: 'policy',
+  [ProposalType.AddMemberToRole]: 'add_member_to_role',
+  [ProposalType.RemoveMemberFromRole]: 'remove_member_from_role',
+  [ProposalType.FunctionCall]: 'call',
+  [ProposalType.UpgradeSelf]: 'upgrade_self',
+  [ProposalType.UpgradeRemote]: 'upgrade_remote',
+  [ProposalType.Transfer]: 'transfer',
+  [ProposalType.SetStakingContract]: 'set_vote_token',
+  [ProposalType.AddBounty]: 'add_bounty',
+  [ProposalType.BountyDone]: 'bounty_done',
+  [ProposalType.Vote]: 'vote',
+};
 export const IS_DEV = process.env.NODE_ENV === 'development';
 
 type NearEnv = 'testnet' | 'mainnet';

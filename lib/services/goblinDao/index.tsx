@@ -21,7 +21,7 @@ import {
 } from '@/lib/services/goblinDao/helpers';
 
 const sputnik = axios.create({
-  baseURL: 'https://api.app.astrodao.com/api/v1',
+  baseURL: 'https://api.testnet.app.astrodao.com/api/v1',
 });
 
 /**
@@ -61,10 +61,11 @@ export async function getDaoProposals(url: string) {
  * @name getDaoProposal
  * @method GET
  * @param proposalId {string}
+ * @param accountId {string}
  * @return {ProposalFeedItem}
  */
-export async function getDaoProposal(proposalId: string) {
-  const url = `/proposals/${proposalId}`;
+export async function getDaoProposal(proposalId: string, accountId?: string) {
+  const url = `/proposals/${proposalId}?accountId=${accountId || ''}`;
   const response = await sputnik.get<ProposalFeedItemResponse>(url);
 
   return mapProposalFeedItemResponseToProposalFeedItem(

@@ -38,9 +38,9 @@ const ProposalHeading: FC<{ proposal: ProposalFeedItem }> = ({ proposal }) => {
             target="_blank"
             tw="text-brand-400 underline cursor-pointer"
           >
-            {proposal.proposer}
+            {abbreviateCryptoString(proposal.proposer, 22)}
           </a>{' '}
-          at
+          at{' '}
           <a
             rel="noreferrer"
             href={getExplorerUrl('transaction', proposal.txHash)}

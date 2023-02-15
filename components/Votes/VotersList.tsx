@@ -20,7 +20,7 @@ export const VotersList: FC<VotersListProps> = ({
   }
 
   return (
-    <ul>
+    <ul tw="mt-5">
       {data
         .sort((a, b) => {
           if (!a.timestamp || !b.timestamp) {

@@ -7,11 +7,14 @@ import { extractMembersFromDao } from '@/lib/services/goblinDao/helpers';
 import { useProposalVotingDetails } from '@/hooks/useProposalVotingDetails';
 import { useTimelineData } from '@/hooks/useTimelineData';
 import Votes from '@/components/Votes';
+import Vote from '@/components/Votes/Vote';
+import { useWalletSelector } from '@/state/containers/WalletSelectorContainer';
 
 const Content = () => {
   const router = useRouter();
+  const { accountId, activeAccount } = useWalletSelector();
   const proposalId = router.query.proposal as string;
-  const { data: proposal } = useGoblinDaoProposal(proposalId);
+  const { data: proposal } = useGoblinDaoProposal(proposalId, accountId || '');
   const { dao, membersStats } = useGoblinDaoData(proposal?.daoId || '');
 
   const members =
@@ -37,6 +40,7 @@ const Content = () => {
     <div>
       <ProposalHeading proposal={proposal} />
       <div tw="flex flex-col gap-5 mb-4">
+        {activeAccount && <Vote proposal={proposal} />}
         <Votes
           votesDetails={votesDetails}
           votingPolicyByGroup={votingPolicyByGroup}

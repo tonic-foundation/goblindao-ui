@@ -1,4 +1,5 @@
 import React, { FC, ReactNode } from 'react';
+import Card from '@/components/common/Card';
 
 interface NoVoteResultsViewProps {
   title: ReactNode;
@@ -12,11 +13,11 @@ const NoVoteResultsView: FC<NoVoteResultsViewProps> = ({
   children,
 }) => {
   return (
-    <div>
+    <Card tw="text-sm text-center mt-5">
       <div>{title}</div>
       <div>{subTitle}</div>
       {children}
-    </div>
+    </Card>
   );
 };
 

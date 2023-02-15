@@ -1,5 +1,7 @@
 export type Vote = 'Yes' | 'No' | 'Dismiss';
 
+export type VoteAction = 'VoteApprove' | 'VoteRemove' | 'VoteReject';
+
 export type VoterDetail = {
   id: string;
   name: string;
@@ -19,3 +21,8 @@ export type VoteValue = {
   vote: Vote | null;
   percent: number;
 };
+
+export interface VoteProposalTransactionRequest {
+  id: string | number;
+  action: VoteAction;
+}

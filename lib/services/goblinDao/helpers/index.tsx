@@ -10,17 +10,21 @@ import get from 'lodash/get';
 import {
   DaoRole,
   DefaultVotePolicy,
+  PolicyType,
   Proposal,
+  ProposalActions,
   ProposalDTO,
   ProposalFeedItem,
   ProposalFeedItemResponse,
+  ProposalPermissions,
+  ProposalType,
   ProposalVariant,
   Vote,
   VoteDetail,
   VoterDetail,
 } from '@/lib/services/goblinDao/types';
 import { fromBase64ToObj, toMillis } from '@/lib/util';
-import { DATA_SEPARATOR } from '@/config';
+import { APP_TO_CONTRACT_PROPOSAL_TYPE, DATA_SEPARATOR } from '@/config';
 import { Vote as VoteState } from '@/lib/services/goblinDao/types';
 import min from 'lodash/min';
 import max from 'lodash/max';
@@ -389,3 +393,161 @@ export function calculateVoicesThreshold(
 
   return votesNeeded + 1 > totalMembers ? votesNeeded : votesNeeded + 1;
 }
+
+export function checkUserPermission(
+  accountId: string,
+  policy: PolicyType,
+  userHasDelegatedTokens: boolean,
+  givenAction: ProposalActions,
+  givenProposalType: string
+): boolean {
+  // get all the user's permissions on the chosen proposal kind
+  const proposalKindPermissions: string[] = policy.roles
+    ?.filter(
+      (role) =>
+        role.kind === 'Everyone' ||
+        role.accountIds?.includes(accountId) ||
+        (role.kind === 'Member' && userHasDelegatedTokens)
+    )
+    .map((role) => role.permissions)
+    .flat()
+    .filter((permission) => {
+      const [proposalKind] = permission.split(':');
+
+      return (
+        proposalKind === '*' ||
+        proposalKind ===
+          APP_TO_CONTRACT_PROPOSAL_TYPE[
+            givenProposalType as getAllowedProposalsResultKeyType
+          ]
+      );
+    });
+
+  // check if the user can perform the action on the proposal kind
+  return proposalKindPermissions?.some((permission) => {
+    const [, action] = permission.split(':');
+
+    return action === '*' || action === givenAction;
+  });
+}
+
+export function getProposalPermissions(
+  proposal: ProposalFeedItem | undefined,
+  accountId: string
+): {
+  canApprove: boolean;
+  canReject: boolean;
+  canDelete: boolean;
+  isCouncil: boolean;
+} {
+  const initialPermissions = {
+    canApprove: false,
+    canReject: false,
+    canDelete: false,
+    isCouncil: false,
+  };
+
+  if (!proposal || !accountId) return initialPermissions;
+
+  const { dao, permissions } = proposal;
+
+  if (permissions && Object.keys(permissions).length > 0) {
+    return {
+      ...permissions,
+    };
+  }
+
+  if (!dao) return initialPermissions;
+
+  const isCouncil = !!dao.policy?.roles?.find(
+    (item) =>
+      item.name.toLowerCase() === 'council' &&
+      item.accountIds?.includes(accountId)
+  );
+
+  const allowedToVoteOn = getAllowedProposalsToVote(accountId, dao);
+
+  const isPermitted = allowedToVoteOn[proposal.kind.type];
+
+  return {
+    canApprove: isPermitted,
+    canReject: isPermitted,
+    canDelete: isPermitted,
+    isCouncil,
+  };
+}
+
+export function getAllowedProposalsToVote(
+  accountId: string | null | undefined,
+  dao: Pick<DAO, 'policy'> | null
+): ProposalPermissions {
+  // Restrict create by default
+  const result: getAllowedProposalsResultType = {
+    [ProposalType.ChangeConfig]: false,
+    [ProposalType.ChangePolicy]: false,
+    [ProposalType.AddBounty]: false,
+    [ProposalType.FunctionCall]: false,
+    [ProposalType.Transfer]: false,
+    [ProposalType.Vote]: false,
+    [ProposalType.RemoveMemberFromRole]: false,
+    [ProposalType.AddMemberToRole]: false,
+    [ProposalType.UpgradeRemote]: false,
+    [ProposalType.UpgradeSelf]: false,
+    [ProposalType.SetStakingContract]: false,
+    [ProposalType.BountyDone]: false,
+  };
+
+  // If no user account - restrict vote
+  if (!accountId) {
+    return result;
+  }
+
+  if (dao?.policy) {
+    // Iterate through roles and try to find relevant permissions in user's roles
+    Object.keys(result).forEach((propType) => {
+      result[propType as getAllowedProposalsResultKeyType] =
+        // check VoteApprove permission
+        checkUserPermission(
+          accountId,
+          dao.policy,
+          false,
+          ProposalActions.VoteApprove,
+          propType
+        ) ||
+        // alternatively, check VoteReject permission
+        checkUserPermission(
+          accountId,
+          dao.policy,
+          false,
+          ProposalActions.VoteReject,
+          propType
+        ) ||
+        // alternatively, check VoteRemove permission
+        checkUserPermission(
+          accountId,
+          dao.policy,
+          false,
+          ProposalActions.VoteRemove,
+          propType
+        );
+    });
+  }
+
+  return result;
+}
+
+type getAllowedProposalsResultType = {
+  [ProposalType.ChangeConfig]: boolean;
+  [ProposalType.ChangePolicy]: boolean;
+  [ProposalType.AddBounty]: boolean;
+  [ProposalType.BountyDone]: boolean;
+  [ProposalType.FunctionCall]: boolean;
+  [ProposalType.Transfer]: boolean;
+  [ProposalType.Vote]: boolean;
+  [ProposalType.RemoveMemberFromRole]: boolean;
+  [ProposalType.AddMemberToRole]: boolean;
+  [ProposalType.UpgradeRemote]: boolean;
+  [ProposalType.UpgradeSelf]: boolean;
+  [ProposalType.SetStakingContract]: boolean;
+};
+type getAllowedProposalsResultKeyType = keyof getAllowedProposalsResultType;
