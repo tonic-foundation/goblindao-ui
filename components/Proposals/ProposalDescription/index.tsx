@@ -5,10 +5,11 @@ import { ProposalFeedItem } from '@/lib/services/goblinDao/types/proposal';
 
 const ProposalDescription: FC<{ proposal: ProposalFeedItem }> = ({
   proposal,
+  ...props
 }) => {
   return (
-    <div>
-      <Typography.Heading tw="mb-5">Description</Typography.Heading>
+    <div {...props}>
+      <Typography.Heading tw="font-semibold">Description</Typography.Heading>
       <Markdown>{proposal.description}</Markdown>
     </div>
   );

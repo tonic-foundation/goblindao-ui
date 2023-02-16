@@ -25,7 +25,7 @@ const CardRoot = styled.div<CardStyleProps & { hasBody?: boolean }>(
 );
 
 const Card = Object.assign(CardRoot, {
-  Header: tw.header`p-4`,
+  Header: tw.header`p-4 font-semibold`,
   Body: tw.div`p-4`,
 });
 
