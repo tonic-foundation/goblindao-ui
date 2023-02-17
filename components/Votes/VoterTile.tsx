@@ -15,22 +15,16 @@ const VoterTile: React.FC<{ vote: string; name: string }> = ({
     <div tw="flex justify-between w-full px-3" {...props}>
       <div tw="flex items-center gap-3">
         {/*TODO Set user's avatar if there is*/}
-        <GrayCircle tw="w-7 h-7 border border-solid" />
+        <NFTImage
+          tw="w-8 h-8 border rounded-full"
+          tokenId={rndInt.toString()}
+        />
         <Tile.Label tw="text-sm">
           {abbreviateCryptoString(name, 14, 4)}
         </Tile.Label>
       </div>
-      <div tw="items-center flex">
+      <div tw="items-center flex pr-5">
         <Tile.Label tw="text-sm">{vote}</Tile.Label>
-      </div>
-      <div tw="flex items-center">
-        <Tile.Label>
-          {/*TODO wire from smart contract*/}
-          <NFTImage
-            tw="w-8 h-8 border rounded-full"
-            tokenId={rndInt.toString()}
-          />
-        </Tile.Label>
       </div>
     </div>
   );

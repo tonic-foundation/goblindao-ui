@@ -4,7 +4,10 @@ import {
   HiOutlineTrash as Trash,
 } from 'react-icons/hi';
 import { TbArrowLeft as Back, TbArrowRight as Next } from 'react-icons/tb';
-import { GiHamburgerMenu as HamburgerMenu } from 'react-icons/gi';
+import {
+  GiHamburgerMenu as HamburgerMenu,
+  GiCheckMark as CheckMark,
+} from 'react-icons/gi';
 import {
   MdClose as Close,
   MdExplore as Explore,
@@ -47,6 +50,7 @@ const Icon = {
   Like,
   Dislike,
   FiClock,
+  CheckMark,
 
   Link,
   Vote,

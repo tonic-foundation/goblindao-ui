@@ -10,6 +10,8 @@ import Button from '@/components/common/Button';
 import Form from '@/components/common/Form';
 import { SubmitOrLoginButton } from '@/components/SubmitOrLoginButton';
 import Typography from '@/components/Typography';
+import Icon from '@/components/common/Icon';
+import { useTheme } from 'next-themes';
 
 export type VoteProps = {
   proposal: ProposalFeedItem;
@@ -19,7 +21,8 @@ const VoteActions: FC<VoteProps> = ({ proposal }) => {
   const { accountId } = useWalletSelector();
   const permissions = getProposalPermissions(proposal, accountId || '');
   const [voteType, setVoteType] = useState<VoteAction | undefined>();
-  const { canApprove, canReject } = permissions;
+
+  const { theme } = useTheme();
 
   const timeLeft =
     new Date(proposal.votePeriodEnd).getTime() > new Date().getTime();
@@ -29,9 +32,9 @@ const VoteActions: FC<VoteProps> = ({ proposal }) => {
   const voted = votedLiked || votedDisliked;
 
   const [submitting, handleSubmit] = useSignTransaction(
-    async (wallet) => {
+    async (wallet, activeAccount) => {
       if (
-        accountId &&
+        activeAccount &&
         proposal &&
         timeLeft &&
         !voted &&
@@ -74,30 +77,51 @@ const VoteActions: FC<VoteProps> = ({ proposal }) => {
           </Card.Header>
           <div tw="p-5 flex flex-col gap-2">
             <Button
-              onClick={() => setVoteType('VoteApprove')}
+              onClick={() => !voted && setVoteType('VoteApprove')}
               type="button"
               variant="default"
-              tw="w-full p-3 rounded-xl"
+              tw="w-full p-3 rounded-xl relative"
+              style={{
+                cursor: `${voted ? 'not-allowed' : 'pointer'}`,
+                borderColor: `${
+                  voteType === 'VoteApprove'
+                    ? 'white'
+                    : theme === 'dark'
+                    ? '#3f3f46'
+                    : '#e5e5e5'
+                }`,
+              }}
             >
-              Yes
+              <span>Yes</span>
+              {voteType === 'VoteApprove' && (
+                <Icon.CheckMark tw="absolute top-4" />
+              )}
             </Button>
             <Button
-              onClick={() => setVoteType('VoteReject')}
+              onClick={() => !voted && setVoteType('VoteReject')}
               type="button"
               variant="default"
-              tw="w-full p-3 rounded-xl"
+              tw="w-full p-3 rounded-xl relative"
+              style={{
+                cursor: `${voted ? 'not-allowed' : 'pointer'}`,
+                borderColor: `${
+                  voteType === 'VoteReject'
+                    ? 'white'
+                    : theme === 'dark'
+                    ? '#3f3f46'
+                    : '#e5e5e5'
+                }`,
+              }}
             >
-              No
+              <span>No</span>
+              {voteType === 'VoteReject' && (
+                <Icon.CheckMark tw="absolute top-4" />
+              )}
             </Button>
             <SubmitOrLoginButton
-              disabled={
-                !voteType ||
-                voted ||
-                (voteType === 'VoteApprove' && !canApprove) ||
-                (voteType === 'VoteReject' && !canReject)
-              }
+              disabled={voted}
               tw="w-full p-3 rounded-xl"
-              label="VoteActions"
+              label="Vote"
               loading={submitting}
               loadingLabel="Confirming"
             />
