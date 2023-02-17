@@ -23,9 +23,15 @@ export const statusVariant = (status: ProposalStatus | undefined) => {
 export type ProposalStatusProps = {
   status?: ProposalStatus;
 };
-const ProposalsStatus: React.FC<ProposalStatusProps> = (props) => {
-  const { status } = props;
-  return <Tag variant={statusVariant(status)}>{status || 'Undetermined'}</Tag>;
+const ProposalsStatus: React.FC<ProposalStatusProps> = ({
+  status,
+  ...props
+}) => {
+  return (
+    <Tag {...props} variant={statusVariant(status)}>
+      {status || 'Undetermined'}
+    </Tag>
+  );
 };
 
 export default ProposalsStatus;

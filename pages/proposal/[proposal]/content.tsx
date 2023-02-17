@@ -1,7 +1,11 @@
 import React, { useMemo } from 'react';
 import { useRouter } from 'next/router';
 import Loading from '@/components/common/Loading';
-import { ProposalDescription, ProposalHeading } from '@/components/Proposals';
+import {
+  ProposalDescription,
+  ProposalHeading,
+  ProposalsStatus,
+} from '@/components/Proposals';
 import { useGoblinDaoData, useGoblinDaoProposal } from '@/hooks/useGoblinDao';
 import { extractMembersFromDao } from '@/lib/services/goblinDao/helpers';
 import { useProposalVotingDetails } from '@/hooks/useProposalVotingDetails';
@@ -14,6 +18,8 @@ import groupBy from 'lodash/groupBy';
 import VoteResults from '@/components/Votes/VoteResults';
 import { VoteGroups } from '@/lib/services/goblinDao/types';
 import { VotersList } from '@/components/Votes/VotersList';
+import { abbreviateCryptoString } from '@/lib/util';
+import { getExplorerUrl } from '@/config';
 
 const calculateWidth = (allVoices: number, countVoices: number) => {
   if (!countVoices) {
@@ -85,6 +91,38 @@ const Content = () => {
             Information
           </Card.Header>
           <div tw="p-5 flex flex-col gap-2">
+            {/*<LineItem*/}
+            {/*  label="Status"*/}
+            {/*  content={<ProposalsStatus tw="py-1" status={proposal.status} />}*/}
+            {/*/>*/}
+            {/*<LineItem*/}
+            {/*  label="Proposed by"*/}
+            {/*  content={*/}
+            {/*    <a*/}
+            {/*      rel="noreferrer"*/}
+            {/*      href=""*/}
+            {/*      target="_blank"*/}
+            {/*      tw="text-brand-400 underline cursor-pointer"*/}
+            {/*    >*/}
+            {/*      {abbreviateCryptoString(proposal.proposer, 14, 4)}*/}
+            {/*    </a>*/}
+            {/*  }*/}
+            {/*/>*/}
+            {/*<LineItem*/}
+            {/*  label="Transaction Hash"*/}
+            {/*  content={*/}
+            {/*    <a*/}
+            {/*      rel="noreferrer"*/}
+            {/*      href={getExplorerUrl('transaction', proposal.txHash)}*/}
+            {/*      target="_blank"*/}
+            {/*      tw="text-brand-400 underline cursor-pointer"*/}
+            {/*    >*/}
+            {/*      {proposal.txHash*/}
+            {/*        ? abbreviateCryptoString(proposal.txHash, 16, 3)*/}
+            {/*        : null}*/}
+            {/*    </a>*/}
+            {/*  }*/}
+            {/*/>*/}
             <LineItem
               label="Start Date"
               content={format(
