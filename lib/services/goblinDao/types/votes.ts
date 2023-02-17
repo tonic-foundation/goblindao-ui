@@ -2,6 +2,10 @@ export type Vote = 'Yes' | 'No' | 'Dismiss';
 
 export type VoteAction = 'VoteApprove' | 'VoteRemove' | 'VoteReject';
 
+export interface VoteGroups {
+  [key: string]: VoterDetail[];
+}
+
 export type VoterDetail = {
   id: string;
   name: string;

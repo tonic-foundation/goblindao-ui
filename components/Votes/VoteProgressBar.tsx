@@ -1,8 +1,6 @@
 import React, { FC } from 'react';
-import { VoterDetail } from '@/lib/services/goblinDao/types';
 
 interface VotesProgressBarProps {
-  votes: VoterDetail[];
   width?: number;
   yes?: boolean;
 }

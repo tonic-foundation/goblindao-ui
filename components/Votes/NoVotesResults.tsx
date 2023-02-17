@@ -13,7 +13,7 @@ const NoVoteResultsView: FC<NoVoteResultsViewProps> = ({
   children,
 }) => {
   return (
-    <Card tw="text-sm text-center mt-5">
+    <Card tw="text-sm text-center">
       <div>{title}</div>
       <div>{subTitle}</div>
       {children}

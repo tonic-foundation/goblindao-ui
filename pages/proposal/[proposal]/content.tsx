@@ -5,14 +5,15 @@ import { ProposalDescription, ProposalHeading } from '@/components/Proposals';
 import { useGoblinDaoData, useGoblinDaoProposal } from '@/hooks/useGoblinDao';
 import { extractMembersFromDao } from '@/lib/services/goblinDao/helpers';
 import { useProposalVotingDetails } from '@/hooks/useProposalVotingDetails';
-import Vote from '@/components/Votes/Vote';
+import VoteActions from '@/components/Votes/VoteActions';
 import { useWalletSelector } from '@/state/containers/WalletSelectorContainer';
 import Card from '@/components/common/Card';
 import LineItem from '@/components/common/LineItem';
 import { format } from 'date-fns';
-import { VotesProgressBar } from '@/components/Votes/VoteProgressBar';
 import groupBy from 'lodash/groupBy';
-import Typography from '@/components/Typography';
+import VoteResults from '@/components/Votes/VoteResults';
+import { VoteGroups } from '@/lib/services/goblinDao/types';
+import { VotersList } from '@/components/Votes/VotersList';
 
 const calculateWidth = (allVoices: number, countVoices: number) => {
   if (!countVoices) {
@@ -38,18 +39,22 @@ const Content = () => {
     members
   );
 
-  const groupedVotes = useMemo(
-    () => groupBy(votesDetails, 'vote'),
-    [votesDetails]
-  );
+  const votesGroups = useMemo(
+    () =>
+      votesDetails.reduce<VoteGroups>((res, item) => {
+        const { groups } = item;
 
-  const yesWidth = useMemo(
-    () => calculateWidth(votesDetails.length, groupedVotes?.Yes?.length),
-    [groupedVotes?.Yes?.length, votesDetails.length]
-  );
-  const noWidth = useMemo(
-    () => calculateWidth(votesDetails.length, groupedVotes?.No?.length),
-    [groupedVotes?.No?.length, votesDetails.length]
+        groups?.forEach((group) => {
+          if (res[group]) {
+            res[group].push(item);
+          } else {
+            res[group] = [item];
+          }
+        });
+
+        return res;
+      }, {}),
+    [votesDetails]
   );
 
   if (!proposal) {
@@ -61,20 +66,18 @@ const Content = () => {
   }
 
   return (
-    <div tw="lg:flex w-full max-w-[1012px] mx-auto gap-5">
-      <div tw="w-full lg:w-8/12 lg:pr-5">
+    <div tw="lg:flex w-full max-w-[1012px] mx-auto gap-6">
+      <div tw="w-full lg:w-8/12">
         <ProposalHeading proposal={proposal} />
         <ProposalDescription tw="mb-5" proposal={proposal} />
-        <div tw="flex flex-col gap-5 mb-4">
-          <Vote proposal={proposal} />
-          {/*<Votes*/}
-          {/*  votesDetails={votesDetails}*/}
-          {/*  votingPolicyByGroup={votingPolicyByGroup}*/}
-          {/*  lastVote={lastVote}*/}
-          {/*  proposal={proposal}*/}
-          {/*/>*/}
+        <div tw="flex flex-col gap-6 mb-4">
+          <VoteActions proposal={proposal} />
+          {!votesDetails ? (
+            <Loading.Pulse tw="h-[200px]" />
+          ) : (
+            <VotersList data={votesDetails} />
+          )}
         </div>
-        {/*<div tw="grid grid-cols-3 gap-5 mb-20"></div>*/}
       </div>
       <div tw="w-full lg:w-4/12 lg:min-w-[321px] flex flex-col gap-6">
         <Card hasBody>
@@ -98,31 +101,28 @@ const Content = () => {
             />
           </div>
         </Card>
-        <Card hasBody>
-          <Card.Header tw="border-b-[1px] dark:border-neutral-700 border-neutral-200">
-            Results
-          </Card.Header>
-          <div tw="p-5 flex flex-col gap-4">
-            <div tw="flex flex-col gap-2">
-              <div tw="flex justify-between">
-                <span>Yes</span>
-                <Typography.Currency
-                  value={yesWidth}
-                  precision={2}
-                  percentage
-                />
-              </div>
-              <VotesProgressBar yes width={yesWidth} votes={votesDetails} />
-            </div>
-            <div tw="flex flex-col gap-2">
-              <div tw="flex justify-between">
-                <span>No</span>
-                <Typography.Currency value={noWidth} precision={2} percentage />
-              </div>
-              <VotesProgressBar width={noWidth} votes={votesDetails} />
-            </div>
-          </div>
-        </Card>
+        {Object.keys(votesGroups).map((votesGroupsKey) => {
+          const list = votesGroups[votesGroupsKey];
+
+          if (!list.length) {
+            return null;
+          }
+
+          const groupedVotes = () => groupBy(list, 'vote');
+          const yesWidth = () =>
+            calculateWidth(votesDetails.length, groupedVotes()?.Yes?.length);
+          const noWidth = () =>
+            calculateWidth(votesDetails.length, groupedVotes()?.No?.length);
+
+          return (
+            <VoteResults
+              groupName={votesGroupsKey}
+              key={votesGroupsKey}
+              noWidth={noWidth()}
+              yesWidth={yesWidth()}
+            />
+          );
+        })}
       </div>
     </div>
   );
