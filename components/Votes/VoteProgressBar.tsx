@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import { theme } from 'twin.macro';
 
 interface VotesProgressBarProps {
   width?: number;
@@ -15,7 +16,9 @@ export const VotesProgressBar: FC<VotesProgressBarProps> = ({
         tw="rounded-tr-[80px] h-[8px] rounded-br-[80px]"
         style={{
           width: `${width}%`,
-          backgroundColor: `${yes ? '#a3e635' : '#CA3A31'}`,
+          backgroundColor: `${
+            yes ? theme`colors.green.400` : theme`colors.red.600`
+          }`,
         }}
       />
     </div>

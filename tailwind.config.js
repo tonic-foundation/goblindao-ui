@@ -25,8 +25,8 @@ module.exports = {
           500: '#F4F5F6',
         },
         brand: {
-          400: '#E53FFB',
-          600: '#B332E8',
+          400: colors.green[400],
+          600: colors.green[600],
         },
         'deep-blue': {
           800: '#060521',

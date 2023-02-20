@@ -133,9 +133,10 @@ const CreateProposalFunctionCalls: FC = () => {
               </FormAlert>
             )}
           </div>
-          <div tw="flex flex-col">
+          <div tw="flex flex-col text-white">
             <DynamicAceEditor
-              tw="m-2"
+              tw="m-2 text-white"
+              style={{ color: 'white' }}
               value={Json}
               highlightActiveLine={false}
               onChange={handleJson}

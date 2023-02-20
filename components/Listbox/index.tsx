@@ -21,7 +21,7 @@ const ListBox: React.FC<{
           tw="border-[1px]
               dark:(bg-neutral-900 border-neutral-700)
               hover:border-neutral-300 border-slate-200
-              focus:border-black dark:(hover:border-neutral-600 focus:border-lime-400 active:border-lime-400)
+              focus:border-black dark:(hover:border-neutral-600 focus:border-green-400 active:border-green-400)
               relative w-full cursor-pointer rounded-lg py-3 px-4 text-left text-sm"
         >
           <span tw="block truncate">{selected.name}</span>
@@ -42,7 +42,7 @@ const ListBox: React.FC<{
                 z-50
                 dark:(bg-neutral-900 border-neutral-700)
                 hover:border-neutral-300 border-slate-200
-                focus:border-black dark:(hover:border-neutral-600 focus:border-lime-400)
+                focus:border-black dark:(hover:border-neutral-600 focus:border-green-400)
                 mt-1 max-h-60 w-full overflow-auto rounded-lg
                 dark:bg-dark-gray-700 bg-white py-1 cursor-pointer sm:text-sm"
           >

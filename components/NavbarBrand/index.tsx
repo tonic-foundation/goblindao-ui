@@ -22,7 +22,7 @@ const NavbarBrand: FC = ({ ...props }) => (
     <Icon.Tonic tw="h-12 w-12" />
     <div>
       {NEAR_ENV === 'testnet' && (
-        <div tw="flex py-3 text-xs font-semibold rounded-xl shadow bg-lime-400 overflow-hidden">
+        <div tw="flex py-3 text-xs font-semibold rounded-xl shadow bg-green-400 overflow-hidden">
           <span tw="inline-block text-black" css={animateMarquee}>
             TESTNET
           </span>

@@ -29,7 +29,11 @@ const ProposalsStatus: React.FC<ProposalStatusProps> = ({
 }) => {
   return (
     <Tag {...props} variant={statusVariant(status)}>
-      {status || 'Undetermined'}
+      {status
+        ? status === 'InProgress'
+          ? 'In Progress'
+          : status
+        : 'Undetermined'}
     </Tag>
   );
 };

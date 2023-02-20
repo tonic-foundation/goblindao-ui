@@ -26,6 +26,6 @@ export const border = {
   default: [tw`overflow-hidden rounded-md border-[1px]`, color.border],
   hover: [
     tw`hover:border-neutral-300 focus:border-black`,
-    tw`dark:(hover:border-neutral-600 focus:border-lime-400)`,
+    tw`dark:(hover:border-neutral-600 focus:border-green-400)`,
   ],
 };
