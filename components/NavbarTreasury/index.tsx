@@ -11,7 +11,7 @@ const NavbarTreasury: FC<NavbarTreasuryProps> = ({
 }) => {
   return (
     <div tw="flex flex-row items-center" {...props}>
-      <NavbarItemBase href="" target="_blank">
+      <NavbarItemBase href="/">
         <div tw="text-sm mr-1 text-gray-500 font-medium lg:block hidden">
           Treasury
         </div>

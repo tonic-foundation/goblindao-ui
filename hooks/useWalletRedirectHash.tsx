@@ -1,44 +1,27 @@
 import { getExplorerUrl } from '@/config';
-import { getNearNobody } from '@/lib/services/near';
+import { getNear } from '@/lib/services/near';
+import { didTxSucceed } from '@tonic-foundation/transaction/lib/status';
 import { useWalletSelector } from '@/state/containers/WalletSelectorContainer';
-import { JsonRpcProvider } from 'near-api-js/lib/providers';
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import toast from 'react-hot-toast';
 import { useSearchParam } from 'react-use';
 
-export enum TRANSACTION_WALLET_TYPE {
-  NEAR_WALLET = 'transactionHashes',
-}
-
-/**
- * Get information from the URL hashes due to wallet callback redirect
- */
 export default function useWalletRedirectHash() {
-  const txId = useSearchParam(TRANSACTION_WALLET_TYPE.NEAR_WALLET);
+  const txIds = useSearchParam('transactionHashes');
+  const finalTxId = useMemo(() => {
+    const all = txIds ? decodeURI(txIds).split(',') : undefined;
+    if (all?.length) {
+      const [last] = all.slice(-1);
+      return last;
+    }
+  }, [txIds]);
 
-  return { txId };
-}
-
-/**
- *
- * @param accountId
- * @param txId
- * @returns true if success, false otherwise
- */
-async function didTxSucceed(
-  accountId: string,
-  txId: string
-): Promise<{ SuccessValue?: string; Failure?: unknown }> {
-  const ret = await (
-    getNearNobody().connection.provider as JsonRpcProvider
-  ).sendJsonRpc('EXPERIMENTAL_tx_status', [txId, accountId]);
-  return (ret as any).status;
+  return { finalTxId };
 }
 
 async function checkAndToastTx(accountId: string, id: string) {
   try {
-    const status = await didTxSucceed(accountId, id);
-    const success = status.Failure === undefined && status.SuccessValue;
+    const success = await didTxSucceed(getNear(), accountId, id);
     const text = success ? 'Transaction success' : 'Transaction failure';
     toast[`${success ? 'success' : 'error'}`](
       <a
@@ -55,6 +38,7 @@ async function checkAndToastTx(accountId: string, id: string) {
       { duration: 5_000 }
     );
   } catch (e) {
+    // eslint-disable-next-line no-console
     console.info('error checking transaction', e);
   }
 }
@@ -66,14 +50,14 @@ async function checkAndToastTx(accountId: string, id: string) {
 export const TxToastProvider: React.FC<{ children?: React.ReactNode }> = ({
   children,
 }) => {
-  const { txId } = useWalletRedirectHash();
+  const { finalTxId } = useWalletRedirectHash();
   const { accountId } = useWalletSelector();
 
   useEffect(() => {
-    if (accountId && txId?.length) {
-      checkAndToastTx(accountId, txId);
+    if (accountId && finalTxId) {
+      checkAndToastTx(accountId, finalTxId);
     }
-  }, [txId]);
+  }, [accountId, finalTxId]);
 
   return <React.Fragment>{children}</React.Fragment>;
 };

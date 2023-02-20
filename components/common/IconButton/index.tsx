@@ -19,6 +19,7 @@ const BaseButton = tw.button`
   flex items-center justify-center text-base
   hover:(transition-colors bg-neutral-200)
   hover:dark:text-deep-blue-900
+  disabled:(opacity-40 hover:opacity-40 cursor-not-allowed hover:bg-transparent dark:bg-none dark:hover:bg-transparent)
 `;
 
 const BaseIconButton: React.FC<
