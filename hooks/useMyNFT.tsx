@@ -1,6 +1,5 @@
 import useNearViewFunction from '@/hooks/useNearViewFunction';
 import { GOBLIN_TESTNET_CONTRACT_ID } from '@/config';
-import { useWalletSelector } from '@/state/containers/WalletSelectorContainer';
 
 type TokenInfo = {
   approved_account_ids: object;
@@ -9,13 +8,12 @@ type TokenInfo = {
   token_id: string;
 };
 
-export function useMyNFT(acctId: string) {
-  const { accountId } = useWalletSelector();
+export function useMyNFT(accountId: string) {
   const { data: myNFT } = useNearViewFunction<TokenInfo[]>({
     contractId: GOBLIN_TESTNET_CONTRACT_ID || '',
     methodName: 'nft_tokens_for_owner',
     args: {
-      account_id: accountId && accountId === acctId ? accountId : acctId,
+      account_id: accountId,
     },
   });
 
