@@ -1,11 +1,7 @@
 import React, { useMemo } from 'react';
 import { useRouter } from 'next/router';
 import Loading from '@/components/common/Loading';
-import {
-  ProposalDescription,
-  ProposalHeading,
-  ProposalsStatus,
-} from '@/components/Proposals';
+import { ProposalDescription, ProposalHeading } from '@/components/Proposals';
 import { useGoblinDaoData, useGoblinDaoProposal } from '@/hooks/useGoblinDao';
 import { extractMembersFromDao } from '@/lib/services/goblinDao/helpers';
 import { useProposalVotingDetails } from '@/hooks/useProposalVotingDetails';
@@ -18,8 +14,6 @@ import groupBy from 'lodash/groupBy';
 import VoteResults from '@/components/Votes/VoteResults';
 import { VoteGroups } from '@/lib/services/goblinDao/types';
 import { VotersList } from '@/components/Votes/VotersList';
-import { abbreviateCryptoString } from '@/lib/util';
-import { getExplorerUrl } from '@/config';
 
 const calculateWidth = (allVoices: number, countVoices: number) => {
   if (!countVoices) {
@@ -140,22 +134,32 @@ const Content = () => {
           </div>
         </Card>
         {Object.keys(votesGroups).map((votesGroupsKey) => {
-          const list = votesGroups[votesGroupsKey];
+          const votesList = votesGroups[votesGroupsKey]?.filter((v) => v.vote);
 
-          if (!list.length) {
+          if (!votesList?.length) {
             return null;
           }
 
-          const groupedVotes = () => groupBy(list, 'vote');
+          const groupedVotes = () =>
+            groupBy(
+              votesList.filter((v) => v.vote),
+              'vote'
+            );
+
+          const yesCount = groupedVotes()?.Yes?.length;
+          const noCount = groupedVotes()?.No?.length;
+
           const yesWidth = () =>
-            calculateWidth(votesDetails.length, groupedVotes()?.Yes?.length);
+            calculateWidth(votesList.length, groupedVotes()?.Yes?.length);
           const noWidth = () =>
-            calculateWidth(votesDetails.length, groupedVotes()?.No?.length);
+            calculateWidth(votesList.length, groupedVotes()?.No?.length);
 
           return (
             <VoteResults
-              groupName={votesGroupsKey}
+              groupName={`${votesGroupsKey} (${votesList.length}/${votesGroups[votesGroupsKey].length})`}
               key={votesGroupsKey}
+              yesCount={yesCount}
+              noCount={noCount}
               noWidth={noWidth()}
               yesWidth={yesWidth()}
             />
