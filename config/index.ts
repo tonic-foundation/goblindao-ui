@@ -4,6 +4,9 @@ import { TokenInfo } from '@tonic-foundation/token-list';
 import { NEAR_METADATA } from '@tonic-foundation/token';
 import { ProposalType } from '@/lib/services/goblinDao/types/proposal';
 
+export const NFT_COLLECTION_HREF =
+  'https://paras.id/collection/nft.greedygoblins.near';
+
 export const DATA_SEPARATOR = '$$$$';
 export const YOKTO_NEAR = 1000000000000000000000000;
 

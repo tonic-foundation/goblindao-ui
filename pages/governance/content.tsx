@@ -29,11 +29,6 @@ const Content: NextPage = () => {
           Governance
         </Typography.Heading>
         <Typography.Title tw="mb-5">Tonic GoblinDAO</Typography.Title>
-        <Typography.Body>
-          Goblin govern Goblin DAO. Goblins can vote on proposals or delegate
-          their vote to a third party. A minimum of 2 Tonic is required to
-          submit proposals.
-        </Typography.Body>
         <Card
           tw="mb-5 mt-2 md:px-6 px-0 flex md:flex-row flex-col justify-between"
           hasBody

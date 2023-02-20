@@ -11,7 +11,7 @@ export const cardStyles = ({
 }: CardStyleProps) => [
   tw`rounded-2xl p-4 border bg-white border-neutral-200 dark:(bg-neutral-900 border-neutral-700)`,
   focused
-    ? tw`border-black dark:(border-lime-400 bg-neutral-800)`
+    ? tw`border-black dark:(border-green-400 bg-neutral-800)`
     : tw`dark:(border-neutral-700 bg-neutral-800)`,
   hover === 'ring'
     ? tw`cursor-pointer transition hover:bg-neutral-100 dark:(hover:bg-neutral-700)`

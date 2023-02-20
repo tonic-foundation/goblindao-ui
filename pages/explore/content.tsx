@@ -10,6 +10,7 @@ import GrayCircle from '@/components/common/GrayCircle';
 import Link from 'next/link';
 import { useTheme } from 'next-themes';
 import { useIsMobile } from '@/hooks/useIsMobile';
+import { NFT_COLLECTION_HREF } from '@/config';
 
 const ExploreWrapper = {
   Main: tw.div`flex border border-solid`,
@@ -30,9 +31,8 @@ const Content: NextPage = () => {
       <ExploreWrapper.Left>
         <ExploreWrapper.Header>
           <p tw="uppercase text-sm text-neutral-600 dark:text-neutral-300">
-            Explore {2000} Goblins
+            Explore 1600 Goblins
           </p>
-          <Button size="lg">Latest Goblins</Button>
         </ExploreWrapper.Header>
         <div
           tw="grid gap-2 p-4 max-h-fit overflow-auto"
@@ -46,7 +46,6 @@ const Content: NextPage = () => {
         >
           {mock_nfts.map((g, index) => (
             <div
-              tw="transition"
               onClick={() => {
                 setSelectedNFT(g.tokenId);
                 !rightVisible && setRightVisible(true);
@@ -56,20 +55,14 @@ const Content: NextPage = () => {
               key={`tokenId-#${index + 1}`}
             >
               <NFTImage
-                css={css`
-                  & {
-                    border-color: ${theme === 'dark'
-                      ? selectedNFT === g.tokenId || hoveredNFT === g.tokenId
-                        ? '#fff'
-                        : 'transparent'
-                      : selectedNFT === g.tokenId || hoveredNFT === g.tokenId
-                      ? '#000'
-                      : 'transparent'};
-                    border-width: 4px;
-                    border-style: solid;
-                  }
-                `}
-                tw="w-full h-full rounded-xl cursor-pointer"
+                css={[
+                  theme === 'dark'
+                    ? tw`hover:border-white`
+                    : tw`hover:border-black`,
+                  selectedNFT === g.tokenId &&
+                    (theme === 'dark' ? tw`border-white` : tw`border-black`),
+                ]}
+                tw="w-full h-full rounded-xl cursor-pointer border-4 border-transparent"
                 tokenId={g.tokenId}
               />
             </div>
@@ -98,9 +91,6 @@ const Content: NextPage = () => {
             />
             <p tw="text-center flex flex-col gap-2">
               <span>Tonic Greedy Goblins {hoveredNFT || selectedNFT}</span>
-              <span tw="text-sm font-light text-neutral-600 dark:text-neutral-300">
-                Born November 8, 2022
-              </span>
             </p>
             <IconButton
               disabled={selectedNFT === '2000'}
@@ -110,26 +100,11 @@ const Content: NextPage = () => {
               icon={<Icon.Next />}
             />
           </div>
-          <div tw="py-4 px-7">
-            <div tw="flex items-center gap-2 py-3">
-              <GrayCircle tw="rounded-lg bg-neutral-200 w-16 h-16 m-0" />
-              <div tw="flex flex-col pt-2">
-                <span tw="font-light text-sm text-neutral-400">Body</span>
-                <p tw="font-semibold">Dark Green</p>
-              </div>
-            </div>
-            <div tw="flex items-center gap-2 border-t border-solid py-3">
-              <GrayCircle tw="rounded-lg bg-neutral-200 w-16 h-16 m-0" />
-              <div tw="flex flex-col pt-2">
-                <span tw="font-light text-sm text-neutral-400">Eyes</span>
-                <p tw="font-semibold">Brown</p>
-              </div>
-            </div>
-            <div tw="w-full flex justify-center mt-4">
-              <Link href="/" tw="text-brand-400 underline text-sm">
-                Vote history
-              </Link>
-            </div>
+          <div tw="py-4 px-7 gap-4 flex flex-col items-center justify-center">
+            <p>Want your own Goblin?</p>
+            <a href={NFT_COLLECTION_HREF} target="_blank" rel="noreferrer">
+              <Button>View the collection</Button>
+            </a>
           </div>
         </ExploreWrapper.Right>
       )}

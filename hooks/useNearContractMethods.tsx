@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { getNearNobody } from '@/lib/services/near';
-import { parseContract } from 'near-contract-parser';
+import { parseContract } from '@tonic-foundation/near-contract-parser';
 import { ListBoxItemsProps } from '@/components/Listbox';
 
 export default function useNearContractMethods(smartContract: string) {

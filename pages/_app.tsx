@@ -16,7 +16,11 @@ const App = ({ Component, pageProps }: AppProps) => {
     <CacheProvider value={cache}>
       <RecoilRoot>
         <GlobalStyles />
-        <ThemeProvider enableSystem={true} attribute="class">
+        <ThemeProvider
+          enableSystem={true}
+          defaultTheme="light"
+          attribute="class"
+        >
           <WalletSelectorContextProvider>
             <TxToastProvider>
               <TokenPicker />

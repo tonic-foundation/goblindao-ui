@@ -12,7 +12,7 @@ const variants = {
     tw`bg-white border-[1px] border-slate-100 hover:border-neutral-200 dark:(bg-neutral-700 border-neutral-700 hover:border-neutral-600)`,
     border.default,
   ],
-  confirm: tw`text-white bg-deep-blue-900 dark:(bg-lime-400 text-black) hover:bg-opacity-90 dark:(bg-opacity-90 hover:bg-opacity-100)`,
+  confirm: tw`text-white bg-deep-blue-900 dark:(bg-green-400 text-black) hover:bg-opacity-90 dark:(bg-opacity-90 hover:bg-opacity-100)`,
   success: tw`text-white bg-success-500 hover:bg-opacity-90 dark:(bg-opacity-90 hover:bg-opacity-100)`,
   error: tw`text-white bg-red-600 hover:bg-opacity-90 dark:(bg-opacity-90 hover:bg-opacity-100)`,
   info: tw`text-white bg-blue-600 hover:bg-opacity-90 dark:(bg-opacity-90 hover:bg-opacity-100)`,

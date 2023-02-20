@@ -75,7 +75,7 @@ const Currency: React.FC<{
           (value < 0
             ? tw`text-red-600 dark:text-red-500`
             : value > 0
-            ? tw`text-green-500 dark:text-lime-400`
+            ? tw`text-green-500 dark:text-green-400`
             : undefined),
       ]}
       {...props}
