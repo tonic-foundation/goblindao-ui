@@ -22,6 +22,7 @@ import {
   FaHome as Home,
   FaInfoCircle as Info,
   FaBirthdayCake as Cake,
+  FaUser as Avatar,
 } from 'react-icons/fa';
 import { FiClock } from 'react-icons/fi';
 import { BiLike as Like, BiDislike as Dislike } from 'react-icons/bi';
@@ -51,6 +52,7 @@ const Icon = {
   Dislike,
   FiClock,
   CheckMark,
+  Avatar,
 
   Link,
   Vote,

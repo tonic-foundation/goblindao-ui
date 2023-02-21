@@ -44,6 +44,9 @@ export const STORAGE_EXEMPT_TOKENS = ['usn', 'near'];
 export const TONIC_CONTRACT_ID = process.env
   .NEXT_PUBLIC_TONIC_CONTRACT_ID as string;
 
+export const GOBLIN_TESTNET_CONTRACT_ID =
+  process.env.NEXT_PUBLIC_GOBLIN_TESTNET_CONTRACT_ID ||
+  'dev-1673361753463-54922973878649';
 export const GOBLIN_IPFS_URL = process.env.NEXT_PUBLIC_GOBLINS_IPFS_URL;
 export const GOBLIN_DAO_ID = process.env.NEXT_PUBLIC_GOBLIN_DAO_ID as string;
 export const TONIC_DAO_ID = process.env.NEXT_PUBLIC_TONIC_DAO_ID as string;
